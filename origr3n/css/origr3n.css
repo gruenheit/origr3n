@@ -1333,8 +1333,10 @@ a.button-grey,
     color: var(--color-primary) !important;
   }
 
-  /* --- Theme-Toggle-Button im Mobile-Menü --- */
-  .theme-toggle-btn {
+  /* --- Theme-Toggle-Button im Mobile-Menü ---
+     ID-Selektor nötig: [data-theme="light"] button:not(#theme-toggle) hat
+     Spezifität (0,2,1) und schlägt .theme-toggle-btn (0,1,0) --- */
+  #origr3n-theme-toggle-mobile-item button {
     display: block !important;
     width: 100%;
     text-align: left !important;
@@ -1346,9 +1348,10 @@ a.button-grey,
     font-size: 0.9rem !important;
     font-weight: 500 !important;
     cursor: pointer;
+    box-shadow: none !important;
   }
 
-  .theme-toggle-btn:hover {
+  #origr3n-theme-toggle-mobile-item button:hover {
     background: var(--bg-elevated) !important;
   }
 }
