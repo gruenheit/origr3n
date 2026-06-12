@@ -235,12 +235,20 @@ a.shaarli-title:hover {
 .linklist-item {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary);
   border-radius: var(--border-radius);
   padding: 1rem 1.25rem;
   margin-bottom: 0.6rem;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
+
+/* Private Links: Amber-Akzent statt Grün */
+.linklist-item.private {
+  border-left-color: #b07820;
+}
+
+/* Sticky: kein visueller Unterschied — nur Pinnnadel reicht */
 
 .linklist-item:hover {
   box-shadow: var(--shadow-md);
@@ -257,12 +265,31 @@ a.shaarli-title:hover {
 
 .linklist-item-title h2 a,
 .linklist-real-url {
-  color: var(--text-primary) !important;
+  color: var(--color-primary) !important;
   font-weight: 600;
 }
 
 .linklist-item-title h2 a:hover,
 .linklist-real-url:hover {
+  color: var(--color-primary-h) !important;
+  text-decoration: none;
+}
+
+/* Domain-URL unterhalb des Titels */
+.linklist-item-domain {
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.linklist-item-domain a {
+  color: var(--text-muted) !important;
+}
+
+.linklist-item-domain a:hover {
   color: var(--color-primary) !important;
   text-decoration: none;
 }
@@ -317,7 +344,9 @@ a.tag:hover {
 .linklist-item-infos {
   font-size: 0.78rem;
   color: var(--text-muted);
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .linklist-item-infos a {
@@ -609,8 +638,8 @@ a.button-grey,
 }
 
 .filter-on {
-  background: var(--color-primary) !important;
-  color: #fff !important;
+  background: rgba(61, 142, 18, 0.1) !important;
+  color: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
 }
 

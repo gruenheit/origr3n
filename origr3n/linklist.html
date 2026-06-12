@@ -173,6 +173,11 @@
                 <span class="linklist-link">{$value.title_html}</span>
               </a>
             </h2>
+            {if="strpos($value.url, $value.shorturl) === false"}
+              <div class="linklist-item-domain">
+                <a href="{$value.real_url}">{$value.url_html}</a>
+              </div>
+            {/if}
           </div>
 
           {if="$value.description"}
