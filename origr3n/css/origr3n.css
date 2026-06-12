@@ -1149,6 +1149,20 @@ a.button-grey,
   padding: 0.1rem 0.45rem;
 }
 
+/* Filter-Status-Badge (Sichtbarkeitsfilter, "without any tag") — neutral */
+.label-filter,
+.label.label-filter {
+  display: inline-block;
+  background: var(--bg-elevated);
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  letter-spacing: 0.01em;
+}
+
 /* Tag-Label im Such-Ergebnis-Banner */
 .label-tag,
 .label.label-tag {
@@ -1256,4 +1270,66 @@ a.button-grey,
 [data-theme="light"] .linksperpage a {
   background: #e8e8e8 !important;
   border-color: #c0c0c0 !important;
+}
+
+/* ============================================================
+   23. MARKDOWN — Dark Mode Overrides (markdown.min.css hat #eee/#fff/#000)
+   ============================================================ */
+
+.markdown blockquote {
+  color: var(--text-secondary) !important;
+  border-left-color: var(--color-primary) !important;
+  background: var(--bg-elevated);
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  margin: 0.5rem 0;
+}
+
+.markdown pre {
+  background: var(--bg-elevated) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+}
+
+.markdown pre code {
+  color: var(--text-primary) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.markdown :not(pre) code {
+  background: var(--bg-elevated) !important;
+  color: var(--color-primary) !important;
+  border-radius: 3px;
+  box-shadow: none !important;
+  padding: 0.1rem 0.35rem;
+}
+
+.markdown table tr {
+  background-color: var(--bg-surface) !important;
+  border-top-color: var(--border-color);
+}
+
+.markdown table tr:nth-child(2n) {
+  background-color: var(--bg-elevated) !important;
+}
+
+.markdown table tr th,
+.markdown table tr td {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Light Mode: markdown.min.css defaults sind bereits hell — nur Akzent-Anpassung */
+[data-theme="light"] .markdown blockquote {
+  border-left-color: var(--color-primary) !important;
+  background: #f0f7eb;
+  color: #444 !important;
+}
+
+[data-theme="light"] .markdown :not(pre) code {
+  background: #e8f3e0 !important;
+  color: #2d6e0a !important;
 }

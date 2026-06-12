@@ -102,12 +102,12 @@
         {/if}
         {if="!empty($visibility)"}
           {'with status'|t}
-          <span class="label label-private">
+          <span class="label label-filter">
             {$visibility|t}
           </span>
         {/if}
         {if="$untaggedonly"}
-          <span class="label label-private">
+          <span class="label label-filter">
             {'without any tag'|t}
           </span>
         {/if}
