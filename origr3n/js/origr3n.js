@@ -14,8 +14,10 @@
   function apply(theme) {
     document.documentElement.setAttribute(ATTR, theme);
     localStorage.setItem(STORAGE_KEY, theme);
-    const btn = document.getElementById('theme-toggle');
-    if (btn) btn.textContent = theme === 'dark' ? 'Hell' : 'Dunkel';
+    const label = theme === 'dark' ? 'Hell' : 'Dunkel';
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.textContent = label;
+    });
   }
 
   function toggle() {
@@ -27,7 +29,8 @@
   apply(getPreferred());
 
   document.addEventListener('DOMContentLoaded', function () {
-    const btn = document.getElementById('theme-toggle');
-    if (btn) btn.addEventListener('click', toggle);
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', toggle);
+    });
   });
 })();

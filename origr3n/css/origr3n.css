@@ -1275,6 +1275,83 @@ a.button-grey,
 /* ============================================================
    23. MARKDOWN — Dark Mode Overrides (markdown.min.css hat #eee/#fff/#000)
    ============================================================ */
+/* ============================================================
+   24. MOBILE (≤ 64em / Pure.css lg-Breakpoint)
+   ============================================================ */
+
+/* --- Hamburger-Balken: shaarli.min.css setzt hardcoded #b0ddce --- */
+.menu-toggle .bar {
+  background-color: var(--text-secondary) !important;
+}
+
+.menu-toggle:hover .bar {
+  background-color: var(--color-primary) !important;
+}
+
+.menu-toggle.x .bar {
+  background-color: var(--color-primary) !important;
+}
+
+@media screen and (max-width: 64em) {
+  /* --- Content-Padding auf kleinen Screens --- */
+  #content {
+    padding: 0.6rem 0.5rem 2rem;
+  }
+
+  /* --- Karten: etwas weniger Padding --- */
+  .linklist-item {
+    padding: 0.75rem 0.85rem;
+  }
+
+  /* --- Mobile-Menü wenn offen (JS entfernt .pure-menu-horizontal) --- */
+  .menu-transform:not(.pure-menu-horizontal) {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+  }
+
+  .menu-transform:not(.pure-menu-horizontal) .pure-menu-list {
+    padding: 0.2rem 0;
+  }
+
+  .menu-transform:not(.pure-menu-horizontal) .pure-menu-item {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .menu-transform:not(.pure-menu-horizontal) .pure-menu-item:last-child {
+    border-bottom: none;
+  }
+
+  .menu-transform:not(.pure-menu-horizontal) .pure-menu-link {
+    padding: 0.7rem 1rem;
+    display: block;
+    color: var(--text-primary) !important;
+  }
+
+  .menu-transform:not(.pure-menu-horizontal) .pure-menu-link:hover {
+    background: var(--bg-elevated) !important;
+    color: var(--color-primary) !important;
+  }
+
+  /* --- Theme-Toggle-Button im Mobile-Menü --- */
+  .theme-toggle-btn {
+    display: block !important;
+    width: 100%;
+    text-align: left !important;
+    background: transparent !important;
+    color: var(--color-primary) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0.7rem 1rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    cursor: pointer;
+  }
+
+  .theme-toggle-btn:hover {
+    background: var(--bg-elevated) !important;
+  }
+}
 
 .markdown blockquote {
   color: var(--text-secondary) !important;
