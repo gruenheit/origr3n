@@ -1354,6 +1354,11 @@ a.button-grey,
   #origr3n-theme-toggle-mobile-item button:hover {
     background: var(--bg-elevated) !important;
   }
+
+  #origr3n-theme-toggle-mobile-item button:focus {
+    outline: none !important;
+    background: var(--bg-elevated) !important;
+  }
 }
 
 .markdown blockquote {
