@@ -40,9 +40,7 @@
   --shadow-sm:          0 1px 3px rgba(0,0,0,0.4);
   --shadow-md:          0 4px 12px rgba(0,0,0,0.5);
 
-  /* Toggle */
   --toggle-bg:          #2e2e2e;
-  --toggle-icon:        '☀️';
 }
 
 /* ============================================================
@@ -63,7 +61,6 @@
   --shadow-md:          0 4px 12px rgba(0,0,0,0.15);
 
   --toggle-bg:          #e8e8e8;
-  --toggle-icon:        '🌙';
 }
 
 /* ============================================================
@@ -71,8 +68,6 @@
    ============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -109,109 +104,279 @@ a:visited:hover {
 }
 
 /* ============================================================
-   5. LAYOUT — HEADER
+   5. NAVIGATION
    ============================================================ */
-#header {
+#shaarli-menu {
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-#header h1,
-#header h1 a {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  letter-spacing: -0.02em;
+/* Titel-Link (Desktop + Mobile) */
+.shaarli-title,
+a.shaarli-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary) !important;
+  letter-spacing: -0.01em;
+}
+
+.shaarli-title:hover,
+a.shaarli-title:hover {
+  color: var(--color-primary-h) !important;
+  text-decoration: none;
+}
+
+/* Pure-Menu Overrides */
+.pure-menu-link {
+  color: var(--text-secondary) !important;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--border-radius);
+  transition: color 0.15s, background 0.15s;
+}
+
+.pure-menu-link:hover,
+.pure-menu-link:focus {
+  background: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+}
+
+.pure-menu-list {
+  background: transparent;
+}
+
+.pure-menu-item.pure-menu-selected > .pure-menu-link,
+.pure-menu-item.pure-menu-active > .pure-menu-link {
+  color: var(--color-primary) !important;
+  background: transparent !important;
+}
+
+/* Header-Buttons (Suche, RSS, Login) */
+.header-buttons .pure-menu-link {
+  color: var(--text-muted) !important;
+}
+
+.header-buttons .pure-menu-link:hover {
+  color: var(--color-primary) !important;
+  background: var(--bg-elevated) !important;
+}
+
+/* Mobile Menu Hintergrund */
+.menu-transform {
+  background: var(--bg-surface);
+}
+
+/* Toggle-Button Wrapper Position */
+.origr3n-theme-toggle-wrapper {
+  padding: 0.4rem 0.75rem;
 }
 
 /* ============================================================
-   6. LAYOUT — MAIN
+   6. LAYOUT
    ============================================================ */
-#main {
-  max-width: 900px;
+#content {
+  max-width: 860px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 1.25rem 1rem 2rem;
+}
+
+/* Shaare-Zähler */
+.linkcount {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  padding: 0.4rem 0 0.4rem 1rem;
+}
+
+.linkcount .strong {
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 /* ============================================================
-   7. LINK CARDS
+   7. SUCHLEISTE (inline + subheader)
    ============================================================ */
+.searchform-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.subheader-form {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+}
+
+/* ============================================================
+   8. LINK CARDS
+   ============================================================ */
+#linklist {
+  margin-top: 0.5rem;
+}
+
 .linklist-item {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 1rem 1.25rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.15s ease;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .linklist-item:hover {
   box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
 }
 
-.linklist-item-title {
-  font-size: 1.05rem;
+/* Titel */
+.linklist-item-title h2 {
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin: 0 0 0.3rem;
+  line-height: 1.4;
 }
 
+.linklist-item-title h2 a,
+.linklist-real-url {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
+
+.linklist-item-title h2 a:hover,
+.linklist-real-url:hover {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+/* Icon vor dem Titel */
+.linklist-item-title .fa {
+  color: var(--color-primary);
+  margin-right: 0.3rem;
+  font-size: 0.85em;
+}
+
+/* Beschreibung */
 .linklist-item-description {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.88rem;
+  margin: 0.3rem 0 0.5rem;
+  line-height: 1.55;
 }
 
-.linklist-item-tags a {
+.linklist-item-description .markdown p {
+  margin: 0;
+}
+
+/* Tags */
+.linklist-item-tags {
+  margin: 0.4rem 0 0.3rem;
+}
+
+.linklist-item-tags a,
+a.tag {
   display: inline-block;
   background: var(--bg-elevated);
-  color: var(--color-primary);
+  color: var(--color-primary) !important;
   border: 1px solid var(--border-color);
   border-radius: 3px;
   padding: 0.1rem 0.45rem;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 500;
   margin: 0.1rem 0.15rem 0.1rem 0;
-  transition: background 0.1s;
+  transition: background 0.1s, border-color 0.1s;
 }
 
-.linklist-item-tags a:hover {
+.linklist-item-tags a:hover,
+a.tag:hover {
   background: var(--color-primary);
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
   border-color: var(--color-primary);
 }
 
+/* Metadaten-Zeile (Datum, URL, Permalink) */
 .linklist-item-infos {
   font-size: 0.78rem;
   color: var(--text-muted);
   margin-top: 0.4rem;
 }
 
+.linklist-item-infos a {
+  color: var(--text-muted) !important;
+}
+
+.linklist-item-infos a:hover {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+.linkdate,
+.linklist-item-infos-url {
+  color: var(--text-muted);
+}
+
+.linklist-item-infos-url a {
+  color: var(--text-muted) !important;
+  word-break: break-all;
+}
+
+/* Edit-Buttons (nur eingeloggt sichtbar) */
+.linklist-item-editbuttons a {
+  color: var(--text-muted) !important;
+  font-size: 0.85rem;
+  margin-left: 0.4rem;
+}
+
+.linklist-item-editbuttons a:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Pagination */
+.shaarli-pagination {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.shaarli-pagination a,
+.shaarli-pagination span {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  margin: 0 0.15rem;
+  background: var(--bg-surface);
+}
+
+.shaarli-pagination a:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-color: var(--color-primary);
+}
+
 /* ============================================================
-   8. DARK / LIGHT TOGGLE
+   9. DARK / LIGHT TOGGLE
    ============================================================ */
 #theme-toggle {
   background: var(--toggle-bg);
   border: 1px solid var(--border-color);
   border-radius: 20px;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.7rem;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   font-family: var(--font-main);
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 #theme-toggle:hover {
@@ -220,11 +385,13 @@ a:visited:hover {
 }
 
 /* ============================================================
-   9. FORMS / SEARCH
+   10. FORMULARE
    ============================================================ */
 input[type="text"],
 input[type="search"],
 input[type="password"],
+input[type="url"],
+input[type="email"],
 textarea,
 select {
   background: var(--bg-input);
@@ -233,46 +400,308 @@ select {
   color: var(--text-primary);
   font-family: var(--font-main);
   font-size: 0.9rem;
-  padding: 0.5rem 0.75rem;
-  width: 100%;
+  padding: 0.45rem 0.75rem;
   transition: border-color 0.15s;
 }
 
 input[type="text"]:focus,
 input[type="search"]:focus,
 input[type="password"]:focus,
-textarea:focus {
+input[type="url"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--color-primary);
 }
 
+/* select Option-Elemente */
+select option {
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+
+/* Labels */
+label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Buttons */
 button,
-input[type="submit"] {
-  background: var(--color-primary);
-  border: none;
-  border-radius: var(--border-radius);
-  color: #fff;
+input[type="submit"],
+.btn,
+.pure-button {
+  background: var(--color-primary) !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  color: #fff !important;
   cursor: pointer;
   font-family: var(--font-main);
   font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.5rem 1.25rem;
+  padding: 0.45rem 1.1rem;
   transition: background 0.15s;
 }
 
 button:hover,
-input[type="submit"]:hover {
-  background: var(--color-primary-h);
+input[type="submit"]:hover,
+.btn:hover,
+.pure-button:hover {
+  background: var(--color-primary-h) !important;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+/* Toggle-Button: sichtbares Ghost-Button-Design mit Primärfarbe */
+#theme-toggle {
+  background: transparent !important;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: 20px !important;
+  padding: 0.2rem 0.65rem !important;
+  font-size: 0.8rem !important;
+}
+
+#theme-toggle:hover {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+/* Globale button-Regel zurücksetzen — Editor-Toolbar-Buttons sollen neutral bleiben */
+button {
+  background: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Nur echte Action-Buttons grün */
+input[type="submit"],
+.submit-buttons input[type="submit"],
+#button-save-edit,
+.search-button,
+.pure-button-primary {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+input[type="submit"]:hover,
+.submit-buttons input[type="submit"]:hover,
+#button-save-edit:hover,
+.search-button:hover {
+  background: var(--color-primary-h) !important;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  accent-color: var(--color-primary);
 }
 
 /* ============================================================
-   10. FOOTER
+   11. FORMULAR-SEITEN (Edit-Shaare, Login, Configure)
+   ============================================================ */
+
+/* Container */
+.page-form {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius);
+}
+
+.page-form .window-title,
+.page-form .created-date {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+}
+
+.page-form .window-title {
+  color: var(--color-primary) !important;
+  font-weight: 700;
+}
+
+/* Inputs im Formular — Shaarli setzt hard-coded #eee/#252525 */
+.page-form input[type=text],
+.page-form input[type=password],
+.page-form input[type=url],
+.page-form input[type=email],
+.page-form textarea,
+.page-form select,
+.lf_input {
+  background: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Labels / Placeholder-artige Texte */
+.page-form div > label,
+.page-form .md_help a {
+  color: var(--text-secondary) !important;
+}
+
+/* Delete-Button bleibt rot, Cancel-Button grau */
+a.button-red,
+.button-red {
+  background: #ac2925 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+a.button-red:hover,
+.button-red:hover {
+  background: #c0392b !important;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+a.button-grey,
+.button-grey {
+  background: var(--bg-elevated) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Edit-Link-Container Hintergrund */
+.edit-link-container {
+  background: transparent;
+}
+
+/* ============================================================
+   12. LINKLIST-TOOLBAR (Filter, Pagination, Links-per-page)
+   ============================================================ */
+
+.linklist-paging {
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.4rem 0 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Filter-Buttons (privat/öffentlich/ungetaggt/alle auswählen) */
+.linklist-filters a,
+.filter-off,
+.filter-on {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+  color: var(--text-muted) !important;
+  margin-right: 0.2rem;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  text-decoration: none !important;
+  font-size: 0.85rem;
+}
+
+.filter-on {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+}
+
+.filter-off:hover,
+.linklist-filters a:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary) !important;
+  border-color: var(--color-primary);
+  text-decoration: none !important;
+}
+
+.linklist-filters-text {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-right: 0.3rem;
+}
+
+/* Links per page */
+.linksperpage a {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+  color: var(--text-secondary) !important;
+  font-size: 0.82rem;
+  margin: 0 0.1rem;
+  text-decoration: none !important;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.linksperpage a.selected,
+.linksperpage a:hover {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+  text-decoration: none !important;
+}
+
+.linksperpage input[type="text"] {
+  width: 3.5rem;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.82rem;
+}
+
+/* Pagination (Seite X von Y mit Pfeilen) */
+.linklist-pages {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.linklist-pages a {
+  color: var(--text-secondary) !important;
+  font-size: 1.1rem;
+  padding: 0 0.3rem;
+}
+
+.linklist-pages a:hover {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+/* ============================================================
+   13. BENACHRICHTIGUNGEN (Flash-Messages)
+   ============================================================ */
+.alert,
+.flash-message,
+[class*="alert-"] {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Shaarli success banner */
+#tool-result {
+  background: var(--color-primary-a);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   14. FOOTER
    ============================================================ */
 #footer {
   text-align: center;
-  padding: 1.5rem;
+  padding: 1.25rem 1rem;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   border-top: 1px solid var(--border-color);
   margin-top: 2rem;
+}
+
+#footer a {
+  color: var(--text-muted) !important;
+}
+
+#footer a:hover {
+  color: var(--color-primary) !important;
 }
