@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>origr3n — Linklist Richtungen</title>
+<style>
+@font-face {
+  font-family: 'Quicksand';
+  src: url('https://gruenheit.de/fonts/Quicksand-VariableFont_wght.woff2') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Quicksand', system-ui, sans-serif;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ---- Layout ---- */
+.page-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3d8e12;
+  margin-bottom: 0.25rem;
+}
+.subtitle {
+  color: #888;
+  font-size: 0.875rem;
+  margin-bottom: 2.5rem;
+}
+
+.directions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.direction {
+  background: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.direction-label {
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.direction-label h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+.direction-label h2 span.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.tag-a { background: #1f4010; color: #5db832; }
+.tag-b { background: #2a2010; color: #d4a012; }
+.tag-c { background: #101a2a; color: #4a90d9; }
+
+.direction-label p {
+  font-size: 0.8rem;
+  color: #777;
+  line-height: 1.5;
+}
+.consequence {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  color: #555;
+  border-left: 2px solid #333;
+  padding-left: 0.5rem;
+}
+.consequence strong { color: #666; }
+
+.direction-body {
+  padding: 1rem 1rem 1.25rem;
+  background: #1a1a1a;
+}
+
+
+/* ====================================================
+   RICHTUNG A — Poliert Flat
+   Kleinstmögliche Änderung mit dem größten Effekt:
+   Akzentlinie links + bessere Info-Zeile
+   ==================================================== */
+
+.card-a {
+  background: #242424;
+  border-radius: 6px;
+  border: 1px solid #323232;
+  border-left: 3px solid #3d8e12;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.card-a-head {
+  padding: 0.7rem 0.9rem 0.5rem;
+}
+
+.card-a-head h3 {
+  font-size: 0.975rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.card-a-head h3 a {
+  color: #3d8e12;
+  text-decoration: none;
+}
+.card-a-head h3 a:hover { color: #5db832; }
+
+.card-a-domain {
+  font-size: 0.75rem;
+  color: #606060;
+  margin-top: 0.15rem;
+}
+.card-a-domain i { color: #404040; margin-right: 0.2em; }
+
+.card-a-desc {
+  padding: 0 0.9rem 0.6rem;
+  font-size: 0.875rem;
+  color: #c0c0c0;
+  line-height: 1.55;
+  border-left: 2px solid #3d8e12;
+  margin: 0 0.9rem 0.6rem;
+  padding: 0.4rem 0.7rem;
+  background: rgba(61,142,18,0.05);
+  border-radius: 0 4px 4px 0;
+}
+
+.card-a-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.9rem;
+  border-top: 1px solid #2e2e2e;
+  background: #1e1e1e;
+}
+
+.card-a-foot-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: #606060;
+}
+.card-a-foot-left .date { color: #888; }
+.label-tag-a {
+  font-size: 0.7rem;
+  background: #1a3010;
+  color: #4aa316;
+  padding: 0.1em 0.45em;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.label-tag-a:hover { background: #1f3a14; }
+
+.card-a-foot-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ctrl-icon-a {
+  color: #484848;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.ctrl-icon-a:hover { color: #3d8e12; }
+
+
+/* ====================================================
+   RICHTUNG B — Zonenstruktur
+   Klarer Header/Body/Footer — mehr Struktur,
+   stärkere Inhaltshierarchie
+   ==================================================== */
+
+.card-b {
+  background: #242424;
+  border-radius: 8px;
+  border: 1px solid #303030;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.card-b-header {
+  background: #2c2c2c;
+  padding: 0.75rem 1rem 0.65rem;
+  border-bottom: 1px solid #353535;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.card-b-type-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background: rgba(61,142,18,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.card-b-type-icon svg { width: 16px; height: 16px; fill: #3d8e12; }
+
+.card-b-title-block h3 {
+  font-size: 0.975rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  line-height: 1.35;
+}
+.card-b-title-block h3 a { color: inherit; text-decoration: none; }
+.card-b-title-block h3 a:hover { color: #3d8e12; }
+
+.card-b-domain {
+  font-size: 0.72rem;
+  color: #3d8e12;
+  margin-top: 0.1rem;
+  font-weight: 500;
+}
+
+.card-b-body {
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  color: #b8b8b8;
+  line-height: 1.6;
+}
+
+.card-b-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #2e2e2e;
+}
+
+.card-b-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.label-tag-b {
+  font-size: 0.68rem;
+  background: #1a2810;
+  color: #5db832;
+  padding: 0.15em 0.5em;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid #2a4018;
+}
+.label-tag-b:hover { background: #1f3414; }
+
+.card-b-meta {
+  font-size: 0.72rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.card-b-meta a { color: #3d8e12; text-decoration: none; font-size: 0.7rem; }
+.card-b-meta a:hover { color: #5db832; }
+
+.card-b-controls {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.ctrl-b {
+  width: 26px; height: 26px;
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-size: 0.8rem;
+}
+.ctrl-b:hover { background: #2e2e2e; color: #3d8e12; }
+
+
+/* ====================================================
+   RICHTUNG C — Editorial / Feed
+   Keine Boxen. Nur Typografie + Trennlinien.
+   Maximale Lesedichte, minimaler Chrome.
+   ==================================================== */
+
+.card-c {
+  padding: 0.85rem 0 0.75rem;
+  border-bottom: 1px solid #282828;
+}
+.card-c:last-child { border-bottom: none; }
+
+.card-c-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-c-domain-badge {
+  font-size: 0.68rem;
+  background: rgba(61,142,18,0.12);
+  color: #3d8e12;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.card-c-date {
+  font-size: 0.72rem;
+  color: #555;
+}
+
+.card-c-private {
+  font-size: 0.65rem;
+  background: #2a1a00;
+  color: #c08020;
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+
+.card-c h3 {
+  font-size: 1.0rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+.card-c h3 a { color: #f0f0f0; text-decoration: none; }
+.card-c h3 a:hover { color: #3d8e12; }
+
+.card-c-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #3d8e12;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 0.35em;
+  position: relative;
+  top: -1px;
+  flex-shrink: 0;
+}
+.card-c-icon.note { background: #1a6060; }
+
+.card-c-desc {
+  font-size: 0.875rem;
+  color: #a0a0a0;
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-c-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.label-tag-c {
+  font-size: 0.68rem;
+  color: #555;
+  text-decoration: none;
+  border-bottom: 1px solid #3a3a3a;
+}
+.label-tag-c:hover { color: #3d8e12; border-color: #3d8e12; }
+
+.card-c-controls {
+  margin-left: auto;
+  display: flex;
+  gap: 0.4rem;
+  color: #484848;
+  font-size: 0.8rem;
+}
+.card-c-controls a { color: #484848; text-decoration: none; }
+.card-c-controls a:hover { color: #3d8e12; }
+
+/* ---- Separator ---- */
+.sep {
+  color: #404040;
+  font-size: 0.75rem;
+}
+
+/* ---- Icons via CSS ---- */
+.ico { display: inline-block; font-style: normal; }
+.ico-ext::before    { content: '↗'; }
+.ico-note::before   { content: '✎'; }
+.ico-clock::before  { content: '🕐'; font-size: 0.8em; }
+.ico-tag::before    { content: '⊞'; }
+.ico-edit::before   { content: '✎'; }
+.ico-del::before    { content: '✕'; }
+.ico-pin::before    { content: '⊕'; }
+.ico-link::before   { content: '⛓'; font-size: 0.75em; }
+.ico-pl::before     { content: '↗'; font-size: 0.75em; color: #3d8e12; }
+
+/* ---- Filter bar note ---- */
+.filter-note {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: #666;
+}
+.filter-note strong { color: #888; display: block; margin-bottom: 0.3rem; }
+
+/* Filter bar preview */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.fbtn {
+  width: 30px; height: 30px;
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Aktuell — zu grün */
+.fbtn-current { background: #3d8e12; color: #fff; }
+
+/* Variante — Ghost */
+.fbtn-ghost {
+  background: transparent;
+  border: 1px solid #3a3a3a;
+  color: #606060;
+  transition: border-color 0.15s, color 0.15s;
+}
+.fbtn-ghost:hover { border-color: #3d8e12; color: #3d8e12; }
+.fbtn-ghost.active { border-color: #3d8e12; color: #3d8e12; background: rgba(61,142,18,0.08); }
+
+.fbtn-label {
+  font-size: 0.65rem;
+  color: #555;
+  margin: 0 0.2rem;
+}
+
+.compare-label {
+  font-size: 0.72rem;
+  color: #555;
+  margin-right: 0.5rem;
+}
+
+/* ---- bottom note ---- */
+.bottom-note {
+  margin-top: 2.5rem;
+  padding: 1rem 1.25rem;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.bottom-note h4 { font-size: 0.8rem; font-weight: 700; color: #888; margin-bottom: 0.5rem; }
+.bottom-note ul { list-style: none; }
+.bottom-note li { font-size: 0.78rem; color: #555; padding: 0.15rem 0; }
+.bottom-note li::before { content: '→ '; color: #3d8e12; }
+.bottom-note li.warn::before { content: '⚠ '; color: #c08020; }
+
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <h1>origr3n — Linklist: 3 Richtungen</h1>
+  <p class="subtitle">Gleicher Inhalt, drei verschiedene Karten-Konzepte. Dark Mode. Alle nutzen dieselben CSS-Token.</p>
+
+  <div class="directions">
+
+    <!-- ===== A ===== -->
+    <div class="direction">
+      <div class="direction-label">
+        <h2>A — Poliert Flat <span class="tag tag-a">kleiner Schritt</span></h2>
+        <p>Aktuelle Struktur bleibt. Akzentlinie links, bessere Info-Zeile, Domain-Hinweis.</p>
+        <p class="consequence"><strong>Konsequenz:</strong> schnell umsetzbar, kein Template-Umbau. Charakter kommt aus Farbe + Spacing, nicht aus Struktur. Bei vielen kurzen Links (ohne Beschreibung) wirkt es dünn.</p>
+      </div>
+      <div class="direction-body">
+
+        <!-- Card A 1 -->
+        <div class="card-a">
+          <div class="card-a-head">
+            <h3><a href="#"><ico class="ico ico-ext"></ico> Weibliches Immunsystem Vorteil XX</a></h3>
+            <div class="card-a-domain"><ico class="ico ico-link"></ico> www.hartpunkt.de</div>
+          </div>
+          <div class="card-a-desc">
+            Die Medizin muss aufhören, Männer und Frauen über einen Kamm zu scheren. In Studien zu antiviralen Mitteln werden Daten zusammengeworfen, was zu falschen Therapien führt.
+          </div>
+          <div class="card-a-foot">
+            <div class="card-a-foot-left">
+              <span class="date">07. Jun 2026</span>
+              <span class="sep">·</span>
+              <a href="#" style="color:#606060;font-size:0.75rem;text-decoration:none;">permalink</a>
+              <span class="sep">·</span>
+              <a href="#" class="label-tag-a">immunsystem</a>
+              <a href="#" class="label-tag-a">medizin</a>
+            </div>
+            <div class="card-a-foot-right">
+              <span class="ctrl-icon-a">✎</span>
+              <span class="ctrl-icon-a">✕</span>
+              <span class="ctrl-icon-a">⊕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card A 2 (kein Desc) -->
+        <div class="card-a">
+          <div class="card-a-head">
+            <h3><a href="#"><ico class="ico ico-ext"></ico> Am 16.08.2025 eröffnet ein Supermarkt in Stocksee – DorfFunk SH</a></h3>
+            <div class="card-a-domain"><ico class="ico ico-link"></ico> sh.digitale-doerfer.de</div>
+          </div>
+          <div class="card-a-foot">
+            <div class="card-a-foot-left">
+              <span class="date">11. Jun 2026</span>
+              <span class="sep">·</span>
+              <a href="#" style="color:#606060;font-size:0.75rem;text-decoration:none;">permalink</a>
+            </div>
+            <div class="card-a-foot-right">
+              <span class="ctrl-icon-a">✎</span>
+              <span class="ctrl-icon-a">✕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card A 3 (Note) -->
+        <div class="card-a" style="border-left-color: #1a6060;">
+          <div class="card-a-head">
+            <h3><a href="#"><ico class="ico ico-note"></ico> was steht hier?</a></h3>
+            <div class="card-a-domain" style="color:#444;">Notiz · 20260612T1956</div>
+          </div>
+          <div class="card-a-desc" style="border-left-color:#1a6060; background:rgba(26,96,96,0.05);">
+            Eine kleine <strong>Mickymaus</strong><br>
+            <code style="color:#3d8e12;font-size:0.82em;">Quelltext hier einfügen</code>
+          </div>
+          <div class="card-a-foot">
+            <div class="card-a-foot-left">
+              <span class="date">12. Jun 2026</span>
+              <span class="sep">·</span>
+              <a href="#" style="color:#606060;font-size:0.75rem;text-decoration:none;">permalink</a>
+            </div>
+            <div class="card-a-foot-right">
+              <span class="ctrl-icon-a">✎</span>
+              <span class="ctrl-icon-a">✕</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter note A -->
+        <div class="filter-note">
+          <strong>Filter-Buttons: Ghost statt Vollgrün</strong>
+          <div class="filter-bar">
+            <span class="compare-label">Aktuell:</span>
+            <div class="fbtn fbtn-current">🔒</div>
+            <div class="fbtn fbtn-current">↗</div>
+            <div class="fbtn fbtn-current" style="background:#2a2a2a;color:#555;">⊞</div>
+          </div>
+          <div class="filter-bar" style="margin-top:0.4rem;">
+            <span class="compare-label">Ghost:</span>
+            <div class="fbtn fbtn-ghost active">🔒</div>
+            <div class="fbtn fbtn-ghost active" style="border-color:#3d8e12;color:#3d8e12;">↗</div>
+            <div class="fbtn fbtn-ghost">⊞</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== B ===== -->
+    <div class="direction">
+      <div class="direction-label">
+        <h2>B — Zonenstruktur <span class="tag tag-b">mittlere Änderung</span></h2>
+        <p>Karte in Header / Body / Footer. Typ-Icon. Titel weiß + Domain grün als Untertitel.</p>
+        <p class="consequence"><strong>Konsequenz:</strong> Template-Umbau nötig. Stärker strukturiert, näher an Shaarli-Material. Braucht mehr vertikalen Platz — bei langen Listen wirkt's schwerer. Funktioniert gut wenn viele Einträge Beschreibungen haben.</p>
+      </div>
+      <div class="direction-body">
+
+        <!-- Card B 1 -->
+        <div class="card-b">
+          <div class="card-b-header">
+            <div class="card-b-type-icon">
+              <svg viewBox="0 0 24 24"><path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>
+            </div>
+            <div class="card-b-title-block">
+              <h3><a href="#">Weibliches Immunsystem Vorteil XX</a></h3>
+              <div class="card-b-domain">www.hartpunkt.de</div>
+            </div>
+          </div>
+          <div class="card-b-body">
+            Die Medizin muss aufhören, Männer und Frauen über einen Kamm zu scheren. In Studien zu antiviralen Mitteln werden Daten zusammengeworfen, was zu falschen Therapien führt.
+          </div>
+          <div class="card-b-footer">
+            <div class="card-b-tags">
+              <a href="#" class="label-tag-b">immunsystem</a>
+              <a href="#" class="label-tag-b">medizin</a>
+            </div>
+            <div class="card-b-meta">
+              <span>07. Jun 2026</span>
+              <a href="#">permalink</a>
+            </div>
+            <div class="card-b-controls">
+              <div class="ctrl-b">✎</div>
+              <div class="ctrl-b">✕</div>
+              <div class="ctrl-b">⊕</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card B 2 (kein Desc) -->
+        <div class="card-b">
+          <div class="card-b-header">
+            <div class="card-b-type-icon">
+              <svg viewBox="0 0 24 24"><path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>
+            </div>
+            <div class="card-b-title-block">
+              <h3><a href="#">Am 16.08.2025 eröffnet ein Supermarkt in Stocksee – DorfFunk SH</a></h3>
+              <div class="card-b-domain">sh.digitale-doerfer.de</div>
+            </div>
+          </div>
+          <div class="card-b-footer">
+            <div class="card-b-tags"></div>
+            <div class="card-b-meta">
+              <span>11. Jun 2026</span>
+              <a href="#">permalink</a>
+            </div>
+            <div class="card-b-controls">
+              <div class="ctrl-b">✎</div>
+              <div class="ctrl-b">✕</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card B 3 (Note) -->
+        <div class="card-b">
+          <div class="card-b-header">
+            <div class="card-b-type-icon" style="background:rgba(26,96,96,0.2);">
+              <svg viewBox="0 0 24 24" style="fill:#1a9090"><path d="M17,12H12V17H10V12H5V10H10V5H12V10H17V12Z"/></svg>
+            </div>
+            <div class="card-b-title-block">
+              <h3><a href="#">was steht hier?</a></h3>
+              <div class="card-b-domain" style="color:#1a9090;">Notiz · 20260612T1956</div>
+            </div>
+          </div>
+          <div class="card-b-body">
+            Eine kleine <strong style="color:#e0e0e0;">Mickymaus</strong><br>
+            <code style="color:#3d8e12;font-size:0.82em;background:rgba(61,142,18,0.1);padding:0.1em 0.3em;border-radius:3px;">Quelltext hier einfügen</code>
+          </div>
+          <div class="card-b-footer">
+            <div class="card-b-tags"></div>
+            <div class="card-b-meta">
+              <span>12. Jun 2026</span>
+              <a href="#">permalink</a>
+            </div>
+            <div class="card-b-controls">
+              <div class="ctrl-b">✎</div>
+              <div class="ctrl-b">✕</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-note">
+          <strong>Filter-Buttons: Ghost + aktiver Zustand explizit</strong>
+          <div class="filter-bar" style="margin-top:0.5rem;">
+            <div class="fbtn fbtn-ghost active">🔒</div>
+            <div class="fbtn fbtn-ghost active">↗</div>
+            <div class="fbtn fbtn-ghost">⊞</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== C ===== -->
+    <div class="direction">
+      <div class="direction-label">
+        <h2>C — Editorial <span class="tag tag-c">größter Schritt</span></h2>
+        <p>Kein Kartenrahmen. Nur Typografie + Trennlinien. Domain als kleines Badge oben links.</p>
+        <p class="consequence"><strong>Konsequenz:</strong> maximale Lesedichte, sehr clean. Kein Unterschied zwischen kurzem und langem Eintrag. Funktioniert sehr gut für reine Link-Sammlungen ohne viele Beschreibungen. Schwierig für Nutzer die Karten als "Einheit" erwarten.</p>
+      </div>
+      <div class="direction-body" style="background: #1a1a1a; padding: 1rem 0.75rem;">
+
+        <div class="card-c">
+          <div class="card-c-meta-top">
+            <span class="card-c-domain-badge">hartpunkt.de</span>
+            <span class="card-c-date">07. Jun 2026</span>
+          </div>
+          <h3>
+            <span class="card-c-icon"></span>
+            <a href="#">Weibliches Immunsystem Vorteil XX</a>
+          </h3>
+          <div class="card-c-desc">
+            Die Medizin muss aufhören, Männer und Frauen über einen Kamm zu scheren. In Studien zu antiviralen Mitteln werden Daten zusammengeworfen, was zu falschen Therapien führt. Bei der Krebsbehandlung ist das Geschlecht einer Person entscheidend.
+          </div>
+          <div class="card-c-foot">
+            <a href="#" class="label-tag-c">immunsystem</a>
+            <span class="sep" style="font-size:0.65rem;">·</span>
+            <a href="#" class="label-tag-c">medizin</a>
+            <div class="card-c-controls">
+              <a href="#">✎</a>
+              <a href="#">✕</a>
+              <a href="#">⊕</a>
+              <a href="#" style="color:#3d8e12;">permalink</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-c">
+          <div class="card-c-meta-top">
+            <span class="card-c-domain-badge">sh.digitale-doerfer.de</span>
+            <span class="card-c-date">11. Jun 2026</span>
+          </div>
+          <h3>
+            <span class="card-c-icon"></span>
+            <a href="#">Am 16.08.2025 eröffnet ein Supermarkt in Stocksee – DorfFunk SH</a>
+          </h3>
+          <div class="card-c-desc">Am 16.08.2025 eröffnet ein Supermarkt in Stocksee</div>
+          <div class="card-c-foot">
+            <div class="card-c-controls">
+              <a href="#">✎</a>
+              <a href="#">✕</a>
+              <a href="#" style="color:#3d8e12;">permalink</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-c">
+          <div class="card-c-meta-top">
+            <span class="card-c-domain-badge" style="background:rgba(26,96,96,0.15);color:#1a9090;">Notiz</span>
+            <span class="card-c-date">12. Jun 2026</span>
+          </div>
+          <h3>
+            <span class="card-c-icon note"></span>
+            <a href="#">was steht hier?</a>
+          </h3>
+          <div class="card-c-desc">
+            Eine kleine <strong style="color:#e0e0e0;">Mickymaus</strong> ·
+            <code style="color:#3d8e12;font-size:0.82em;">Quelltext hier einfügen</code>
+          </div>
+          <div class="card-c-foot">
+            <div class="card-c-controls">
+              <a href="#">✎</a>
+              <a href="#">✕</a>
+              <a href="#" style="color:#3d8e12;">permalink</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-note">
+          <strong>Filter-Buttons: nur Text, kein Box</strong>
+          <div class="filter-bar" style="margin-top:0.5rem;gap:0.75rem;">
+            <a href="#" style="font-size:0.75rem;color:#3d8e12;text-decoration:none;border-bottom:1px solid #3d8e12;">Privat</a>
+            <a href="#" style="font-size:0.75rem;color:#3d8e12;text-decoration:none;border-bottom:1px solid #3d8e12;">Öffentlich</a>
+            <a href="#" style="font-size:0.75rem;color:#555;text-decoration:none;">Ohne Tag</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom summary -->
+  <div class="bottom-note">
+    <div>
+      <h4>A — Poliert Flat</h4>
+      <ul>
+        <li>Kein Template-Umbau</li>
+        <li>Sofort umsetzbar</li>
+        <li>Schwach bei Links ohne Desc</li>
+        <li>Charakter via Farbe, nicht Struktur</li>
+      </ul>
+    </div>
+    <div>
+      <h4>B — Zonenstruktur</h4>
+      <ul>
+        <li>Template-Umbau: ~30 Zeilen</li>
+        <li>Stärkstes visuelle Hierarchie</li>
+        <li>Mehr Platz pro Karte</li>
+        <li>Nah an Shaarli-Material-Qualität</li>
+        <li class="warn">Icon-Set (SVG) nötig oder FA beibehalten</li>
+      </ul>
+    </div>
+    <div>
+      <h4>C — Editorial</h4>
+      <ul>
+        <li>Template-Umbau: ~20 Zeilen</li>
+        <li>Maximale Dichte</li>
+        <li>Ungewohnt für Shaarli-Nutzer</li>
+        <li class="warn">Funktioniert nur wenn Inhalte homogen sind</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
