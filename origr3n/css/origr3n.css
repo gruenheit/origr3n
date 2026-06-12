@@ -70,6 +70,11 @@
   box-sizing: border-box;
 }
 
+/* Formular-Elemente erben im Browser NICHT automatisch — explizit erzwingen */
+input, button, select, textarea, optgroup {
+  font-family: var(--font-main);
+}
+
 html {
   font-size: var(--font-size-base);
   scroll-behavior: smooth;
@@ -687,7 +692,229 @@ a.button-grey,
 }
 
 /* ============================================================
-   14. FOOTER
+   14. TAG-SORT-BAR (erscheint auf Tag-Cloud- und Tag-List-Seiten)
+   ============================================================ */
+
+/* Pure.css setzt .pure-alert-success auf grün/weiss — komplett überschreiben */
+.tag-sort {
+  background: var(--bg-surface) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 1rem !important;
+  margin-bottom: 1rem;
+  color: var(--text-muted) !important;
+  font-size: 0.85rem;
+}
+
+.tag-sort a {
+  color: var(--text-secondary) !important;
+  margin: 0 0.25rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tag-sort a:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary) !important;
+  border-color: var(--border-color);
+  text-decoration: none;
+}
+
+/* ============================================================
+   15. TAG-CLOUD
+   ============================================================ */
+
+#cloudtag,
+.cloudtag-container {
+  padding: 1.5rem 0.5rem;
+  line-height: 2.4;
+  text-align: center;
+}
+
+/* Tag-Links in der Cloud — Schriftgrösse kommt inline via style="font-size:Xem" */
+#cloudtag > a,
+.cloudtag-container > a {
+  color: var(--text-secondary) !important;
+  text-decoration: none;
+  padding: 0.05rem 0.2rem;
+  transition: color 0.15s;
+}
+
+#cloudtag > a:hover,
+.cloudtag-container > a:hover {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+/* Anzahl-Links (.count) erscheinen als hochgestellte kleine Zahl */
+#cloudtag a.count,
+.cloudtag-container a.count {
+  color: var(--text-muted) !important;
+  font-size: 0.65em !important;
+  vertical-align: super;
+  margin-left: 0.1rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+#cloudtag a.count:hover,
+.cloudtag-container a.count:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Such-Formular in der Tag-Cloud */
+#search-tagcloud {
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   16. BILDWAND (Picture Wall)
+   ============================================================ */
+
+.picwall-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.75rem 0;
+}
+
+.picwall-pictureframe {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  background: var(--bg-elevated);
+  flex: 0 0 auto;
+}
+
+.picwall-pictureframe img {
+  display: block;
+  /* height wird NICHT überschrieben — bLazy braucht die HTML-Attribut-Höhe
+     um Bilder korrekt im Viewport zu erkennen und lazy zu laden */
+  transition: opacity 0.2s;
+}
+
+.picwall-pictureframe:hover img {
+  opacity: 0.85;
+}
+
+/* Titel-Overlay beim Hover */
+.picwall-pictureframe .info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.76rem;
+  line-height: 1.3;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.picwall-pictureframe:hover .info {
+  opacity: 1;
+}
+
+/* ============================================================
+   17. DAILY-ANSICHT
+   ============================================================ */
+
+/* Navigationsleiste Täglich/Wöchentlich/Monatlich */
+.pure-alert.pure-alert-success:not(.tag-sort) {
+  background: var(--bg-surface) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 1rem !important;
+  margin-bottom: 1rem;
+  color: var(--text-muted) !important;
+}
+
+.pure-alert.pure-alert-success:not(.tag-sort) a {
+  color: var(--text-secondary) !important;
+  margin: 0 0.25rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pure-alert.pure-alert-success:not(.tag-sort) a:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary) !important;
+  border-color: var(--border-color);
+  text-decoration: none;
+}
+
+/* Vor/Zurück-Navigation im Daily-View */
+.daily-about {
+  margin-bottom: 1rem;
+}
+
+.daily-about a {
+  color: var(--text-secondary) !important;
+  font-size: 0.88rem;
+  transition: color 0.15s;
+}
+
+.daily-about a:hover {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+.daily-desc {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* Untertitel (Datum) */
+.window-subtitle {
+  color: var(--text-muted) !important;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Daily-Artikel-Blöcke */
+.daily-entry {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.6rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s;
+}
+
+.daily-entry:hover {
+  border-color: var(--color-primary);
+}
+
+.daily-entry h2 a,
+.daily-entry h3 a {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
+
+.daily-entry h2 a:hover,
+.daily-entry h3 a:hover {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+.daily-entry .daily-entry-description {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-top: 0.3rem;
+}
+
+/* ============================================================
+   18. FOOTER
    ============================================================ */
 #footer {
   text-align: center;
