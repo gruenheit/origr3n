@@ -798,9 +798,15 @@ a.button-grey,
   margin-bottom: 1rem;
 }
 
+/* shaarli.min.css: .page-form-light div, p { text-align: center } — aufheben */
+.page-form-light div,
+.page-form-light p {
+  text-align: left !important;
+}
+
 /* Einzelne Werkzeug-Links als Zeilen */
 .tools-item {
-  padding: 0.15rem 0.75rem 0.55rem;
+  padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -808,16 +814,24 @@ a.button-grey,
   border-bottom: none;
 }
 
-/* Die Buttons in tools.html sind <span class="pure-button"> innerhalb von <a>.
-   Solid-Grün bei 7+ gleichwertigen Buttons wirkt zu schwer — Ghost-Stil stattdessen */
+/* <a> als Block — sonst berechnet sich pure-u-lg-2-3 relativ zur Inline-Breite
+   und jeder Button misst anders */
+.tools-item a,
+.bookmarklet-link {
+  display: block;
+  text-decoration: none !important;
+}
+
+/* Buttons füllen jetzt die volle Block-<a>-Breite — einheitlich und zentrierter Text */
 .tools-item .pure-button {
   display: block;
+  width: 100%;
+  box-sizing: border-box;
   text-align: center;
-  padding: 0.4rem 1rem;
+  padding: 0.45rem 1rem;
   border-radius: var(--border-radius);
   font-size: 0.9rem;
   font-weight: 500;
-  margin-top: 0.4rem;
   background: transparent !important;
   color: var(--color-primary) !important;
   border: 1px solid var(--color-primary) !important;
@@ -827,15 +841,6 @@ a.button-grey,
 .tools-item a:hover .pure-button {
   background: var(--color-primary) !important;
   color: #fff !important;
-}
-
-.tools-item a {
-  text-decoration: none;
-}
-
-/* Bookmarklet-Links sehen wie reguläre Tool-Zeilen aus */
-.bookmarklet-link {
-  display: block;
   text-decoration: none !important;
 }
 
