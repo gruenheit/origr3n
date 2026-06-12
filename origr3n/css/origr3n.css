@@ -41,12 +41,19 @@
   --shadow-md:          0 4px 12px rgba(0,0,0,0.5);
 
   --toggle-bg:          #2e2e2e;
+
+  /* shaarli.min.css verwendet --main-color (20×) — auf Primärfarbe mappen */
+  --main-color:         #3d8e12;
+  --background-color:   #1a1a1a;
 }
 
 /* ============================================================
    3. DESIGN TOKENS — Light Mode
    ============================================================ */
 [data-theme="light"] {
+  --main-color:         #3d8e12;
+  --background-color:   #f5f5f5;
+
   --bg-base:            #f5f5f5;
   --bg-surface:         #ffffff;
   --bg-elevated:        #eeeeee;
@@ -1417,4 +1424,117 @@ a.button-grey,
 [data-theme="light"] .markdown :not(pre) code {
   background: #e8f3e0 !important;
   color: #2d6e0a !important;
+}
+
+/* ============================================================
+   25. RESTLICHE TEMPLATES — Error, Batch-Edit, Server, Plugins
+   ============================================================ */
+
+/* --- Error / 404 ------------------------------------------- */
+.page-error-container {
+  color: var(--text-primary) !important;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.page-error-container h2 {
+  color: var(--text-primary) !important;
+}
+
+.page-error-container p {
+  color: var(--text-secondary) !important;
+}
+
+/* --- Batch-Edit Overlay ------------------------------------ */
+.dark-layer {
+  background-color: rgba(0, 0, 0, 0.82) !important;
+}
+
+.dark-layer .screen-center {
+  color: var(--text-primary);
+}
+
+/* progressbar nutzt var(--main-color) — passt via :root-Mapping;
+   Wrapper-Track-Farbe anpassen */
+.progressbar {
+  background-color: var(--bg-elevated) !important;
+  border: 1px solid var(--border-color);
+}
+
+/* --- Server-Info-Seite ------------------------------------- */
+.server-tables-page,
+.server-tables {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  margin: 1rem 0;
+}
+
+.server-tables-page .server-row,
+.server-tables .server-row {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.server-tables-page .server-row:last-child,
+.server-tables .server-row:last-child {
+  border-bottom: none;
+}
+
+.server-tables-page .server-row p,
+.server-tables .server-row p {
+  color: var(--text-secondary) !important;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  height: auto !important;
+}
+
+.server-tables-page .server-label,
+.server-tables .server-label {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+}
+
+.server-tables-page i.fa-color-green,
+.server-tables i.fa-color-green {
+  color: var(--color-primary) !important;
+}
+
+/* --- Plugins-Admin ---------------------------------------- */
+.pluginform-container .pure-g {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pluginform-container .main-row {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+}
+
+.pluginform-container .plugin-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pluginform-container .plugin-desc {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+/* Drag-Handle Icon */
+.pluginform-container .order {
+  color: var(--text-muted) !important;
+}
+
+/* --- pure-button-shaarli (Batch-Edit Speichern-Button) ----- */
+.pure-button-shaarli {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  font-family: var(--font-main);
+  font-weight: 600;
+}
+
+.pure-button-shaarli:hover {
+  background: var(--color-primary-h) !important;
 }
