@@ -833,7 +833,51 @@ a.button-grey,
 }
 
 /* ============================================================
-   16. TAG-SORT-BAR (erscheint auf Tag-Cloud- und Tag-List-Seiten)
+   16. CONFIGURE-SEITE (Einstellungsformular)
+   ============================================================ */
+
+/* .page-form-complete ist der vollbreite Formular-Wrapper auf der Configure-Seite */
+.page-form-complete {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 0;
+  margin: 1rem 0;
+}
+
+/* Zweispaltige Form-Zeilen: Label links, Input rechts */
+.form-label {
+  padding: 0.6rem 1rem 0.6rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.form-input {
+  padding: 0.5rem 1rem;
+}
+
+.label-name {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  display: block;
+}
+
+.label-desc {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+/* Trennlinien zwischen Formular-Gruppen */
+.pure-g + .pure-g .form-label {
+  border-top: 1px solid var(--border-color);
+}
+
+/* ============================================================
+   17. TAG-SORT-BAR (erscheint auf Tag-Cloud- und Tag-List-Seiten)
    ============================================================ */
 
 /* Pure.css setzt .pure-alert-success auf grün/weiss — komplett überschreiben */
@@ -865,7 +909,7 @@ a.button-grey,
 }
 
 /* ============================================================
-   17. TAG-CLOUD
+   18. TAG-CLOUD
    ============================================================ */
 
 #cloudtag,
@@ -912,7 +956,7 @@ a.button-grey,
 }
 
 /* ============================================================
-   18. BILDWAND (Picture Wall)
+   19. BILDWAND (Picture Wall)
    ============================================================ */
 
 .picwall-container {
@@ -961,7 +1005,7 @@ a.button-grey,
 }
 
 /* ============================================================
-   19. DAILY-ANSICHT
+   20. DAILY-ANSICHT
    ============================================================ */
 
 /* Navigationsleiste Täglich/Wöchentlich/Monatlich */
@@ -1055,7 +1099,7 @@ a.button-grey,
 }
 
 /* ============================================================
-   20. FOOTER
+   21. FOOTER
    ============================================================ */
 #footer {
   text-align: center;
