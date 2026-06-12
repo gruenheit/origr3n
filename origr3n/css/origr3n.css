@@ -1117,3 +1117,143 @@ a.button-grey,
 #footer a:hover {
   color: var(--color-primary) !important;
 }
+
+/* ============================================================
+   22. STATUS-LABELS & LIGHT MODE SPECIFICS
+   ============================================================ */
+
+/* --- Labels (Badges) ---------------------------------------- */
+
+/* Privat-Badge: Amber, auffällig genug um als Status erkennbar zu sein */
+.label-private,
+.label.label-private {
+  display: inline-block;
+  background: #d4851a !important;
+  color: #fff !important;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  letter-spacing: 0.01em;
+}
+
+/* Sticky-Badge: Primärfarbe */
+.label-sticky,
+.label.label-sticky {
+  display: inline-block;
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+}
+
+/* Tag-Label im Such-Ergebnis-Banner */
+.label-tag,
+.label.label-tag {
+  display: inline-block;
+  background: var(--bg-elevated);
+  color: var(--color-primary) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.45rem;
+  text-decoration: none;
+}
+
+.label-tag a,
+.label.label-tag a {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+.label-tag a:hover,
+.label.label-tag a:hover {
+  text-decoration: none;
+}
+
+/* --- Such-Ergebnis-Banner ----------------------------------- */
+
+/* Fehler-Banner (Nothing found) */
+#search-result-block.pure-alert-error,
+.pure-alert.pure-alert-error.search-result {
+  background: var(--bg-surface) !important;
+  border: none !important;
+  border-left: 4px solid #c0392b !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 1rem !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 1rem;
+}
+
+/* --- Light Mode: Karten-Definition -------------------------- */
+
+/* Im hellen Modus brauchen Karten etwas mehr Tiefe gegen den #f5f5f5-Hintergrund */
+[data-theme="light"] .linklist-item {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04) !important;
+}
+
+[data-theme="light"] .linklist-item:hover {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1), 0 0 0 1px var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* --- Light Mode: Eingabefelder ------------------------------ */
+
+/* Im hellen Modus: Input nicht rein weiß (= unsichtbar auf weißem Hintergrund),
+   sondern minimal abgesetzt */
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="search"],
+[data-theme="light"] input[type="password"],
+[data-theme="light"] input[type="url"],
+[data-theme="light"] input[type="email"],
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background: #f4f4f4 !important;
+  border-color: #b8b8b8 !important;
+}
+
+[data-theme="light"] input[type="text"]:focus,
+[data-theme="light"] input[type="search"]:focus,
+[data-theme="light"] input[type="password"]:focus,
+[data-theme="light"] input[type="url"]:focus,
+[data-theme="light"] input[type="email"]:focus,
+[data-theme="light"] textarea:focus,
+[data-theme="light"] select:focus {
+  background: #ffffff !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* --- Light Mode: Neutrale Buttons --------------------------- */
+
+/* Im hellen Modus wirken dunkelgraue Toolbar-Buttons (#2e2e2e) deplatziert */
+[data-theme="light"] button:not(#theme-toggle) {
+  background: #e4e4e4 !important;
+  color: #333 !important;
+  border-color: #c0c0c0 !important;
+}
+
+/* --- Light Mode: Suchfeld-Wrapper & Paging-Toolbar ---------- */
+
+[data-theme="light"] .searchform-block,
+[data-theme="light"] .subheader-form {
+  border-color: #c8c8c8;
+}
+
+[data-theme="light"] .linklist-paging {
+  border-bottom-color: #d8d8d8;
+}
+
+/* Filter-Buttons im hellen Modus */
+[data-theme="light"] .filter-off,
+[data-theme="light"] .linklist-filters a {
+  background: #e8e8e8 !important;
+  border-color: #c0c0c0 !important;
+}
+
+/* Links-per-page im hellen Modus */
+[data-theme="light"] .linksperpage a {
+  background: #e8e8e8 !important;
+  border-color: #c0c0c0 !important;
+}
