@@ -175,7 +175,7 @@
             </h2>
             {if="strpos($value.url, $value.shorturl) === false"}
               <div class="linklist-item-domain">
-                <a href="{$value.real_url}">{$value.url_html}</a>
+                <a href="{$value.real_url}">{function="parse_url($value.real_url, PHP_URL_HOST)"}</a>
               </div>
             {/if}
           </div>
