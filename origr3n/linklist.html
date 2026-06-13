@@ -221,6 +221,21 @@
                         <i class="fa fa-bookmark" aria-hidden="true"></i>
                       </a>
                     </span>
+                    <span class="linklist-item-infos-controls-item ctrl-visibility">
+                      {if="$value.private"}
+                        <a href="{$base_path}/admin/shaare/visibility?token={$token}&amp;newVisibility=public&amp;id={$value.id}"
+                           title="Öffentlich machen" aria-label="Öffentlich machen"
+                           class="visibility-link visibility-link-private pure-u-0 pure-u-lg-visible">
+                          <i class="fa fa-lock" aria-hidden="true"></i>
+                        </a>
+                      {else}
+                        <a href="{$base_path}/admin/shaare/visibility?token={$token}&amp;newVisibility=private&amp;id={$value.id}"
+                           title="Privat machen" aria-label="Privat machen"
+                           class="visibility-link visibility-link-public pure-u-0 pure-u-lg-visible">
+                          <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                        </a>
+                      {/if}
+                    </span>
                   </div>
                 {else}
                   {if="$value.sticky"}

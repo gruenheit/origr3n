@@ -524,6 +524,12 @@ a.tag:hover {
 .linklist-item-infos .fa-share-alt             { color: #d4851a !important; }
 .linklist-item-infos a:hover .fa-share-alt     { color: #e8a030 !important; }
 
+/* Visibility-Toggle: fa-lock = privat (amber), fa-unlock-alt = öffentlich (muted) */
+.linklist-item-infos-controls-group a.visibility-link-private       { color: #d4851a !important; }
+.linklist-item-infos-controls-group a.visibility-link-private:hover { color: #e8a030 !important; }
+.linklist-item-infos-controls-group a.visibility-link-public        { color: #5a7a4a !important; }
+.linklist-item-infos-controls-group a.visibility-link-public:hover  { color: #5cb81a !important; }
+
 /* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
 /* edit-link ist auf <i>, nicht auf <a> → einfacher Klassenselektor reicht */
 .edit-link              { color: #3d8e12 !important; }
