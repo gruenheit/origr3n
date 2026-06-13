@@ -134,6 +134,16 @@ a.shaarli-title {
   font-weight: 700;
   color: var(--color-primary) !important;
   letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.origr3n-logo {
+  height: 22px;
+  width: 22px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .shaarli-title:hover,
