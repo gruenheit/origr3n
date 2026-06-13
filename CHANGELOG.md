@@ -1,5 +1,25 @@
 # Changelog
 
+## [v1.2] — Kartendesign-Verfeinerung (2026-06-13, r=71–77)
+
+### Kein permanenter Akzentstreifen auf öffentlichen Karten (r=75–76)
+- Normalkarten: kein grüner left-Stripe — ruhigere Darstellung bei langen Listen
+- Amber left-Stripe bleibt als Sicherheitssignal auf privaten Karten (explizite Safety-Anforderung)
+- Selected: 1px grüner Rahmen + Glow-Ring; kein Stripe, kein Hintergrund-Tint
+- Hover: 1px grüner Rahmen (keine Box-Shadow)
+
+### Private Karten — Korrekturen (r=71–74)
+- Grüner Hintergrund-Tint auf `.selected` entfernt (r=71) — zerstörte Footer-Band-Kontrast
+- Private+Selected: amber gewinnt komplett, kein Mischsignal grün/amber (r=72)
+- Amber border-left 3px → 2px: Irradiation-Kompensation — amber erscheint optisch breiter (r=73)
+- Amber Glow-Ring entfernt: hohe Luminanz von #b07820 macht Glow-Ring überflüssig und wuchtig (r=74)
+
+### Markdown-Blockquote (r=77)
+- Blockquote border-left: `--color-primary` → `--text-muted` (grau, dark+light)
+- Kein semantischer Konflikt mehr mit Karten-Akzentfarben
+
+---
+
 ## [v1.1] — Post-v1.0 Verbesserungen (2026-06-13, r=66–70)
 
 ### Visibility-Toggle im Footer-Band (r=67–69)
