@@ -248,17 +248,16 @@
                     </div>
                   {/if}
                 {/if}
-                {if="!$hide_timestamps || $is_logged_in"}
-                  {$updated=$value.updated_timestamp ? $strEdited. format_date($value.updated) : $strPermalink}
-                  <span class="linkdate" data-ts="{$value.created->format('U')}" title="{$updated}">{$value.created->format('d.m.Y')}</span>
-                {/if}
-                <a href="{$base_path}/shaare/{$value.shorturl}" title="{$strPermalink}" class="shaare-permalink"><span class="permalink-label"> &middot; {$strPermalinkLc}</span></a>
-
                 {if="$is_logged_in && $value.private"}
                   <a href="{$base_path}/admin/shaare/private/{$value.shorturl}?token={$token}" title="{$strShaarePrivate}">
                     <i class="fa fa-share-alt"></i>
                   </a>
                 {/if}
+                {if="!$hide_timestamps || $is_logged_in"}
+                  {$updated=$value.updated_timestamp ? $strEdited. format_date($value.updated) : $strPermalink}
+                  <span class="linkdate" data-ts="{$value.created->format('U')}" title="{$updated}">{$value.created->format('d.m.Y')}</span>
+                {/if}
+                <a href="{$base_path}/shaare/{$value.shorturl}" title="{$strPermalink}" class="shaare-permalink"><span class="permalink-label"> &middot; {$strPermalinkLc}</span></a>
 
                 <div class="pure-u-0 pure-u-lg-visible">
                   {if="isset($value.link_plugin)"}
