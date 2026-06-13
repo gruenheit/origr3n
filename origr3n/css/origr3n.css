@@ -836,9 +836,11 @@ a.button-grey,
   margin-bottom: 1rem;
 }
 
-/* shaarli.min.css: .page-form-light div, p { text-align: center } — aufheben */
+/* shaarli.min.css: .page-form-light div, p, h2 { text-align: center } — aufheben */
 .page-form-light div,
-.page-form-light p {
+.page-form-light p,
+.page-form-light h2,
+.page-form-light .window-title {
   text-align: left !important;
 }
 
