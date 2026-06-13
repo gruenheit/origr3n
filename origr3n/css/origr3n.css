@@ -520,6 +520,10 @@ a.tag:hover {
   background-position: center;
 }
 
+/* Private-Share-Link: Amber — konsistent mit Privat-Badge und Kartenakzent */
+.linklist-item-infos .fa-share-alt             { color: #d4851a !important; }
+.linklist-item-infos a:hover .fa-share-alt     { color: #e8a030 !important; }
+
 /* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
 /* edit-link ist auf <i>, nicht auf <a> → einfacher Klassenselektor reicht */
 .edit-link              { color: #3d8e12 !important; }
