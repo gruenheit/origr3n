@@ -21,8 +21,8 @@
   --color-primary-h:    #4aa316;
   --color-primary-a:    #338a0f;
 
-  --bg-base:            #1a1a1a;
-  --bg-surface:         #242424;
+  --bg-base:            #141414;
+  --bg-surface:         #2a2a2a;
   --bg-elevated:        #2e2e2e;
   --bg-input:           #333333;
 
@@ -37,14 +37,14 @@
   --font-size-base:     16px;
   --line-height-base:   1.6;
 
-  --shadow-sm:          0 1px 3px rgba(0,0,0,0.4);
+  --shadow-sm:          0 2px 8px rgba(0,0,0,0.45);
   --shadow-md:          0 4px 12px rgba(0,0,0,0.5);
 
   --toggle-bg:          #2e2e2e;
 
   /* shaarli.min.css verwendet --main-color (20×) — auf Primärfarbe mappen */
   --main-color:         #3d8e12;
-  --background-color:   #1a1a1a;
+  --background-color:   #141414;
 }
 
 /* ============================================================
@@ -237,15 +237,20 @@ a.shaarli-title:hover {
   border: 1px solid var(--border-color);
   border-left: 3px solid var(--color-primary);
   border-radius: var(--border-radius);
-  padding: 1rem 1.25rem;
-  margin-bottom: 0.6rem;
+  padding: 1.15rem 1.3rem;
+  margin-bottom: 0.8rem;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-/* Private Links: Amber-Akzent statt Grün */
-.linklist-item.private {
-  border-left-color: #b07820;
+/* Private Links: Amber-Akzent statt Grün.
+   .private-Klasse wird von Shaarli nicht zuverlässig gesetzt —
+   :has(.label-private) greift direkt auf das DOM-Badge. */
+.linklist-item.private,
+.linklist-item.private:hover,
+.linklist-item:has(.label-private),
+.linklist-item:has(.label-private):hover {
+  border-left-color: #b07820 !important;
 }
 
 /* Sticky: kein visueller Unterschied — nur Pinnnadel reicht */
