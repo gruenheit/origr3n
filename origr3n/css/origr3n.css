@@ -560,9 +560,7 @@ a.tag:hover {
 }
 
 /* ── SELECTED-STATE ────────────────────────────────────────── */
-/* Grünes Tint + Glow-Ring — klar unterscheidbar von footer-open */
 .linklist-item.selected {
-  background: rgba(61, 142, 18, 0.07) !important;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md);
 }
