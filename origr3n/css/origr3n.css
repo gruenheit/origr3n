@@ -480,11 +480,15 @@ a.tag:hover {
 }
 
 /* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
-/* shaarli.min.css: .edit-link{color:#0b5ea6}, .delete-link{color:#ac2925 !important} */
-.edit-link              { color: #3d8e12 !important; }
-.delete-link            { color: #5a7a4a !important; }
-.pin-link               { color: #3d8e12 !important; }
-.pinned-link            { color: #5cb81a !important; }
+/* Icon-Farben: .linklist-item-editbuttons a (0,1,1 !important) schlägt .edit-link (0,1,0) → Spezifizität erhöhen */
+.linklist-item-editbuttons a.edit-link,
+.linklist-item-infos-controls-group a.edit-link   { color: #3d8e12 !important; }
+.linklist-item-editbuttons a.delete-link,
+.linklist-item-infos-controls-group a.delete-link { color: #5a7a4a !important; }
+.linklist-item-editbuttons a.pin-link,
+.linklist-item-infos-controls-group a.pin-link    { color: #3d8e12 !important; }
+.linklist-item-editbuttons a.pinned-link,
+.linklist-item-infos-controls-group a.pinned-link { color: #5cb81a !important; }
 .link-checkbox          { accent-color: #5cb81a !important; }
 
 /* Fold-Button: verborgen */
