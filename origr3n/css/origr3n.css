@@ -564,6 +564,12 @@ a.tag:hover {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md);
 }
+/* Private Karte selected: amber gewinnt — kein Mischsignal */
+.linklist-item.selected.private,
+.linklist-item.selected:has(.label-private) {
+  border-color: #b07820;
+  box-shadow: 0 0 0 1px #b07820, var(--shadow-md);
+}
 
 /* footer-open ohne selected: Hover-Rahmen supprimieren — sonst sieht es aus wie selected */
 .linklist-item.footer-open:not(.selected):hover {
