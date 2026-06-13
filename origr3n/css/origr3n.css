@@ -480,9 +480,9 @@ a.tag:hover {
 }
 
 /* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
-/* Icon-Farben: .linklist-item-editbuttons a (0,1,1 !important) schlägt .edit-link (0,1,0) → Spezifizität erhöhen */
-.linklist-item-editbuttons a.edit-link,
-.linklist-item-infos-controls-group a.edit-link   { color: #3d8e12 !important; }
+/* edit-link ist auf <i>, nicht auf <a> → einfacher Klassenselektor reicht */
+.edit-link              { color: #3d8e12 !important; }
+/* delete-link / pin-link / pinned-link sind auf <a> → höhere Spezifizität nötig gegen .linklist-item-editbuttons a (0,1,1) */
 .linklist-item-editbuttons a.delete-link,
 .linklist-item-infos-controls-group a.delete-link { color: #5a7a4a !important; }
 .linklist-item-editbuttons a.pin-link,
