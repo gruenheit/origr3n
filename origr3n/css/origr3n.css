@@ -760,11 +760,12 @@ a.button-grey,
   align-items: center;
   justify-content: center;
   min-width: 2rem;
-  background: var(--bg-elevated);
-  color: var(--text-muted) !important;
-  border: 1px solid var(--border-color);
+  background: #1a3a0a;
+  color: var(--color-primary) !important;
+  border: 1px solid #2a5c0a;
   border-radius: 3px;
   font-size: 0.76rem;
+  font-weight: 700;
   padding: 0.1rem 0.35rem;
   text-align: center;
   text-decoration: none !important;
@@ -779,15 +780,15 @@ a.button-grey,
 
 /* Tag-Name-Link */
 .tag-list-item a.tag-link {
-  color: var(--text-primary) !important;
-  font-weight: 500;
+  color: var(--color-primary) !important;
+  font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none !important;
   flex: 1;
 }
 
 .tag-list-item a.tag-link:hover {
-  color: var(--color-primary) !important;
+  color: var(--color-primary-h) !important;
 }
 
 /* Admin-Aktionen (Löschen, Umbenennen) */
@@ -965,19 +966,21 @@ a.button-grey,
   text-align: center;
 }
 
-/* Tag-Links in der Cloud — Schriftgrösse kommt inline via style="font-size:Xem" */
+/* Tag-Links in der Cloud: alle grün, Grösse skaliert mit Häufigkeit (inline via Shaarli).
+   Hover: helleres Grün + Unterstreichung als Klick-Indikator. */
 #cloudtag > a,
 .cloudtag-container > a {
-  color: var(--text-secondary) !important;
+  color: var(--color-primary) !important;
   text-decoration: none;
   padding: 0.05rem 0.2rem;
+  font-weight: 600;
   transition: color 0.15s;
 }
 
 #cloudtag > a:hover,
 .cloudtag-container > a:hover {
-  color: var(--color-primary) !important;
-  text-decoration: none;
+  color: var(--color-primary-h) !important;
+  text-decoration: underline;
 }
 
 /* Anzahl-Links (.count) erscheinen als hochgestellte kleine Zahl */
@@ -999,6 +1002,10 @@ a.button-grey,
 /* Such-Formular in der Tag-Cloud */
 #search-tagcloud {
   margin-bottom: 1.5rem;
+}
+
+#search-tagcloud input[type="submit"] {
+  width: auto;
 }
 
 /* ============================================================
@@ -1292,6 +1299,24 @@ a.button-grey,
   background: #e4e4e4 !important;
   color: #333 !important;
   border-color: #c0c0c0 !important;
+}
+
+/* --- Light Mode: Tags --------------------------------------- */
+
+[data-theme="light"] .tag-list-item a.count {
+  background: #e8f3e0;
+  color: #2d6e0a !important;
+  border-color: #b5d99a;
+}
+
+[data-theme="light"] #cloudtag > a,
+[data-theme="light"] .cloudtag-container > a {
+  color: #2d6e0a !important;
+}
+
+[data-theme="light"] #cloudtag > a:hover,
+[data-theme="light"] .cloudtag-container > a:hover {
+  color: var(--color-primary) !important;
 }
 
 /* --- Light Mode: Suchfeld-Wrapper & Paging-Toolbar ---------- */
