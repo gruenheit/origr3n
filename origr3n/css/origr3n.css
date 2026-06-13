@@ -257,7 +257,7 @@ a.shaarli-title:hover {
 .linklist-item.private:hover,
 .linklist-item:has(.label-private),
 .linklist-item:has(.label-private):hover {
-  border-left-color: #b07820 !important;
+  border-left: 2px solid #b07820 !important;
 }
 
 /* Sticky: kein visueller Unterschied — nur Pinnnadel reicht */
