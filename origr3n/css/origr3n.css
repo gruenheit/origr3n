@@ -141,18 +141,27 @@ a.shaarli-title {
 
 .origr3n-logo {
   display: inline-block;
+  position: relative;
   width: 11px;
   height: 11px;
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--color-primary);
-  box-shadow: 0 0 8px var(--color-primary);
+}
+
+.origr3n-logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.5;
   animation: origr3n-pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes origr3n-pulse {
-  0%, 100% { box-shadow: 0 0 8px var(--color-primary); }
-  50%       { box-shadow: 0 0 14px var(--color-primary-h), 0 0 22px var(--color-primary); }
+  0%, 100% { transform: scale(1);   opacity: 0.5; }
+  50%       { transform: scale(2.2); opacity: 0; }
 }
 
 .shaarli-title:hover,
