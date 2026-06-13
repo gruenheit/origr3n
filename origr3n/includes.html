@@ -22,7 +22,7 @@
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
-<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=64#" />
+<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=65#" />
 {if="is_file('data/user.css')"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/data/user.css#" />
 {/if}
@@ -48,12 +48,14 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script>
-/* origr3n: URL-Feld — vollständige URL als Browser-Tooltip */
+/* origr3n: URL- und Titel-Feld — vollständiger Inhalt als Browser-Tooltip */
 document.addEventListener('DOMContentLoaded', function(){
-  var u = document.querySelector('input[name="lf_url"]');
-  if (!u) return;
-  u.title = u.value;
-  u.addEventListener('input', function(){ this.title = this.value; });
+  ['input[name="lf_url"]', 'input[name="lf_title"]'].forEach(function(sel){
+    var el = document.querySelector(sel);
+    if (!el) return;
+    el.title = el.value;
+    el.addEventListener('input', function(){ this.title = this.value; });
+  });
 });
 
 /* origr3n: Datums-Pille — Edit-Formular (.created-date) und Linklist (.linkdate) */
