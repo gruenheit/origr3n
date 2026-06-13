@@ -619,7 +619,32 @@ a.button-grey,
   background: transparent;
 }
 
-/* EasyMDE Markdown-Editor — Toolbar (nutzt <a>-Elemente, nicht <button>) */
+/* markdown_toolbar-Plugin — Bootstrap-Markdown (.md-editor .btn) */
+.md-editor {
+  border-color: var(--border-color) !important;
+}
+.md-editor .btn-toolbar {
+  background: var(--bg-elevated) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+.md-editor .btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-secondary) !important;
+  box-shadow: none !important;
+}
+.md-editor .btn:hover,
+.md-editor .btn.active,
+.md-editor .btn:focus {
+  background: var(--bg-surface) !important;
+  color: var(--color-primary) !important;
+  box-shadow: none !important;
+}
+.md-editor .btn-group + .btn-group {
+  border-left: 1px solid var(--border-color) !important;
+}
+
+/* EasyMDE-nativer Toolbar (Fallback, falls Plugin deaktiviert) */
 .editor-toolbar {
   background: var(--bg-elevated) !important;
   border-color: var(--border-color) !important;
@@ -1437,7 +1462,25 @@ a.button-grey,
   border-color: #c0c0c0 !important;
 }
 
-/* --- Light Mode: EasyMDE Editor ----------------------------- */
+/* --- Light Mode: markdown_toolbar + EasyMDE Editor ---------- */
+[data-theme="light"] .md-editor {
+  border-color: #ccc !important;
+}
+[data-theme="light"] .md-editor .btn-toolbar {
+  background: #f0f0f0 !important;
+  border-bottom-color: #d0d0d0 !important;
+}
+[data-theme="light"] .md-editor .btn {
+  color: #666 !important;
+}
+[data-theme="light"] .md-editor .btn:hover,
+[data-theme="light"] .md-editor .btn.active {
+  background: #e0e0e0 !important;
+  color: var(--color-primary) !important;
+}
+[data-theme="light"] .md-editor .btn-group + .btn-group {
+  border-left-color: #d0d0d0 !important;
+}
 [data-theme="light"] .editor-toolbar {
   background: #f0f0f0 !important;
   border-color: #d0d0d0 !important;
