@@ -566,9 +566,9 @@ input[type="checkbox"] {
 /* Datum als Pill oben rechts in der Titelzeile */
 .page-form .created-date {
   position: absolute;
-  top: 0.65rem;
+  top: 0.6rem;
   right: 0.75rem;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: var(--text-secondary) !important;
   background: var(--bg-elevated) !important;
