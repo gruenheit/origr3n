@@ -70,18 +70,17 @@
       <div class="header-buttons pure-u-lg-1-6 pure-u-0 pure-u-lg-visible">
         <ul class="pure-menu-list">
           <li class="pure-menu-item" id="origr3n-theme-toggle-item">
-            <button id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark/light mode">Hell</button>
+            <button id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark/light mode">
+              <i class="fa fa-moon-o theme-icon-dark" aria-hidden="true"></i>
+              <i class="fa fa-sun-o theme-icon-light" aria-hidden="true"></i>
+            </button>
           </li>
+          <li class="pure-menu-item nav-sep" aria-hidden="true"></li>
           <li class="pure-menu-item" id="shaarli-menu-desktop-search">
             <a href="#" class="pure-menu-link subheader-opener"
                data-open-id="search"
                id="search-button" aria-label="{'Search'|t}" title="{'Search'|t}">
               <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li class="pure-menu-item" id="shaarli-menu-desktop-rss">
-            <a href="{$base_path}/feed/{$feed_type}?{$searchcrits}" class="pure-menu-link" title="{'RSS Feed'|t}" aria-label="{'RSS Feed'|t}">
-              <i class="fa fa-rss" aria-hidden="true"></i>
             </a>
           </li>
           {if="!$is_logged_in"}

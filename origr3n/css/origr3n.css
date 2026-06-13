@@ -664,22 +664,42 @@ a.tag:hover {
    9. DARK / LIGHT TOGGLE
    ============================================================ */
 #theme-toggle {
-  background: var(--toggle-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 0.25rem 0.7rem;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  font-family: var(--font-main);
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-  white-space: nowrap;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: color 0.15s, background 0.15s;
 }
 
 #theme-toggle:hover {
   background: var(--bg-elevated);
   color: var(--text-primary);
+}
+
+/* Icon-Sichtbarkeit je Theme */
+:root[data-theme="dark"]  #theme-toggle .theme-icon-light { display: none; }
+:root[data-theme="light"] #theme-toggle .theme-icon-dark  { display: none; }
+
+/* Separator zwischen Toggle und Aktions-Icons */
+.nav-sep {
+  display: flex !important;
+  align-items: center;
+  padding: 0 4px !important;
+  pointer-events: none;
+}
+.nav-sep::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: var(--border-color);
 }
 
 /* ============================================================
@@ -751,19 +771,19 @@ input[type="submit"]:hover,
   text-decoration: none;
 }
 
-/* Toggle-Button: sichtbares Ghost-Button-Design mit Primärfarbe */
+/* Toggle-Button Light-Mode: Icon-Style beibehalten */
 #theme-toggle {
   background: transparent !important;
-  color: var(--color-primary) !important;
-  border: 1px solid var(--color-primary) !important;
-  border-radius: 20px !important;
-  padding: 0.2rem 0.65rem !important;
-  font-size: 0.8rem !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: var(--text-muted) !important;
+  padding: 0 !important;
+  font-size: 14px !important;
 }
 
 #theme-toggle:hover {
-  background: var(--color-primary) !important;
-  color: #fff !important;
+  background: var(--bg-elevated) !important;
+  color: var(--color-primary) !important;
 }
 
 /* Globale button-Regel zurücksetzen — Editor-Toolbar-Buttons sollen neutral bleiben */
