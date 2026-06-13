@@ -173,15 +173,16 @@ a.shaarli-title:hover {
 /* Pure-Menu Overrides */
 .pure-menu-link {
   color: var(--text-secondary) !important;
-  padding: 0.6rem 0.9rem;
+  padding: 1rem 0.75rem;
   border-radius: var(--border-radius);
+  font-size: 0.875rem;
   transition: color 0.15s, background 0.15s;
 }
 
 .pure-menu-link:hover,
 .pure-menu-link:focus {
-  background: var(--bg-elevated) !important;
-  color: var(--text-primary) !important;
+  background: transparent !important;
+  color: var(--color-primary) !important;
   text-decoration: none;
 }
 
@@ -195,14 +196,135 @@ a.shaarli-title:hover {
   background: transparent !important;
 }
 
+/* ---- FAB: "+ Teilen" aus Nav-Flow herauslösen, als Floating Action Button positionieren ---- */
+li:has(> #shaarli-menu-shaare) {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  z-index: 999;
+  list-style: none !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#shaarli-menu-shaare {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  padding: 0 !important;
+  font-size: 0 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s !important;
+}
+
+#shaarli-menu-shaare:hover {
+  background: var(--color-primary-h) !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+  color: #fff !important;
+}
+
+#shaarli-menu-shaare .fa {
+  display: none !important;
+}
+
+#shaarli-menu-shaare {
+  position: relative !important;
+}
+
+#shaarli-menu-shaare::before,
+#shaarli-menu-shaare::after {
+  content: '' !important;
+  position: absolute !important;
+  background: #fff !important;
+  border-radius: 1px !important;
+  top: 50% !important;
+  left: 50% !important;
+}
+
+#shaarli-menu-shaare::before {
+  width: 2px !important;
+  height: 20px !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+#shaarli-menu-shaare::after {
+  width: 20px !important;
+  height: 2px !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Header-Row Desktop: Nav-Links rechts neben Titel, Icons ganz rechts, vertikal zentriert */
+@media screen and (min-width: 64em) {
+  /* Grid statt Flex: umgeht PureCSS pure-g align-content:flex-start komplett */
+  #shaarli-menu .pure-menu-horizontal {
+    display: grid !important;
+    grid-template-columns: 83.3333% 16.6667% !important;
+    grid-template-rows: 52px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  /* Nav-Spalte: 100% der Grid-Zelle füllen */
+  #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-width: 0;
+  }
+  /* Vertikales Padding entfernen */
+  #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 .pure-menu-link {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  /* Titel schiebt Nav-Links nach rechts */
+  li:has(> #shaarli-title-desktop) {
+    margin-right: auto !important;
+    flex-shrink: 0;
+  }
+  /* Icon-Spalte: 100% der Grid-Zelle füllen */
+  .header-buttons {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    padding-right: 6px;
+  }
+  .header-buttons .pure-menu-list {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+  }
+  .header-buttons .pure-menu-item {
+    display: flex !important;
+    align-items: center;
+    flex-shrink: 0;
+  }
+}
+
 /* Header-Buttons (Suche, RSS, Login) */
 .header-buttons .pure-menu-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
   color: var(--text-muted) !important;
 }
 
 .header-buttons .pure-menu-link:hover {
   color: var(--color-primary) !important;
   background: var(--bg-elevated) !important;
+  border-radius: 50% !important;
 }
 
 /* Mobile Menu Hintergrund */
@@ -210,10 +332,6 @@ a.shaarli-title:hover {
   background: var(--bg-surface);
 }
 
-/* Toggle-Button Wrapper Position */
-.origr3n-theme-toggle-wrapper {
-  padding: 0.4rem 0.75rem;
-}
 
 /* ============================================================
    6. LAYOUT
@@ -666,12 +784,13 @@ a.tag:hover {
 #theme-toggle {
   background: transparent;
   border: none;
-  border-radius: 4px;
+  border-radius: 50%;
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   cursor: pointer;
   font-size: 14px;
   color: var(--text-muted);
@@ -680,35 +799,26 @@ a.tag:hover {
 
 #theme-toggle:hover {
   background: var(--bg-elevated);
-  color: var(--text-primary);
+  color: var(--color-primary);
 }
 
-/* Icon-Sichtbarkeit je Theme */
-:root[data-theme="dark"]  #theme-toggle .theme-icon-light { display: none; }
-:root[data-theme="light"] #theme-toggle .theme-icon-dark  { display: none; }
+#theme-toggle:focus {
+  outline: none;
+}
 
-/* Mobile Toggle: standardmäßig ausgeblendet — nur im offenen Hamburger-Menü sichtbar */
-#origr3n-theme-toggle-mobile-item {
+/* Fokus-Ring auf Header-Icons unterdrücken */
+.header-buttons *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Shaarli setzt .pure-menu-item:hover::after { background:#fff; height:4px } — im gesamten Header unterdrücken */
+#shaarli-menu .pure-menu-item:hover::after,
+#shaarli-menu .pure-menu-item::after {
   display: none !important;
-}
-.menu-transform:not(.pure-menu-horizontal) #origr3n-theme-toggle-mobile-item {
-  display: list-item !important;
+  content: none !important;
 }
 
-/* Separator zwischen Toggle und Aktions-Icons */
-.nav-sep {
-  display: flex !important;
-  align-items: center;
-  padding: 0 4px !important;
-  pointer-events: none;
-}
-.nav-sep::after {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 16px;
-  background: var(--border-color);
-}
 
 /* ============================================================
    10. FORMULARE
@@ -779,11 +889,11 @@ input[type="submit"]:hover,
   text-decoration: none;
 }
 
-/* Toggle-Button Light-Mode: Icon-Style beibehalten */
+/* Toggle-Button Light-Mode: Icon-Style beibehalten (override für globale button-Regel) */
 #theme-toggle {
   background: transparent !important;
   border: none !important;
-  border-radius: 4px !important;
+  border-radius: 50% !important;
   color: var(--text-muted) !important;
   padding: 0 !important;
   font-size: 14px !important;
@@ -1940,32 +2050,6 @@ a.button-grey,
     color: var(--color-primary) !important;
   }
 
-  /* --- Theme-Toggle-Button im Mobile-Menü ---
-     ID-Selektor nötig: [data-theme="light"] button:not(#theme-toggle) hat
-     Spezifität (0,2,1) und schlägt .theme-toggle-btn (0,1,0) --- */
-  #origr3n-theme-toggle-mobile-item button {
-    display: block !important;
-    width: 100%;
-    text-align: left !important;
-    background: transparent !important;
-    color: var(--color-primary) !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0.7rem 1rem !important;
-    font-size: 0.9rem !important;
-    font-weight: 500 !important;
-    cursor: pointer;
-    box-shadow: none !important;
-  }
-
-  #origr3n-theme-toggle-mobile-item button:hover {
-    background: var(--bg-elevated) !important;
-  }
-
-  #origr3n-theme-toggle-mobile-item button:focus {
-    outline: none !important;
-    background: var(--bg-elevated) !important;
-  }
 }
 
 .markdown blockquote {
@@ -2011,7 +2095,7 @@ a.button-grey,
 .markdown table tr th,
 .markdown table tr td {
   border-color: var(--border-color);
-  color: var(--text-primary);
+  color: var(--color-primary);
 }
 
 /* Light Mode: markdown.min.css defaults sind bereits hell — nur Akzent-Anpassung */
@@ -2051,7 +2135,7 @@ a.button-grey,
 }
 
 .dark-layer .screen-center {
-  color: var(--text-primary);
+  color: var(--color-primary);
 }
 
 /* progressbar nutzt var(--main-color) — passt via :root-Mapping;
@@ -2112,7 +2196,7 @@ a.button-grey,
 
 .pluginform-container .plugin-name {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-primary);
 }
 
 .pluginform-container .plugin-desc {

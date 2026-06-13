@@ -4,6 +4,8 @@
 
   const STORAGE_KEY = 'origr3n-theme';
   const ATTR = 'data-theme';
+  const ICON_DARK  = 'fa fa-moon-o';
+  const ICON_LIGHT = 'fa fa-sun-o';
 
   function getPreferred() {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -16,15 +18,25 @@
     localStorage.setItem(STORAGE_KEY, theme);
   }
 
+  function syncIcon(theme) {
+    var icon = document.querySelector('#theme-toggle .fa');
+    if (icon) {
+      icon.className = theme === 'dark' ? ICON_DARK : ICON_LIGHT;
+    }
+  }
+
   function toggle() {
-    const current = document.documentElement.getAttribute(ATTR) || 'dark';
-    apply(current === 'dark' ? 'light' : 'dark');
+    var current = document.documentElement.getAttribute(ATTR) || 'dark';
+    var next = current === 'dark' ? 'light' : 'dark';
+    apply(next);
+    syncIcon(next);
   }
 
   // Apply immediately (before paint) to avoid flash
   apply(getPreferred());
 
   document.addEventListener('DOMContentLoaded', function () {
+    syncIcon(document.documentElement.getAttribute(ATTR) || 'dark');
     document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
       btn.addEventListener('click', toggle);
     });

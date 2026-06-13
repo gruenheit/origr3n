@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: **v1.0** — Linklist-Karten abgeschlossen · Header-Bereich folgt · Production-Deploy ausstehend
+> Status: **v1.4-dev** — FAB + Nav-Styling abgeschlossen · Header-Ausrichtung in Arbeit · Production-Deploy ausstehend
 
 ---
 
@@ -29,6 +29,12 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 - **Datum-Pille = Permalink:** Klick öffnet `shaare/{shorturl}` direkt; Höhe auf Tag-Niveau angeglichen
 - **Datumsformat:** „heute, HH:MM" / „gestern, HH:MM" / „11. Jun. 26" für ältere Einträge
 - **Tag-Pills:** Grüner Rand, Hover-Inversion; kein redundantes Tag-Icon
+
+### Header
+
+- **FAB „+ Teilen":** Fixierter grüner Kreis (56×56px) unten rechts — immer erreichbar, ohne Nav zu belasten
+- **Nav-Links:** `--text-secondary` Standard, `--color-primary` bei Hover; 0.875rem
+- **Icon-Hover:** runde Hover-Fläche (`border-radius: 50%`); Mond, Suche, Logout/Login
 
 ### Weitere Seiten
 

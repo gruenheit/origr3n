@@ -1,5 +1,53 @@
 # Changelog
 
+## [v1.4-dev] — Header-Nav & FAB (2026-06-13–14, r=91–110)
+
+### FAB — Floating Action Button (r=95–98)
+- "+ Teilen" aus der Nav-Leiste entfernt; ersetzt durch FAB: fixierter grüner Kreis (56×56px) unten rechts
+- CSS-Only: `li:has(> #shaarli-menu-shaare) { position: fixed; bottom: 2rem; right: 2rem }` — kein Template-Eingriff
+- Plus-Symbol als CSS-Kreuz (2px `::before` + `::after`), Font Awesome Icon ausgeblendet
+- Hover: leichtes Scale + vertiefter Schatten
+
+### Nav-Links — Hover & Textgröße (r=91–94)
+- **Variant A:** Hover = grüner Text (`--color-primary`), kein Hintergrund; Standardzustand `--text-secondary`
+- **Font-Size:** 0.875rem (nav-Links kleiner als Titel)
+- **Weißer Balken global unterdrückt:** `shaarli.min.css` setzt `.pure-menu-item:hover::after { background:#fff; height:4px }` für alle Items — in `#shaarli-menu` komplett unterdrückt via `content:none !important`
+- **Icon-Hover:** `border-radius: 50%` — runde Hover-Fläche auf allen drei Header-Icons
+
+### Header-Ausrichtung — in Arbeit (r=98–110)
+- **Ziel:** Titel, Nav-Links und Icons vertikal auf gleicher Höhe
+- **Problem:** PureCSS `.pure-g` setzt `align-content: flex-start` — überschreibt `align-items: center` in bestimmten Browsern (Safari/WebKit)
+- **Ansatz ab r=107:** `display: grid !important` auf dem Container — umgeht PureCSS-Flexbox-Interferenz komplett
+- **Problem grid r=107–108:** PureCSS-Kinder (`pure-u-lg-5-6`, `pure-u-lg-1-6`) hatten `width: 83%/17%` relativ zur Grid-Zelle statt zum Container → Icons schrumpften auf ~2.8% Breite
+- **Fix r=109:** `width: 100% !important` auf beiden Kindern — füllen ihre Grid-Zelle vollständig
+- **Aktuell r=110:** `align-items: stretch` statt `center` — beide Spalten dehnen sich auf volle Row-Höhe, zentrieren Inhalt intern → nav-Links und Icons auf identischer y-Position
+
+### Technische Erkenntnisse dieser Session
+- PureCSS `align-content: flex-start` auf `.pure-g` interferiert mit `align-items: center` in Safari — Grid als sicherer Ausweg
+- In CSS Grid werden `width: N%` auf Kindern relativ zur Grid-Zelle berechnet, nicht zum Container → `width: 100% !important` auf Grid-Items nötig
+- `align-items: center` auf Grid zentriert Items als Block (unterschiedliche Höhen bleiben unterschiedlich zentriert) → `align-items: stretch` + interne `align-items: center` für konsistente Mittellinie
+
+---
+
+## [v1.3] — Header Icon-Reihe (2026-06-13, r=78–90)
+
+### Icon-Reihe rechts — Variante C implementiert
+- Pill-Toggle "Hell/Dunkel" durch Icon-Toggle ersetzt: Mond (`fa-moon-o`) / Sonne (`fa-sun-o`)
+- RSS-Icon entfernt — Icon-Reihe: Mond | Separator | Suche | Logout/Login
+- Separator: `.nav-sep::after` (1px × 16px, `var(--border-color)`)
+- Single-Icon-Ansatz: ein `<i>`-Element, Klasse wird per `syncIcon()` beim Toggle getauscht
+- Hover: `color: --text-primary` (weiß), kein grüner Akzent
+- JS Cache-Busting: `&r=2` in `page.footer.html` ergänzt
+
+### Bugfixes dieser Session
+- **Weißer Balken** (`::after`): `shaarli.min.css` setzt `.pure-menu-item:hover::after { background:#fff; height:4px }` — in `.header-buttons` unterdrückt via `content:none !important`
+- **Icon-Reihe unsichtbar:** `pure-u-0 { display:none !important }` schlug `pure-u-lg-visible` — explizites `display:inline-flex !important` in Media Query ergänzt
+- **Icon-Liste vertikal:** `.header-buttons .pure-menu-list { display:flex }` explizit gesetzt
+- **Mond-Hover grün:** Duplikat `#theme-toggle:hover { color: --color-primary }` korrigiert auf `--text-primary`
+- **"Hell"-Text (JS-Cache):** Safari cachte alte `origr3n.js` mit `btn.textContent = 'Hell'`; `&r=2` erzwingt Neuladen
+
+---
+
 ## [v1.2] — Kartendesign-Verfeinerung (2026-06-13, r=71–77)
 
 ### Kein permanenter Akzentstreifen auf öffentlichen Karten (r=75–76)
