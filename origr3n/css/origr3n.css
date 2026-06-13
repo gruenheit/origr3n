@@ -554,17 +554,28 @@ input[type="checkbox"] {
   color: var(--text-primary) !important;
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius);
-}
-
-.page-form .window-title,
-.page-form .created-date {
-  background: var(--bg-surface) !important;
-  color: var(--text-primary) !important;
+  position: relative;
 }
 
 .page-form .window-title {
+  background: var(--bg-surface) !important;
   color: var(--color-primary) !important;
   font-weight: 700;
+}
+
+/* Datum als Pill oben rechts in der Titelzeile */
+.page-form .created-date {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-muted) !important;
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 0.15rem 0.6rem;
+  line-height: 1.4;
 }
 
 /* Inputs im Formular — Shaarli setzt hard-coded #eee/#252525 */
@@ -592,18 +603,33 @@ input[type="checkbox"] {
   color: var(--text-secondary) !important;
 }
 
-/* Delete-Button bleibt rot, Cancel-Button grau */
+/* Submit-Buttons: Flex — Save links dominant, Delete Ghost-Rot rechts */
+.page-form .submit-buttons {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-color) !important;
+  padding-top: 0.65rem !important;
+}
+
+.page-form .submit-buttons a.button-red,
+.page-form .submit-buttons .button-red {
+  margin-left: auto !important;
+}
+
+/* Delete Ghost-Rot */
 a.button-red,
 .button-red {
-  background: #ac2925 !important;
-  color: #fff !important;
-  border: none !important;
+  background: transparent !important;
+  color: #d04040 !important;
+  border: 1px solid #8a2828 !important;
 }
 
 a.button-red:hover,
 .button-red:hover {
-  background: #c0392b !important;
+  background: #ac2925 !important;
   color: #fff !important;
+  border-color: #ac2925 !important;
   text-decoration: none;
 }
 
@@ -688,6 +714,7 @@ a.button-grey,
   font-size: 0.72rem !important;
   border-top: 1px solid var(--border-color) !important;
   padding: 0.15rem 0.5rem !important;
+  text-align: right !important;
 }
 
 /* ============================================================
