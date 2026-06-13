@@ -419,8 +419,8 @@ a.tag:hover {
   color: var(--color-primary) !important;
   border: 1px solid rgba(61,142,18,0.25);
   border-radius: 20px;
-  padding: 0.05rem 0.4rem;
-  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.76rem;
   font-weight: 400;
   white-space: nowrap;
   cursor: pointer;
@@ -469,7 +469,16 @@ a.tag:hover {
   border-right-color: var(--border-color) !important;
 }
 
+.linklist-item-infos-controls-item {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
 .linklist-item-infos-controls-item a {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
   color: var(--text-muted) !important;
   transition: color 0.12s ease;
 }
