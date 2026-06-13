@@ -966,11 +966,11 @@ a.button-grey,
   text-align: center;
 }
 
-/* Tag-Links in der Cloud: alle grün, Grösse skaliert mit Häufigkeit (inline via Shaarli).
-   Hover: helleres Grün + Unterstreichung als Klick-Indikator. */
+/* Tag-Links in der Cloud: Farbe durch cloudtag-gradient.js gesetzt (Dunkelgrün→Hellgrün).
+   Kein !important — JS-inline-Style soll gewinnen. Fallback: --color-primary. */
 #cloudtag > a,
 .cloudtag-container > a {
-  color: var(--color-primary) !important;
+  color: var(--color-primary);
   text-decoration: none;
   padding: 0.05rem 0.2rem;
   font-weight: 600;

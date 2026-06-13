@@ -8,7 +8,7 @@
 <link href="{$asset_path}/img/favicon.png#" rel="shortcut icon" type="image/png" />
 <link href="{$asset_path}/img/apple-touch-icon.png#" rel="apple-touch-icon" sizes="180x180" />
 <link type="text/css" rel="stylesheet" href="{$asset_path}/css/shaarli.min.css?v={$version_hash}#" />
-<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=6#" />
+<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=7#" />
 <script>
   /* origr3n: Anti-FOUC — apply theme before first paint */
   (function(){
@@ -28,6 +28,25 @@
 {/if}
 <link rel="search" type="application/opensearchdescription+xml" href="{$base_path}/open-search#"
       title="Shaarli search - {$shaarlititle}" />
+<script>
+/* origr3n: Tag-Cloud Farbgradient — Häufigkeit bestimmt Helligkeit (dunkelgrün→hellgrün) */
+document.addEventListener('DOMContentLoaded', function(){
+  var cloud = document.getElementById('cloudtag');
+  if (!cloud) return;
+  var links = Array.from(cloud.querySelectorAll('a:not(.count)'));
+  if (links.length < 2) return;
+  var sizes = links.map(function(a){ return parseFloat(a.style.fontSize) || 0.8; });
+  var min = Math.min.apply(null, sizes), max = Math.max.apply(null, sizes);
+  var range = max - min || 1;
+  var dark = document.documentElement.getAttribute('data-theme') !== 'light';
+  links.forEach(function(a, i){
+    var t = (sizes[i] - min) / range;
+    var L = dark ? Math.round(20 + t * 22) : Math.round(20 + t * 14);
+    var S = Math.round(65 + t * 10);
+    a.style.setProperty('color', 'hsl(100,' + S + '%,' + L + '%)', 'important');
+  });
+});
+</script>
 {if="$template === 'linklist' && ! empty($links) && count($links) === 1"}
   {$link=reset($links)}
   <meta property="og:title" content="{$link.title}" />
