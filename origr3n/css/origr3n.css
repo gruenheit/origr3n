@@ -480,10 +480,11 @@ a.tag:hover {
 }
 
 /* Variante E — Icon-Farben pro Aktion */
-.ctrl-edit a       { color: #3d8e12 !important; }
-.ctrl-delete a     { color: #2a6309 !important; }
-.ctrl-pin a        { color: #3d8e12 !important; }
+.ctrl-edit a            { color: #3d8e12 !important; }
+.ctrl-delete a          { color: #5a7a4a !important; }
+.ctrl-pin a             { color: #3d8e12 !important; }
 .ctrl-pin a.pinned-link { color: #5cb81a !important; }
+.link-checkbox          { accent-color: #5cb81a !important; }
 
 /* Fold-Button: verborgen */
 .linklist-item-buttons {
