@@ -1004,6 +1004,9 @@ a.button-grey,
   margin-bottom: 1.5rem;
 }
 
+/* Tag-Cloud + Tag-Liste Suchbutton: nie vollbreit
+   (Header-Suchbutton ist außerhalb #content und unberührt) */
+#content .search-button,
 #search-tagcloud input[type="submit"] {
   width: auto;
 }
