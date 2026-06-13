@@ -580,8 +580,14 @@ input[type="checkbox"] {
   border: 1px solid var(--border-color) !important;
 }
 
-/* Labels / Placeholder-artige Texte */
-.page-form div > label,
+/* Labels — Mikro-Caps */
+.page-form div > label {
+  color: var(--text-muted) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
 .page-form .md_help a {
   color: var(--text-secondary) !important;
 }
@@ -611,6 +617,48 @@ a.button-grey,
 /* Edit-Link-Container Hintergrund */
 .edit-link-container {
   background: transparent;
+}
+
+/* EasyMDE Markdown-Editor — Toolbar */
+.editor-toolbar {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-color) !important;
+}
+.editor-toolbar button {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted) !important;
+}
+.editor-toolbar button:hover,
+.editor-toolbar button.active {
+  background: var(--bg-surface) !important;
+  color: var(--color-primary) !important;
+  border-color: transparent !important;
+}
+.editor-toolbar i.separator {
+  border-left-color: var(--border-color) !important;
+}
+
+/* EasyMDE — CodeMirror-Textbereich */
+.CodeMirror {
+  background: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+  font-family: monospace !important;
+}
+.CodeMirror-cursor {
+  border-left-color: var(--text-primary) !important;
+}
+.CodeMirror-selected {
+  background: rgba(61, 142, 18, 0.2) !important;
+}
+
+/* EasyMDE — Statuszeile (Char-Counter) */
+.editor-statusbar {
+  color: var(--text-muted) !important;
+  font-size: 0.72rem !important;
+  border-top: none !important;
+  padding: 0.15rem 0.5rem !important;
 }
 
 /* ============================================================
@@ -1383,6 +1431,34 @@ a.button-grey,
 [data-theme="light"] .linksperpage a {
   background: #e8e8e8 !important;
   border-color: #c0c0c0 !important;
+}
+
+/* --- Light Mode: EasyMDE Editor ----------------------------- */
+[data-theme="light"] .editor-toolbar {
+  background: #f0f0f0 !important;
+  border-color: #d0d0d0 !important;
+}
+[data-theme="light"] .editor-toolbar button {
+  color: #666 !important;
+}
+[data-theme="light"] .editor-toolbar button:hover,
+[data-theme="light"] .editor-toolbar button.active {
+  background: #e0e0e0 !important;
+  color: var(--color-primary) !important;
+}
+[data-theme="light"] .editor-toolbar i.separator {
+  border-left-color: #d0d0d0 !important;
+}
+[data-theme="light"] .CodeMirror {
+  background: #fff !important;
+  color: #222 !important;
+  border-color: #ccc !important;
+}
+[data-theme="light"] .CodeMirror-cursor {
+  border-left-color: #222 !important;
+}
+[data-theme="light"] .editor-statusbar {
+  color: #999 !important;
 }
 
 /* ============================================================
