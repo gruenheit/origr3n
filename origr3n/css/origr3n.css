@@ -831,6 +831,8 @@ a.button-grey,
   color: var(--text-primary) !important;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 1rem;
 }
 
@@ -850,34 +852,61 @@ a.button-grey,
   border-bottom: none;
 }
 
-/* <a> als Block — sonst berechnet sich pure-u-lg-2-3 relativ zur Inline-Breite
-   und jeder Button misst anders */
 .tools-item a,
 .bookmarklet-link {
   display: block;
   text-decoration: none !important;
 }
 
-/* Buttons füllen jetzt die volle Block-<a>-Breite — einheitlich und zentrierter Text */
+/* Reguläre Tool-Links: Row-Stil mit Pfeil-Prefix */
 .tools-item .pure-button {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  text-align: center;
-  padding: 0.45rem 1rem;
+  text-align: left;
+  padding: 0.38rem 0.25rem;
   border-radius: var(--border-radius);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   background: transparent !important;
-  color: var(--color-primary) !important;
-  border: 1px solid var(--color-primary) !important;
-  transition: background 0.15s, color 0.15s;
+  color: var(--text-secondary) !important;
+  border: none !important;
+  transition: color 0.12s;
+}
+
+.tools-item .pure-button::before {
+  content: "→";
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-right: 0.55rem;
 }
 
 .tools-item a:hover .pure-button {
+  color: var(--text-primary) !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+
+/* Bookmarklet-Links: kompakter Ghost-Button statt Row */
+.bookmarklet-link .pure-button {
+  display: inline-block !important;
+  width: auto !important;
+  text-align: center !important;
+  padding: 0.35rem 0.9rem !important;
+  background: transparent !important;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+  font-weight: 600 !important;
+  margin: 0.15rem 0;
+}
+
+.bookmarklet-link .pure-button::before {
+  content: none;
+}
+
+.bookmarklet-link:hover .pure-button {
   background: var(--color-primary) !important;
   color: #fff !important;
-  text-decoration: none !important;
 }
 
 /* ============================================================
