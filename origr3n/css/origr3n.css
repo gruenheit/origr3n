@@ -479,12 +479,12 @@ a.tag:hover {
   color: var(--color-primary) !important;
 }
 
-/* Variante E — Icon-Farben pro Aktion */
-/* .delete-link in shaarli.min.css hat color:#ac2925 !important — gleicher Selektor, origr3n.css später → gewinnt */
-.ctrl-edit a            { color: #3d8e12 !important; }
+/* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
+/* shaarli.min.css: .edit-link{color:#0b5ea6}, .delete-link{color:#ac2925 !important} */
+.edit-link              { color: #3d8e12 !important; }
 .delete-link            { color: #5a7a4a !important; }
-.ctrl-pin a             { color: #3d8e12 !important; }
-.ctrl-pin a.pinned-link { color: #5cb81a !important; }
+.pin-link               { color: #3d8e12 !important; }
+.pinned-link            { color: #5cb81a !important; }
 .link-checkbox          { accent-color: #5cb81a !important; }
 
 /* Fold-Button: verborgen */
