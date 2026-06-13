@@ -234,18 +234,11 @@
                     </div>
                   {/if}
                 {/if}
-                <a href="{$base_path}/shaare/{$value.shorturl}" title="{$strPermalink}">
-                  {if="!$hide_timestamps || $is_logged_in"}
-                    {$updated=$value.updated_timestamp ? $strEdited. format_date($value.updated) : $strPermalink}
-                    <span class="linkdate" title="{$updated}">
-                      <i class="fa fa-clock-o" aria-hidden="true"></i>
-                      {$value.created|format_date}
-                      {if="$value.updated_timestamp"}*{/if}
-                      &middot;
-                    </span>
-                  {/if}
-                  {$strPermalinkLc}
-                </a>
+                {if="!$hide_timestamps || $is_logged_in"}
+                  {$updated=$value.updated_timestamp ? $strEdited. format_date($value.updated) : $strPermalink}
+                  <span class="linkdate" data-ts="{$value.created->format('U')}" title="{$updated}">{$value.created->format('d.m.Y')}</span>
+                {/if}
+                <a href="{$base_path}/shaare/{$value.shorturl}" title="{$strPermalink}" class="shaare-permalink"><span class="permalink-label"> &middot; {$strPermalinkLc}</span></a>
 
                 {if="$is_logged_in && $value.private"}
                   <a href="{$base_path}/admin/shaare/private/{$value.shorturl}?token={$token}" title="{$strShaarePrivate}">
@@ -266,7 +259,7 @@
               </div><div
                 {ignore}do not add space or line break between these div - Firefox issue{/ignore}
                 class="linklist-item-infos-url pure-u-lg-5-12 pure-u-1">
-                <a href="{$value.real_url}" aria-label="{$value.title}" title="{$value.title}">
+                <a href="{$value.real_url}" aria-label="{$value.title}" title="{$value.real_url}">
                   <i class="fa fa-link" aria-hidden="true"></i> {$value.url_html}
                 </a>
                 <div class="linklist-item-buttons pure-u-0 pure-u-lg-visible">

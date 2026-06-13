@@ -22,7 +22,7 @@
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
-<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=33#" />
+<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=51#" />
 {if="is_file('data/user.css')"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/data/user.css#" />
 {/if}
@@ -56,25 +56,75 @@ document.addEventListener('DOMContentLoaded', function(){
   u.addEventListener('input', function(){ this.title = this.value; });
 });
 
+/* origr3n: Datums-Pille — Edit-Formular (.created-date) und Linklist (.linkdate) */
 document.addEventListener('DOMContentLoaded', function(){
-  var el = document.querySelector('.created-date[data-ts]');
-  if (!el) return;
-  var d = new Date(parseInt(el.getAttribute('data-ts'), 10) * 1000);
-  var now = new Date();
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var yesterday = new Date(today.getTime() - 86400000);
-  var dDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  var hhmm = d.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
-  var label;
-  if (dDay >= today) {
-    label = 'heute, ' + hhmm;
-  } else if (dDay >= yesterday) {
-    label = 'gestern, ' + hhmm;
-  } else {
-    label = d.toLocaleDateString('de-DE', {day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
+  function formatDatePill(el) {
+    var d = new Date(parseInt(el.getAttribute('data-ts'), 10) * 1000);
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var yesterday = new Date(today.getTime() - 86400000);
+    var dDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    var hhmm = d.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
+    var label;
+    if (dDay >= today) {
+      label = 'heute, ' + hhmm;
+    } else if (dDay >= yesterday) {
+      label = 'gestern, ' + hhmm;
+    } else {
+      label = d.toLocaleDateString('de-DE', {day: 'numeric', month: 'short', year: '2-digit'});
+    }
+    el.textContent = label;
+    el.title = d.toLocaleDateString('de-DE', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
   }
-  el.textContent = label;
-  el.title = d.toLocaleDateString('de-DE', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
+  /* Edit-Formular: einzelnes Element */
+  var editEl = document.querySelector('.created-date[data-ts]');
+  if (editEl) formatDatePill(editEl);
+  /* Linklist: alle Karten */
+  document.querySelectorAll('.linkdate[data-ts]').forEach(formatDatePill);
+});
+
+/* origr3n: Multi-Select (Kartenbereich) + Footer-Band auf/zuklappen (Footer-Klick) */
+document.addEventListener('DOMContentLoaded', function(){
+  var items = document.querySelectorAll('.linklist-item');
+  if (!items.length) return;
+  items.forEach(function(item){
+    var infos = item.querySelector('.linklist-item-infos');
+    var pill = item.querySelector('.linkdate[data-ts]');
+    var pl   = item.querySelector('.shaare-permalink');
+
+    /* Datum-Pille = Permalink (Option A): Klick navigiert zur Shaare-URL */
+    if (pill && pl) {
+      pill.addEventListener('click', function(e){
+        e.stopPropagation(); /* kein Footer-Aufklappen, keine Selektion */
+        window.location.href = pl.href;
+      });
+    }
+
+    /* Footer-Band: Klick klappt auf/zu — stoppt Propagation, löst keine Selektion aus */
+    if (infos) {
+      infos.addEventListener('click', function(e){
+        e.stopPropagation();
+        if (e.target.closest('a') || e.target.tagName === 'INPUT') return;
+        item.classList.toggle('footer-open');
+      });
+    }
+    /* Kartenbereich (außerhalb Footer): Selektion togglen */
+    item.addEventListener('click', function(e){
+      if (e.target.closest('a') || e.target.tagName === 'INPUT') return;
+      item.classList.toggle('selected');
+    });
+  });
+  /* Klick außerhalb: Selektion und offene Footer zurücksetzen */
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.linklist-item')) {
+      document.querySelectorAll('.linklist-item.selected').forEach(function(i){
+        i.classList.remove('selected');
+      });
+      document.querySelectorAll('.linklist-item.footer-open').forEach(function(i){
+        i.classList.remove('footer-open');
+      });
+    }
+  });
 });
 </script>
 {if="$template === 'linklist' && ! empty($links) && count($links) === 1"}

@@ -233,7 +233,8 @@ a.shaarli-title:hover {
 }
 
 .linklist-item {
-  background: var(--bg-surface);
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
   border: 1px solid var(--border-color);
   border-left: 3px solid var(--color-primary);
   border-radius: var(--border-radius);
@@ -241,6 +242,12 @@ a.shaarli-title:hover {
   margin-bottom: 0.8rem;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* Shaarli-Base setzt background:#f5f5f5 auf .linklist-item-title */
+.linklist-item-title {
+  background: transparent !important;
+  color: var(--text-primary) !important;
 }
 
 /* Private Links: Amber-Akzent statt Grün.
@@ -262,19 +269,23 @@ a.shaarli-title:hover {
 
 /* Titel */
 .linklist-item-title h2 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
   margin: 0 0 0.3rem;
   line-height: 1.4;
 }
 
 .linklist-item-title h2 a,
+.linklist-item-title .linklist-link,
 .linklist-real-url {
   color: var(--color-primary) !important;
   font-weight: 600;
 }
 
+/* Shaarli-Base: .linklist-link:hover { color: #252525 } — auf dunklem Bg unsichtbar */
 .linklist-item-title h2 a:hover,
+.linklist-item-title .linklist-link:hover,
 .linklist-real-url:hover {
   color: var(--color-primary-h) !important;
   text-decoration: none;
@@ -308,7 +319,7 @@ a.shaarli-title:hover {
 
 /* Beschreibung */
 .linklist-item-description {
-  color: var(--text-secondary);
+  color: var(--text-secondary) !important;
   font-size: 0.88rem;
   margin: 0.3rem 0 0.5rem;
   line-height: 1.55;
@@ -320,39 +331,77 @@ a.shaarli-title:hover {
 
 /* Tags */
 .linklist-item-tags {
-  margin: 0.4rem 0 0.3rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  flex: 1;
 }
 
+/* Tags-Icon (fa-tags): redundant im Footer-Band, ausblenden */
+.linklist-item-tags .fa-tags {
+  display: none;
+}
+
+/* span.label-tag (Shaarli-Wrapper) im Linklist-Kontext: nur Container, kein eigenes Styling */
+.linklist-item-tags .label-tag,
+.linklist-item-tags .label.label-tag {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+}
+
+/* Die <a> innerhalb tragen das gesamte Pill-Styling */
 .linklist-item-tags a,
 a.tag {
   display: inline-block;
-  background: var(--bg-elevated);
+  background: var(--bg-surface);
   color: var(--color-primary) !important;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(61,142,18,0.45);
   border-radius: 3px;
   padding: 0.1rem 0.45rem;
   font-size: 0.76rem;
   font-weight: 500;
-  margin: 0.1rem 0.15rem 0.1rem 0;
-  transition: background 0.1s, border-color 0.1s;
+  margin: 0;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
 }
 
 .linklist-item-tags a:hover,
 a.tag:hover {
-  background: var(--color-primary);
+  background: var(--color-primary) !important;
   color: #fff !important;
   text-decoration: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-primary) !important;
 }
 
-/* Metadaten-Zeile (Datum, URL, Permalink) */
-.linklist-item-infos {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--border-color);
+/* Tag-Farbe im Footer-Band nicht durch .linklist-item-infos a {muted} überschreiben lassen */
+.linklist-item-infos .linklist-item-tags a {
+  color: var(--color-primary) !important;
 }
+
+.linklist-item-infos .linklist-item-tags a:hover {
+  color: #fff !important;
+}
+
+/* Footer-Band: eigenständige Zone, volle Kartenbreite, erhöhter Hintergrund */
+/* Shaarli-Base: background:#ddd; padding:4px 8px; color:#252525 — alles überschreiben */
+.linklist-item-infos {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin: 0.5rem -1.3rem -1.15rem;
+  padding: 0.22rem 1.3rem 0.25rem !important;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-elevated) !important;
+  border-radius: 0 0 5px 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+  cursor: pointer;
+}
+
 
 .linklist-item-infos a {
   color: var(--text-muted) !important;
@@ -363,14 +412,105 @@ a.tag:hover {
   text-decoration: none;
 }
 
-.linkdate,
+/* Datums-Pille: grün, dezent, klickbar als Permalink */
+.linkdate {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-primary) !important;
+  border: 1px solid rgba(61,142,18,0.25);
+  border-radius: 20px;
+  padding: 0.05rem 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.linkdate:hover {
+  background: rgba(61,142,18,0.10);
+  border-color: rgba(61,142,18,0.5);
+}
+
+/* Permalink-Label: immer ausgeblendet (wird erst beim Footer-Aufklappen relevant) */
+.permalink-label {
+  display: none;
+}
+
+/* URL-Zeile: im Ruhezustand verborgen */
 .linklist-item-infos-url {
-  color: var(--text-muted);
+  display: none;
 }
 
 .linklist-item-infos-url a {
   color: var(--text-muted) !important;
   word-break: break-all;
+}
+
+/* Link-Icon vor der URL: redundant, raus */
+.linklist-item-infos-url .fa-link {
+  display: none;
+}
+
+/* Datums-Pille und URL-Block nach rechts schieben (kompakter Zustand) */
+.linklist-item-infos-date-url-block {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* PureCSS pure-u-lg-7-12 setzt width: 58.33% — immer überschreiben für kompaktes Layout */
+.linklist-item-infos-dateblock {
+  width: auto !important;
+}
+
+/* Controls: PureCSS setzt .pure-u-lg-visible { display: inline !important }
+   → eigenes !important nötig, sonst gewinnt PureCSS */
+.linklist-item-infos-controls-group {
+  display: none !important;
+  border-right-color: var(--border-color) !important;
+}
+
+.linklist-item-infos-controls-item a,
+.link-checkbox {
+  color: var(--text-muted) !important;
+  transition: color 0.12s ease;
+}
+
+.linklist-item-infos-controls-item a:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Fold-Button: verborgen */
+.linklist-item-buttons {
+  display: none;
+}
+
+/* ── SELECTED-STATE ────────────────────────────────────────── */
+/* Nur visueller Indikator — Footer bleibt kompakt */
+.linklist-item.selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md);
+}
+
+/* ── FOOTER-OPEN — ausgeklappter Footer-Band ─────────────── */
+/* Klick auf Footer-Band → .footer-open — unabhängig von Selektion */
+.linklist-item.footer-open .linklist-item-infos {
+  padding: 0.35rem 1.3rem 0.45rem !important;
+}
+
+.linklist-item.footer-open .linklist-item-infos-controls-group {
+  display: flex !important;
+  align-items: center;
+  gap: 0.35rem;
+  padding-right: 0.6rem;
+  margin-right: 0.1rem;
+  border-right: 1px solid var(--border-color);
+}
+
+/* dateblock als Flex-Zeile damit Icons und Datum sauber ausgerichtet sind */
+.linklist-item.footer-open .linklist-item-infos-dateblock {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 /* Edit-Buttons (nur eingeloggt sichtbar) */
@@ -1616,6 +1756,12 @@ a.button-grey,
   /* --- Karten: etwas weniger Padding --- */
   .linklist-item {
     padding: 0.75rem 0.85rem;
+  }
+
+  /* --- Footer-Band: negativen Margin an mobiles Card-Padding anpassen --- */
+  .linklist-item-infos {
+    margin: 0.5rem -0.85rem -0.75rem;
+    padding: 0.4rem 0.85rem 0.5rem !important;
   }
 
   /* --- Mobile-Menü wenn offen (JS entfernt .pure-menu-horizontal) --- */
