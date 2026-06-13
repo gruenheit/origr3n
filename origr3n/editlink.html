@@ -20,13 +20,15 @@
     >
       {$asyncLoadClass=$link_is_new && $async_metadata && empty($link.title) ? 'loading-input' : ''}
 
-      <h2 class="window-title">
-        {if="!$link_is_new"}{'Edit Shaare'|t}{else}{'New Shaare'|t}{/if}
-      </h2>
+      <div class="title-row">
+        <h2 class="window-title">
+          {if="!$link_is_new"}{'Edit Shaare'|t}{else}{'New Shaare'|t}{/if}
+        </h2>
+        {if="!$link_is_new"}<div class="created-date" data-ts="{$link.created->format('U')}"></div>{/if}
+      </div>
       {if="isset($link.id)"}
         <input type="hidden" name="lf_id" value="{$link.id}">
       {/if}
-      {if="!$link_is_new"}<div class="created-date" data-ts="{$link.created->format('U')}"></div>{/if}
       <div>
         <label for="lf_url{$batchId}">{'URL'|t}</label>
       </div>

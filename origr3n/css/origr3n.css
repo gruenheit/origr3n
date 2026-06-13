@@ -554,20 +554,24 @@ input[type="checkbox"] {
   color: var(--text-primary) !important;
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius);
-  position: relative;
+}
+
+/* Titelzeile: Überschrift links, Datum-Pill rechts — vertikal zentriert */
+.page-form .title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .page-form .window-title {
   background: var(--bg-surface) !important;
   color: var(--color-primary) !important;
   font-weight: 700;
+  margin: 0;
 }
 
-/* Datum als Pill oben rechts in der Titelzeile */
+/* Datum als Pill in der Titelzeile */
 .page-form .created-date {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.75rem;
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--text-secondary) !important;
@@ -575,7 +579,8 @@ input[type="checkbox"] {
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 0.15rem 0.6rem;
-  line-height: 1.4;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Inputs im Formular — Shaarli setzt hard-coded #eee/#252525 */
