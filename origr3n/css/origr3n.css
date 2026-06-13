@@ -487,32 +487,37 @@ a.tag:hover {
   color: var(--color-primary) !important;
 }
 
-/* Multi-Checkbox: natives Input verstecken, FA-Icon via ::before auf .ctrl-checkbox */
+/* Multi-Checkbox: nativer Checkbox mit appearance: none — immer anklickbar, kein FA-Trick */
 .ctrl-checkbox {
-  position: relative;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
 }
 .ctrl-checkbox .link-checkbox {
-  position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 1.5px solid #5a7a4a;
+  border-radius: 2px;
+  background: transparent;
   cursor: pointer;
   margin: 0;
+  position: static;
+  opacity: 1;
+  flex-shrink: 0;
+  transition: border-color 0.12s, background 0.12s;
 }
-.ctrl-checkbox::before {
-  font-family: FontAwesome;
-  content: "\f096"; /* fa-square-o — unselektiert */
-  color: #5cb81a;
-  font-size: 0.95rem;
-  line-height: 1;
-  pointer-events: none;
+.ctrl-checkbox .link-checkbox:hover {
+  border-color: #5cb81a;
 }
-.ctrl-checkbox:has(.link-checkbox:checked)::before {
-  content: "\f14a"; /* fa-check-square — selektiert */
-  color: #5cb81a;
+.ctrl-checkbox .link-checkbox:checked {
+  background: #5cb81a;
+  border-color: #5cb81a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+  background-size: 0.75rem;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
