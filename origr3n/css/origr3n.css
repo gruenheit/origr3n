@@ -329,6 +329,18 @@ a.shaarli-title:hover {
   margin: 0;
 }
 
+/* Markdown-Überschriften in Karten: Größe begrenzen — sonst Editorial-Optik */
+.linklist-item-description h1,
+.linklist-item-description h2,
+.linklist-item-description h3,
+.linklist-item-description h4 {
+  font-size: 1.05rem !important;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0.25rem 0 0.15rem;
+  color: var(--text-primary) !important;
+}
+
 /* Tags */
 .linklist-item-tags {
   margin: 0;
@@ -548,10 +560,16 @@ a.tag:hover {
 }
 
 /* ── SELECTED-STATE ────────────────────────────────────────── */
-/* Nur visueller Indikator — Footer bleibt kompakt */
+/* Grünes Tint + Glow-Ring — klar unterscheidbar von footer-open */
 .linklist-item.selected {
+  background: rgba(61, 142, 18, 0.07) !important;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md);
+}
+
+/* footer-open ohne selected: Hover-Rahmen supprimieren — sonst sieht es aus wie selected */
+.linklist-item.footer-open:not(.selected):hover {
+  border-color: var(--border-color);
 }
 
 /* ── FOOTER-OPEN — ausgeklappter Footer-Band ─────────────── */
