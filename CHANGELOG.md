@@ -1,5 +1,22 @@
 # Changelog
 
+## [v1.1] — Post-v1.0 Verbesserungen (2026-06-13, r=66–70)
+
+### Visibility-Toggle im Footer-Band (r=67–69)
+- Neues Icon **fa-lock** (amber) / **fa-unlock-alt** (muted) direkt im Footer-Band
+- Klick auf Icon togglet Privat↔Öffentlich via `/admin/shaare/visibility` (kein JS, Server-Redirect)
+- Reihenfolge: lock · edit · delete · pin · multi
+- share-alt links der Datum-Pille (vor `linkdate` im Template verschoben)
+
+### Visuelle Zustände (r=70)
+- **selected vs. footer-open getrennt:** selected = grünes Tint `rgba(61,142,18,0.07)` + Glow-Ring; footer-open unterdrückt Hover-Rahmen via `:not(.selected):hover`
+- **Markdown-Überschriften in Karten** auf `1.05rem` begrenzt — kein Editorial-Durchbruch mehr
+
+### Multi-Checkbox (r=66)
+- `0.75rem` — visuell auf Icon-Niveau angeglichen; `border-radius: 1px`
+
+---
+
 ## [v1.0] — Linklist-Karten abgeschlossen (2026-06-13, r=65)
 
 **Meilenstein:** Darstellung der Linklist-Karten vollständig. Nächster Schritt: Header-Bereich (Suche, Filter, Toolbar).
