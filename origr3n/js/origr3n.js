@@ -14,10 +14,6 @@
   function apply(theme) {
     document.documentElement.setAttribute(ATTR, theme);
     localStorage.setItem(STORAGE_KEY, theme);
-    const label = theme === 'dark' ? 'Hell' : 'Dunkel';
-    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-      btn.textContent = label;
-    });
   }
 
   function toggle() {
