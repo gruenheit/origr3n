@@ -872,6 +872,9 @@ a.button-grey,
   color: var(--text-secondary) !important;
   border: none !important;
   transition: color 0.12s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tools-item .pure-button::before {
