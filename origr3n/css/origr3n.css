@@ -236,7 +236,6 @@ a.shaarli-title:hover {
   background: var(--bg-surface) !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--border-color);
-  border-left: 3px solid var(--color-primary);
   border-radius: var(--border-radius);
   padding: 1.15rem 1.3rem;
   margin-bottom: 0.8rem;
@@ -562,6 +561,7 @@ a.tag:hover {
 /* ── SELECTED-STATE ────────────────────────────────────────── */
 .linklist-item.selected {
   border-color: var(--color-primary);
+  border-left-width: 3px;
   box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md);
 }
 /* Private Karte selected: amber gewinnt, kein Glow-Ring — amber hat schon hohen Kontrast */
