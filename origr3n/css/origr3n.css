@@ -554,13 +554,12 @@ input[type="checkbox"] {
   color: var(--text-primary) !important;
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius);
+  padding: 0 0.75rem;
 }
 
-/* Titelzeile: Überschrift links, Datum-Pill rechts — vertikal zentriert */
+/* Titelzeile: Überschrift links, Datum-Pill rechts vertikal zentriert */
 .page-form .title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
   padding: 10px 0;
 }
 
@@ -568,12 +567,17 @@ input[type="checkbox"] {
   background: var(--bg-surface) !important;
   color: var(--color-primary) !important;
   font-weight: 700;
-  margin: 0;
+  margin: 0 !important;
   padding: 0 !important;
+  text-align: left !important;
 }
 
-/* Datum als Pill in der Titelzeile */
+/* Datum-Pill: top:50% + translateY(-50%) zentriert relativ zur .title-row padding-box */
 .page-form .created-date {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--text-secondary) !important;
@@ -582,7 +586,6 @@ input[type="checkbox"] {
   border-radius: 20px;
   padding: 0.15rem 0.6rem;
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 /* Inputs im Formular — Shaarli setzt hard-coded #eee/#252525 */
@@ -964,12 +967,12 @@ a.button-grey,
 }
 
 .page-form-light .window-title {
-  padding: 0.6rem 0.75rem 0.5rem;
+  padding: 0.6rem 0 0.5rem;
 }
 
 /* Einzelne Werkzeug-Links als Zeilen */
 .tools-item {
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0;
   border-bottom: 1px solid var(--border-color);
 }
 
