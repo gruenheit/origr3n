@@ -769,6 +769,12 @@ input[type="checkbox"] {
   text-align: left !important;
 }
 
+/* Seitenstreifen amber sobald PRIVAT-Haken gesetzt — live via :has(), kein JS */
+.page-form:has([name="lf_private"]:checked),
+.page-form:has([name="private"]:checked) {
+  border-left-color: #b07820 !important;
+}
+
 /* Datum-Pill: top:50% + translateY(-50%) zentriert relativ zur .title-row padding-box */
 .page-form .created-date {
   position: absolute;
