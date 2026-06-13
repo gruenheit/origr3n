@@ -1914,7 +1914,7 @@ a.button-grey,
 
 .markdown blockquote {
   color: var(--text-secondary) !important;
-  border-left-color: var(--color-primary) !important;
+  border-left-color: var(--text-muted) !important;
   background: var(--bg-elevated);
   padding: 0.5rem 0.75rem 0.5rem 1rem;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
@@ -1960,7 +1960,7 @@ a.button-grey,
 
 /* Light Mode: markdown.min.css defaults sind bereits hell — nur Akzent-Anpassung */
 [data-theme="light"] .markdown blockquote {
-  border-left-color: var(--color-primary) !important;
+  border-left-color: var(--text-muted) !important;
   background: #f0f7eb;
   color: #444 !important;
 }
