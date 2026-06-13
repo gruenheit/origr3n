@@ -1543,11 +1543,13 @@ a.button-grey,
   border-bottom-color: #d0d0d0 !important;
 }
 [data-theme="light"] .md-editor .btn {
-  color: #666 !important;
+  color: #555 !important;
+  background: transparent !important;
+  transition: background 0.12s, color 0.12s;
 }
 [data-theme="light"] .md-editor .btn:hover,
 [data-theme="light"] .md-editor .btn.active {
-  background: #e0e0e0 !important;
+  background: rgba(61, 142, 18, 0.14) !important;
   color: var(--color-primary) !important;
 }
 [data-theme="light"] .md-editor .btn-group + .btn-group {

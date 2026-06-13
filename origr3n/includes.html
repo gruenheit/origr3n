@@ -22,7 +22,7 @@
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
-<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=30#" />
+<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?v={$version_hash}&r=33#" />
 {if="is_file('data/user.css')"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/data/user.css#" />
 {/if}
@@ -48,7 +48,14 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script>
-/* origr3n: Datum-Pill — relativ + ohne Sekunden/Timezone */
+/* origr3n: URL-Feld — vollständige URL als Browser-Tooltip */
+document.addEventListener('DOMContentLoaded', function(){
+  var u = document.querySelector('input[name="lf_url"]');
+  if (!u) return;
+  u.title = u.value;
+  u.addEventListener('input', function(){ this.title = this.value; });
+});
+
 document.addEventListener('DOMContentLoaded', function(){
   var el = document.querySelector('.created-date[data-ts]');
   if (!el) return;
@@ -67,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function(){
     label = d.toLocaleDateString('de-DE', {day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
   }
   el.textContent = label;
+  el.title = d.toLocaleDateString('de-DE', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
 });
 </script>
 {if="$template === 'linklist' && ! empty($links) && count($links) === 1"}
