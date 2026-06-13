@@ -510,7 +510,6 @@ a.tag:hover {
   gap: 0.35rem;
   padding-right: 0.6rem;
   margin-right: 0.1rem;
-  border-right: 1px solid var(--border-color);
 }
 
 /* dateblock als Flex-Zeile damit Icons und Datum sauber ausgerichtet sind */
