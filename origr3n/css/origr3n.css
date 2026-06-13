@@ -582,7 +582,7 @@ input[type="checkbox"] {
 
 /* Labels — Mikro-Caps */
 .page-form div > label {
-  color: var(--text-muted) !important;
+  color: var(--text-secondary) !important;
   font-size: 0.72rem !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
@@ -619,16 +619,19 @@ a.button-grey,
   background: transparent;
 }
 
-/* EasyMDE Markdown-Editor — Toolbar */
+/* EasyMDE Markdown-Editor — Toolbar (nutzt <a>-Elemente, nicht <button>) */
 .editor-toolbar {
   background: var(--bg-elevated) !important;
   border-color: var(--border-color) !important;
 }
+.editor-toolbar a,
 .editor-toolbar button {
   background: transparent !important;
   border: none !important;
-  color: var(--text-muted) !important;
+  color: var(--text-secondary) !important;
 }
+.editor-toolbar a:hover,
+.editor-toolbar a.active,
 .editor-toolbar button:hover,
 .editor-toolbar button.active {
   background: var(--bg-surface) !important;
@@ -655,9 +658,10 @@ a.button-grey,
 
 /* EasyMDE — Statuszeile (Char-Counter) */
 .editor-statusbar {
+  background: var(--bg-elevated) !important;
   color: var(--text-muted) !important;
   font-size: 0.72rem !important;
-  border-top: none !important;
+  border-top: 1px solid var(--border-color) !important;
   padding: 0.15rem 0.5rem !important;
 }
 
