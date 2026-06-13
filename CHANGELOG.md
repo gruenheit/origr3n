@@ -1,5 +1,27 @@
 # Changelog
 
+## [v1.0] — Linklist-Karten abgeschlossen (2026-06-13, r=65)
+
+**Meilenstein:** Darstellung der Linklist-Karten vollständig. Nächster Schritt: Header-Bereich (Suche, Filter, Toolbar).
+
+### Footer-Band — Icons & Interaktion (r=52–65)
+- **Variante E Grünskala:** multi `#5cb81a` (hl), bearbeiten `#3d8e12` (primary), löschen `#5a7a4a` (muted), pin `#3d8e12` / pinned `#5cb81a`
+- **Icons:** fa-times (löschen), fa-bookmark (pin) — Labels entfernt, nur Icons
+- **Multi-Checkbox:** nativer `<input>` mit `appearance: none` — Quadrat-Outline unchecked, grün gefüllt mit SVG-Haken bei `:checked`; keine FA-Icon-Attrappe, zuverlässig klickbar
+- **Vertikale Ausrichtung:** `display: inline-flex; align-items: center` auf allen Controls-Items
+- **Private-Share-Link** (`fa-share-alt`): amber `#d4851a`, Hover `#e8a030`
+- **Trenner** entfernt: kein `border-right`, keine `&middot;` zwischen Tags
+- **Tag-Abstand:** `gap: 0.4rem`
+
+### Datum-Pille (r=61)
+- Auf Tag-Höhe angeglichen: `font-size: 0.76rem`, `padding: 0.1rem 0.4rem`
+
+### Formulare — Erweiterungen (r=64–65)
+- **Seitenstreifen amber bei PRIVAT:** `:has([name="lf_private"]:checked)` — live, kein JS
+- **Titel-Feld Tooltip:** vollständiger Titel als Browser-Tooltip, analog URL-Feld
+
+---
+
 ## [Unreleased] — Phase 3: Templates
 
 ### Linklist — Interaktion (2026-06-13, r=51)

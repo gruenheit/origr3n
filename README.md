@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: Phase 3 in Entwicklung — Dev-Instanz aktiv, Production-Deploy ausstehend
+> Status: **v1.0** — Linklist-Karten abgeschlossen · Header-Bereich folgt · Production-Deploy ausstehend
 
 ---
 
@@ -22,8 +22,11 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 - **Karten-Design:** 3px grüner Akzentrand links, private Links amber, Domain-Zeile unter Titel
 - **Multi-Select:** Klick auf Kartenbereich selektiert Karte (grüner Rahmen); mehrere Karten gleichzeitig
-- **Footer-Band:** Kompakter Streifen mit Tags + Datum-Pille; Klick klappt auf und zeigt Bearbeitungs-Icons
-- **Datum-Pille = Permalink:** Klick auf Datum öffnet `shaare/{shorturl}` direkt
+- **Footer-Band:** Tags + Datum-Pille + Icons (□ multi, ✏ edit, × delete, 🔖 pin); Klick klappt auf/zu
+- **Footer-Icons (Variante E):** Grünskala — multi `#5cb81a`, edit `#3d8e12`, delete `#5a7a4a`, pin `#3d8e12`
+- **Multi-Checkbox:** nativer `<input>` mit `appearance: none` — grüner Haken bei `:checked`, zuverlässig klickbar
+- **Private-Share-Link:** amber `#d4851a` (fa-share-alt) — konsistent mit Privat-Badge und Kartenakzent
+- **Datum-Pille = Permalink:** Klick öffnet `shaare/{shorturl}` direkt; Höhe auf Tag-Niveau angeglichen
 - **Datumsformat:** „heute, HH:MM" / „gestern, HH:MM" / „11. Jun. 26" für ältere Einträge
 - **Tag-Pills:** Grüner Rand, Hover-Inversion; kein redundantes Tag-Icon
 
@@ -33,6 +36,8 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 - **Tag-Liste:** Grüne Zähler-Badges
 - **Tools:** Akzentlinie links, Menüzeilen mit `→`-Pfeil
 - **Add/Edit-Formular:** Mikro-Caps Labels, vollbreite Inputs, Ghost-Red Delete, Markdown-Toolbar gestylt
+- **PRIVAT-Haken:** Seitenstreifen wechselt live auf amber (CSS `:has()`, kein JS)
+- **URL + Titel-Tooltip:** vollständiger Inhalt als Browser-Tooltip, aktualisiert sich beim Tippen
 
 ---
 
