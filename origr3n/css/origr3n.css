@@ -140,9 +140,11 @@ a.shaarli-title {
 }
 
 .origr3n-logo {
+  display: inline-block;
   height: 22px;
   width: 22px;
   flex-shrink: 0;
+  background: url('../img/logo.svg') center / contain no-repeat;
   opacity: 0.9;
 }
 
