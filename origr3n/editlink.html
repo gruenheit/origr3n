@@ -26,7 +26,7 @@
       {if="isset($link.id)"}
         <input type="hidden" name="lf_id" value="{$link.id}">
       {/if}
-      {if="!$link_is_new"}<div class="created-date">{'Created:'|t} {$link.created|format_date}</div>{/if}
+      {if="!$link_is_new"}<div class="created-date" data-ts="{$link.created->format('U')}"></div>{/if}
       <div>
         <label for="lf_url{$batchId}">{'URL'|t}</label>
       </div>
