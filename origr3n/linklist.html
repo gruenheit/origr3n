@@ -213,13 +213,13 @@
                     <span class="linklist-item-infos-controls-item ctrl-delete">
                       <a href="{$base_path}/admin/shaare/delete?id={$value.id}&amp;token={$token}" aria-label="{$strDelete}"
                          title="{$strDelete}" class="delete-link pure-u-0 pure-u-lg-visible confirm-delete">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        <i class="fa fa-times" aria-hidden="true"></i>
                       </a>
                     </span>
                     <span class="linklist-item-infos-controls-item ctrl-pin">
                       <a href="{$base_path}/admin/shaare/{$value.id}/pin?token={$token}"
                          title="{$strToggleSticky}" aria-label="{$strToggleSticky}" class="pin-link {if="$value.sticky"}pinned-link{/if} pure-u-0 pure-u-lg-visible">
-                        <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
                       </a>
                     </span>
                   </div>
@@ -228,7 +228,7 @@
                     <div class="linklist-item-infos-controls-group pure-u-0 pure-u-lg-visible">
                       <span class="linklist-item-infos-controls-item ctrl-pin">
                         <span title="{$strSticky}" class="pin-link pinned-link pure-u-0 pure-u-lg-visible">
-                          <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
                         </span>
                       </span>
                     </div>
@@ -278,7 +278,7 @@
                   &middot;
                   <a href="{$base_path}/admin/shaare/delete?id={$value.id}&amp;token={$token}" aria-label="{$strDelete}"
                      title="{$strDelete}" class="delete-link confirm-delete">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <i class="fa fa-times" aria-hidden="true"></i>
                   </a>
                   &middot;
                   <a href="{$base_path}/admin/shaare/{$value.id}" aria-label="{$strEdit}" title="{$strEdit}">
@@ -290,7 +290,7 @@
                      title="{$strToggleSticky}"
                      class="pin-link {if="$value.sticky"}pinned-link{/if}"
                   >
-                    <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                    <i class="fa fa-bookmark" aria-hidden="true"></i>
                   </a>
                 {/if}
               </div>
