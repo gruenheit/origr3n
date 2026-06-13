@@ -785,6 +785,7 @@ a.button-grey,
   font-size: 0.9rem;
   text-decoration: none !important;
   flex: 1;
+  margin-left: 0.4rem;
 }
 
 .tag-list-item a.tag-link:hover {
