@@ -611,6 +611,13 @@ input[type="checkbox"] {
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
 }
+
+/* Feldlabels (allein in ihrem div) bekommen Abstand — nicht Inline-Labels wie PRIVAT */
+.page-form div > label:only-child {
+  display: block;
+  margin-top: 0.85rem !important;
+  margin-bottom: 0.25rem !important;
+}
 .page-form .md_help a {
   color: var(--text-secondary) !important;
 }
@@ -619,14 +626,32 @@ input[type="checkbox"] {
 .page-form .submit-buttons {
   display: flex !important;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  margin-top: 0.85rem !important;
   border-top: 1px solid var(--border-color) !important;
-  padding-top: 0.65rem !important;
+  padding-top: 0.75rem !important;
+}
+
+/* Save-Button: nicht strecken, Shaarli-Base 1.2em überschreiben */
+.page-form .submit-buttons input[type=submit] {
+  flex: 0 0 auto !important;
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+  height: auto !important;
+  line-height: normal !important;
+  min-width: 0 !important;
 }
 
 .page-form .submit-buttons a.button-red,
 .page-form .submit-buttons .button-red {
+  flex: 0 0 auto !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
   margin-left: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  line-height: normal !important;
+  padding: 0.45rem 1.1rem !important;
 }
 
 /* Delete Ghost-Rot */
