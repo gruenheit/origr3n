@@ -588,7 +588,7 @@ input[type="checkbox"] {
   white-space: nowrap;
 }
 
-/* Inputs im Formular — Shaarli setzt hard-coded #eee/#252525 */
+/* Inputs im Formular — Shaarli setzt hard-coded #eee/#252525 und width: 90% */
 .page-form input[type=text],
 .page-form input[type=password],
 .page-form input[type=url],
@@ -599,6 +599,8 @@ input[type="checkbox"] {
   background: var(--bg-input) !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--border-color) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 /* Labels — Mikro-Caps */
