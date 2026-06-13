@@ -687,6 +687,14 @@ a.tag:hover {
 :root[data-theme="dark"]  #theme-toggle .theme-icon-light { display: none; }
 :root[data-theme="light"] #theme-toggle .theme-icon-dark  { display: none; }
 
+/* Mobile Toggle: standardmäßig ausgeblendet — nur im offenen Hamburger-Menü sichtbar */
+#origr3n-theme-toggle-mobile-item {
+  display: none !important;
+}
+.menu-transform:not(.pure-menu-horizontal) #origr3n-theme-toggle-mobile-item {
+  display: list-item !important;
+}
+
 /* Separator zwischen Toggle und Aktions-Icons */
 .nav-sep {
   display: flex !important;
