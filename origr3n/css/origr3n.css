@@ -561,6 +561,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 0;
 }
 
 .page-form .window-title {
@@ -568,6 +569,7 @@ input[type="checkbox"] {
   color: var(--color-primary) !important;
   font-weight: 700;
   margin: 0;
+  padding: 0 !important;
 }
 
 /* Datum als Pill in der Titelzeile */
