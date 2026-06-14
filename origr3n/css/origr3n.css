@@ -278,8 +278,8 @@ li:has(> #shaarli-menu-shaare) {
     min-width: 0 !important;
     height: 52px !important;
   }
-  /* Jedes Nav-<li>: volle Header-Höhe, Inhalt intern zentriert */
-  #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 > .pure-menu-item {
+  /* Jedes Nav-<li>: volle Header-Höhe, Inhalt intern zentriert — Shaare-FAB ausgenommen */
+  #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 > .pure-menu-item:not(:has(> #shaarli-menu-shaare)) {
     height: 52px !important;
     display: flex !important;
     align-items: center !important;
