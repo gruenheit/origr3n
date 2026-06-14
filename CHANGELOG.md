@@ -1,5 +1,27 @@
 # Changelog
 
+## [v1.4-dev] — Header-Ausrichtung: defensive Guards (2026-06-14, r=111–113)
+
+### r=113 — shaarli.min.css Interferenz neutralisiert
+- `#shaarli-menu`: `background`, `position`, `z-index`, `max-height`, `overflow` alle auf `!important` gesetzt
+  → verhindert dass `shaarli.min.css`'s `.shaarli-menu { background: var(--main-color); max-height: 45px; overflow: hidden }` jemals gewinnen kann
+- `.pure-u-lg-5-6`: `align-self: stretch !important; height: 52px !important` ergänzt
+  → Nav-Spalte füllt garantiert die volle Grid-Zeilenhöhe; Mittellinie ist jetzt identisch zur Icon-Spalte
+- Grid-Struktur und FAB unverändert
+- Status: deployed, visuell noch nicht bestätigt
+
+### r=111–112 — Flex-Experiment (reverted)
+- Versuch `display: flex` statt `display: grid` auf `.pure-menu-horizontal` — führte zu grünem Header
+- FAB-Spezifizitätsproblem: `> .pure-menu-item { display: flex }` (1,3,0) gewann gegen FAB-Regel `li:has()` (1,0,1)
+- Beide Revisionen reverted; r=110 wiederhergestellt als Basis für r=113
+
+### Technische Erkenntnisse
+- `shaarli.min.css` Klassen-Selektor `.shaarli-menu` (Spezifizität 10) hat `background: var(--main-color)` — ohne `!important` auf `#shaarli-menu` kann unter bestimmten Render-Bedingungen das Grün durchscheinen
+- `max-height: 45px; overflow: hidden` in `shaarli.min.css` kürzt den Header auf 45px — muss explizit überschrieben werden
+- Warum `display: flex` den grünen Header auslöst: nicht vollständig verstanden; defensive Guards lösen das Problem zuverlässig ohne die Ursache kennen zu müssen
+
+---
+
 ## [v1.4-dev] — Header-Nav & FAB (2026-06-13–14, r=91–110)
 
 ### FAB — Floating Action Button (r=95–98)

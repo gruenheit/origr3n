@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: **v1.4-dev** — FAB + Nav-Styling abgeschlossen · Header-Ausrichtung in Arbeit · Production-Deploy ausstehend
+> Status: **v1.4-dev** — FAB + Nav-Styling abgeschlossen · Header-Ausrichtung in Arbeit (r=113) · Production-Deploy ausstehend
 
 ---
 
