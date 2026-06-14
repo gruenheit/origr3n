@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>origr3n — Header Inventar & Ziel-Design</title>
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --bg2: #242424;
+    --bg3: #2e2e2e;
+    --border: #3a3a3a;
+    --text: #e8e8e8;
+    --text-muted: #888;
+    --primary: #3d8e12;
+    --primary-light: #5cb81a;
+    --amber: #d4851a;
+    --header-h: 52px;
+    --font: 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.5; }
+
+  /* ── Layout ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 1.4rem; font-weight: 600; color: var(--primary-light); margin-bottom: 0.25rem; }
+  .subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2.5rem; }
+  h2 { font-size: 1rem; font-weight: 600; color: var(--text); margin: 2.5rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+
+  /* ── Annotierte Demo-Header ── */
+  .demo-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: visible; margin-bottom: 1rem; }
+  .demo-label { font-size: 0.75rem; color: var(--text-muted); padding: 0.4rem 0.75rem; border-bottom: 1px solid var(--border); }
+
+  /* ── Simulierter Header (aktuell, PureCSS) ── */
+  .sim-header {
+    height: var(--header-h);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 0;
+    position: relative;
+  }
+  /* Aktuelle Struktur nachgebaut */
+  .sim-nav-col {
+    display: flex;
+    align-items: center;   /* ← hier ist das Problem */
+    flex: 1;
+    height: 100%;
+  }
+  .sim-icon-col {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 4px;
+  }
+  .sim-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary-light);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-right: auto;
+    white-space: nowrap;
+  }
+  .logo-dot { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; display: inline-block; }
+  .sim-navlink {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+    text-decoration: none;
+    white-space: nowrap;
+    /* kein explizites height → liegt am Text-Schwerpunkt */
+  }
+  .sim-navlink:hover { color: var(--primary-light); }
+  .sim-icon-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .sim-icon-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+  /* ── Annotation ── */
+  .anno-wrap { position: relative; }
+  .anno {
+    position: absolute;
+    font-size: 0.7rem;
+    color: #ffcc44;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .anno::before { content: '▲'; display: block; text-align: center; line-height: 1; }
+  .anno-line {
+    border-top: 1px dashed rgba(255,204,68,0.4);
+    position: absolute;
+    left: 0; right: 0;
+    pointer-events: none;
+  }
+  .badge-problem { display: inline-block; background: #7a1a1a; color: #ff8888; font-size: 0.7rem; padding: 1px 6px; border-radius: 3px; margin-left: 8px; }
+  .badge-ok { display: inline-block; background: #1a4a1a; color: #88cc88; font-size: 0.7rem; padding: 1px 6px; border-radius: 3px; margin-left: 8px; }
+  .badge-new { display: inline-block; background: #1a3a5a; color: #88aaff; font-size: 0.7rem; padding: 1px 6px; border-radius: 3px; margin-left: 8px; }
+
+  /* ── Inventar-Tabelle ── */
+  .inv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .inv-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+  }
+  .inv-card h3 { margin-bottom: 0.75rem; }
+  .inv-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+  .inv-item:last-child { border-bottom: none; }
+  .inv-icon { width: 22px; text-align: center; color: var(--primary); flex-shrink: 0; }
+  .inv-text { flex: 1; }
+  .inv-cond { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── Ziel-Design ── */
+  /* Neuer Header: einfaches Flexbox, kein PureCSS-Kampf */
+  .target-header {
+    height: var(--header-h);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;          /* ← einzige Quelle der Wahrheit */
+    padding: 0 1rem;
+    gap: 0;
+  }
+  .target-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary-light);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-right: auto;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .target-nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-right: 0.5rem;
+  }
+  .target-navlink {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+    text-decoration: none;
+    height: var(--header-h);      /* ← key: volle Höhe */
+    display: flex;
+    align-items: center;          /* ← zentriert innerhalb */
+    white-space: nowrap;
+  }
+  .target-navlink:hover { color: var(--primary-light); }
+  .target-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+  }
+  .target-icons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .target-icon-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .target-icon-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+  /* ── Alignment-Ruler ── */
+  .ruler-wrap {
+    position: relative;
+  }
+  .ruler-line {
+    position: absolute;
+    left: 0; right: 0;
+    top: 26px;        /* exakte Mitte des 52px Headers */
+    border-top: 1px dashed rgba(61,142,18,0.5);
+    pointer-events: none;
+    z-index: 10;
+  }
+  .ruler-label {
+    position: absolute;
+    right: 0;
+    top: 18px;
+    font-size: 0.65rem;
+    color: var(--primary);
+    background: var(--bg3);
+    padding: 1px 4px;
+    pointer-events: none;
+  }
+
+  /* ── States-Grid ── */
+  .states-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .state-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Struktur-Vergleich ── */
+  .struct-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .struct-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  .struct-card.problem { border-color: #5a2a2a; }
+  .struct-card.solution { border-color: #2a5a2a; }
+  .struct-card h3 { margin-bottom: 0.75rem; }
+  .struct-card.problem h3 { color: #ff8888; }
+  .struct-card.solution h3 { color: #88cc88; }
+  pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    overflow-x: auto;
+    color: #c8c8c8;
+    line-height: 1.6;
+  }
+  .hl-problem { color: #ff8888; }
+  .hl-solution { color: #88cc88; }
+  .hl-key { color: #88aaff; }
+
+  /* Mobile-Übersicht */
+  .mobile-demo {
+    width: 375px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .mobile-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-title {
+    color: var(--primary-light);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-right: auto;
+  }
+  .hamburger {
+    display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 4px;
+  }
+  .bar { width: 20px; height: 2px; background: var(--text-muted); border-radius: 1px; display: block; }
+  .mobile-menu {
+    background: var(--bg2);
+    padding: 0.5rem 0;
+  }
+  .mobile-navitem {
+    padding: 0.6rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .mobile-navitem:last-child { border-bottom: none; }
+  .mobile-icon { color: var(--primary); width: 16px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>origr3n — Header: Inventar & Ziel-Design</h1>
+  <p class="subtitle">Grundlage für den Neuaufbau ohne PureCSS-Abhängigkeit</p>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>1 — Das Problem (Ist-Zustand)</h2>
+
+  <div class="demo-wrap">
+    <div class="demo-label">Desktop — eingeloggt — aktuelle PureCSS-Struktur</div>
+    <div class="ruler-wrap">
+      <div class="ruler-line"></div>
+      <div class="ruler-label">Mitte (26px)</div>
+      <div class="sim-header">
+        <div class="sim-nav-col">
+          <span class="sim-title">
+            <span class="logo-dot"></span>
+            origr3n
+          </span>
+          <!-- Nav-Links: align-items:center auf <ul>, kein height auf <li> -->
+          <!-- Text-Schwerpunkt sitzt leicht ÜBER der Mittellinie -->
+          <a class="sim-navlink" style="margin-top: -3px;">Tools</a>
+          <a class="sim-navlink" style="margin-top: -3px;">Tag-Cloud</a>
+          <a class="sim-navlink" style="margin-top: -3px;">Bildwand</a>
+          <a class="sim-navlink" style="margin-top: -3px;">Täglich</a>
+        </div>
+        <div class="sim-icon-col">
+          <!-- Icons: height:32px, zentriert in .header-buttons → sitzen leicht TIEFER -->
+          <button class="sim-icon-btn" style="margin-top: 3px;">🌙</button>
+          <button class="sim-icon-btn" style="margin-top: 3px;">🔍</button>
+          <button class="sim-icon-btn" style="margin-top: 3px;">→</button>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 0.5rem 0.75rem; font-size: 0.75rem; color: #ff8888; border-top: 1px solid var(--border);">
+      ⚠ Nav-Text sitzt über der Mittellinie · Icons sitzen unter der Mittellinie · Versatz ca. 4–6px
+    </div>
+  </div>
+
+  <div class="struct-grid">
+    <div class="struct-card problem">
+      <h3>✗ Aktuelle Struktur (vereinfacht)</h3>
+      <pre><span class="hl-problem">pure-g (flex, align-content: flex-start)</span>
+└── pure-menu-horizontal (→ wir überschreiben: grid)
+    ├── ul.pure-u-lg-5-6
+    │   <span class="hl-problem">display: flex; align-items: center</span>
+    │   │   → &lt;li&gt; items ohne height
+    │   └── Titel, Tools, Tag-Cloud, …
+    └── div.header-buttons.pure-u-lg-1-6
+        <span class="hl-problem">display: flex; align-items: center</span>
+        └── ul
+            └── buttons (height: 32px explizit)
+
+Problem: zwei verschiedene Referenzpunkte
+für die vertikale Zentrierung</pre>
+    </div>
+    <div class="struct-card solution">
+      <h3>✓ Neue Struktur (Ziel)</h3>
+      <pre><span class="hl-solution">#origr3n-header (eigenes Element)</span>
+<span class="hl-key">display: flex; align-items: center; height: 52px</span>
+├── a.origr3n-title     (margin-right: auto)
+├── nav.origr3n-nav
+│   └── a.origr3n-navlink × N
+│       <span class="hl-key">height: 52px; display: flex; align-items: center</span>
+├── span.origr3n-sep    (1px Trenner)
+└── div.origr3n-actions
+    └── button/a × 3   (height: 32px, Kreise)
+
+<span class="hl-solution">Einzige Quelle der Wahrheit: align-items: center
+auf dem Elternelement. Alle Kinder richten sich
+daran aus — ohne Framework-Einmischung.</span></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>2 — Element-Inventar (alle States)</h2>
+
+  <div class="inv-grid">
+    <div class="inv-card">
+      <h3>Desktop — Nav-Bereich (links)</h3>
+      <div class="inv-item">
+        <span class="inv-icon">⬤</span>
+        <div class="inv-text">
+          <div>Logo + Seitentitel</div>
+          <div class="inv-cond">immer sichtbar · klickbar → Startseite</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">+</span>
+        <div class="inv-text">
+          <div>Shaare</div>
+          <div class="inv-cond">nur wenn: eingeloggt <em>oder</em> openshaarli · wird zu FAB (CSS-only)</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">⚙</span>
+        <div class="inv-text">
+          <div>Tools</div>
+          <div class="inv-cond">nur wenn: eingeloggt oder openshaarli</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">#</span>
+        <div class="inv-text">
+          <div>Tag-Cloud</div>
+          <div class="inv-cond">immer sichtbar</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">🖼</span>
+        <div class="inv-text">
+          <div>Bildwand (Picture Wall)</div>
+          <div class="inv-cond">nur wenn: thumbnails_enabled</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">📅</span>
+        <div class="inv-text">
+          <div>Täglich (Daily)</div>
+          <div class="inv-cond">immer sichtbar</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">🔌</span>
+        <div class="inv-text">
+          <div>Plugin-Buttons (loop)</div>
+          <div class="inv-cond">variabel · 0–N Einträge · eigene Attribute</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-card">
+      <h3>Desktop — Icon-Bereich (rechts)</h3>
+      <div class="inv-item">
+        <span class="inv-icon">🌙</span>
+        <div class="inv-text">
+          <div>Dark/Light Toggle</div>
+          <div class="inv-cond">immer · JS tauscht fa-moon-o ↔ fa-sun-o · JS: syncIcon()</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">🔍</span>
+        <div class="inv-text">
+          <div>Suche</div>
+          <div class="inv-cond">immer · öffnet #search subheader-form</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">👤</span>
+        <div class="inv-text">
+          <div>Login (fa-user)</div>
+          <div class="inv-cond">nur wenn: <em>nicht</em> eingeloggt · öffnet #header-login-form</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">→</span>
+        <div class="inv-text">
+          <div>Logout (fa-sign-out)</div>
+          <div class="inv-cond">nur wenn: eingeloggt · direkter Link /admin/logout</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-card">
+      <h3>Subheader-Bereiche (unter Header, im &lt;main&gt;)</h3>
+      <div class="inv-item">
+        <span class="inv-icon">🔍</span>
+        <div class="inv-text">
+          <div>#search — Suchformular</div>
+          <div class="inv-cond">Text + Tag-Filter + Submit · toggle via .subheader-opener</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">🔒</span>
+        <div class="inv-text">
+          <div>#header-login-form — Login-Formular</div>
+          <div class="inv-cond">User + Passwort + Remember me + Token · nur wenn ausgeloggt</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">⚡</span>
+        <div class="inv-text">
+          <div>#actions — Bulk-Aktionen</div>
+          <div class="inv-cond">Löschen, public/private, Tags · nur eingeloggt + linklist-Template</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">⚠</span>
+        <div class="inv-text">
+          <div>System-Alerts</div>
+          <div class="inv-cond">newVersion · pluginErrors · globalErrors/Warnings/Successes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-card">
+      <h3>Mobile-Bereich</h3>
+      <div class="inv-item">
+        <span class="inv-icon">☰</span>
+        <div class="inv-text">
+          <div>Hamburger-Toggle</div>
+          <div class="inv-cond">zeigt/verbirgt .menu-transform · JS</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">⬤</span>
+        <div class="inv-text">
+          <div>Mobile-Titel (#shaarli-title-mobile)</div>
+          <div class="inv-cond">eigene ID · separate vom Desktop-Titel</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">📡</span>
+        <div class="inv-text">
+          <div>RSS Feed (nur Mobile)</div>
+          <div class="inv-cond">pure-u-lg-0 → auf Desktop versteckt</div>
+        </div>
+      </div>
+      <div class="inv-item">
+        <span class="inv-icon">→</span>
+        <div class="inv-text">
+          <div>Logout/Login (nur Mobile)</div>
+          <div class="inv-cond">pure-u-lg-0 → auf Desktop versteckt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>3 — Ziel-Design (Desktop)</h2>
+
+  <div class="demo-wrap">
+    <div class="demo-label">Desktop — eingeloggt — neue unabhängige Struktur</div>
+    <div class="ruler-wrap">
+      <div class="ruler-line"></div>
+      <div class="ruler-label">Mitte (26px)</div>
+      <div class="target-header">
+        <a class="target-title">
+          <span class="logo-dot"></span>
+          origr3n
+        </a>
+        <nav class="target-nav">
+          <a class="target-navlink">Tools</a>
+          <a class="target-navlink">Tag-Cloud</a>
+          <a class="target-navlink">Bildwand</a>
+          <a class="target-navlink">Täglich</a>
+        </nav>
+        <div class="target-sep"></div>
+        <div class="target-icons">
+          <button class="target-icon-btn">🌙</button>
+          <button class="target-icon-btn">🔍</button>
+          <button class="target-icon-btn">→</button>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 0.5rem 0.75rem; font-size: 0.75rem; color: #88cc88; border-top: 1px solid var(--border);">
+      ✓ Nav-Text und Icons liegen exakt auf der Mittellinie · keine Framework-Einmischung<br>
+      <span style="color: #ffaa44;">⚠ Shaare-Button erscheint NICHT hier — nur als FAB unten rechts (bereits implementiert, r=91+)</span>
+    </div>
+  </div>
+
+  <div class="demo-wrap" style="margin-top: 1rem;">
+    <div class="demo-label">Desktop — ausgeloggt</div>
+    <div class="target-header">
+      <a class="target-title">
+        <span class="logo-dot"></span>
+        origr3n
+      </a>
+      <nav class="target-nav">
+        <!-- Shaare + Tools fehlen (kein Login) -->
+        <a class="target-navlink">Tag-Cloud</a>
+        <a class="target-navlink">Bildwand</a>
+        <a class="target-navlink">Täglich</a>
+      </nav>
+      <div class="target-sep"></div>
+      <div class="target-icons">
+        <button class="target-icon-btn">🌙</button>
+        <button class="target-icon-btn">🔍</button>
+        <button class="target-icon-btn">👤</button>  <!-- Login statt Logout -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>4 — Icon-Buttons: Design-Entscheidungen (nicht verlieren!)</h2>
+
+  <div style="background: var(--bg2); border: 1px solid #2a4a2a; border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 1rem; font-size: 0.78rem; color: #88cc88;">
+    Diese Regeln sind das Ergebnis vieler Iterationsrunden — beim Neuaufbau 1:1 übernehmen.
+  </div>
+
+  <!-- Lebende Demo -->
+  <style>
+    /* Korrekte Icon-Button-Regeln (1:1 aus origr3n.css) */
+    .icon-demo-btn {
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: #888; /* --text-muted */
+      transition: color 0.15s, background 0.15s;
+      outline: none;
+      flex-shrink: 0;
+    }
+    .icon-demo-btn:hover, .icon-demo-btn:focus {
+      color: #3d8e12; /* --color-primary */
+      background: #2e2e2e; /* --bg-elevated */
+      outline: none;
+    }
+    .icon-demo-btn.active-state {
+      color: #3d8e12;
+      background: #2e2e2e;
+    }
+  </style>
+
+  <div class="demo-wrap">
+    <div class="demo-label">Live-Demo: Icon-Buttons (hover um State zu sehen)</div>
+    <div style="display: flex; align-items: center; gap: 1.5rem; padding: 0.75rem 1rem; flex-wrap: wrap;">
+      <!-- Normal -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+        <div style="display: flex; gap: 2px;">
+          <button class="icon-demo-btn" title="Theme Toggle">🌙</button>
+          <button class="icon-demo-btn" title="Suche">🔍</button>
+          <button class="icon-demo-btn" title="Logout">→</button>
+        </div>
+        <span style="font-size: 0.7rem; color: var(--text-muted);">Default</span>
+      </div>
+      <!-- Hover-State simuliert -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+        <div style="display: flex; gap: 2px;">
+          <button class="icon-demo-btn active-state">🌙</button>
+          <button class="icon-demo-btn">🔍</button>
+          <button class="icon-demo-btn">→</button>
+        </div>
+        <span style="font-size: 0.7rem; color: var(--text-muted);">Hover (simuliert)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spec-Tabelle -->
+  <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 2rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.83rem;">
+      <thead>
+        <tr style="background: var(--bg3); color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;">
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); width: 22%;">Eigenschaft</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); width: 30%;">Wert</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Begründung / Kontext</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Form</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>border-radius: 50%</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Kreis · konsistent mit FAB und anderen Buttons im Theme</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Größe</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>32px × 32px</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Trefferzone, optisch kompakt ohne zu klein zu sein</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Icon-Größe</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>font-size: 14px</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Font Awesome · gleiche Größe wie Nav-Link-Text</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Abstand</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>gap: 2px</code> zwischen Buttons</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Sehr eng — Icons wirken als Gruppe, nicht einzeln</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Hintergrund (default)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>transparent</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Kein Hintergrund im Ruhezustand — Icons schweben im Header</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Farbe (default)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>var(--text-muted)</code> = <span style="color:#888;">#888</span></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Zurückhaltend · nicht ablenkend von Inhalten</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(61,142,18,0.06);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Farbe (hover)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>var(--color-primary)</code> = <span style="color:#3d8e12;">■</span> #3d8e12</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);"><strong>Grün</strong> — nicht Weiß. Designentscheidung: Hover = Markenfarbe. Konsistent mit Nav-Link-Hover.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(61,142,18,0.06);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Hintergrund (hover)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>var(--bg-elevated)</code> = #2e2e2e</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Subtiles Kreis-Highlight · verstärkt die Kreis-Form ohne zu dominant zu sein</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Transition</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>color 0.15s, background 0.15s</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Schnell genug um reaktiv zu wirken, nicht abrupt</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Focus-Ring</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>outline: none</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Bewusst entfernt für Header-Icons · visuell störend im engen Icon-Bereich</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Padding</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>padding: 0</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Alles über width/height geregelt — kein unerwarteter Padding-Effekt</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Theme-Toggle Besonderheit</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>overflow: hidden</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Verhindert Icon-Überlauf bei FA-Icon-Wechsel (moon ↔ sun); JS: syncIcon()</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>5 — Nav-Links &amp; Header-Bar: Design-Entscheidungen</h2>
+
+  <div style="background: var(--bg2); border: 1px solid #2a4a2a; border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 1rem; font-size: 0.78rem; color: #88cc88;">
+    Auch hier: das Ergebnis expliziter Variantenentscheidungen — insbesondere Hover Variant A (grün, kein Hintergrund).
+  </div>
+
+  <!-- Lebende Demo Nav -->
+  <style>
+    .nav-demo-link {
+      color: #b0b0b0; /* --text-secondary */
+      font-size: 0.875rem;
+      padding: 0 0.75rem;
+      text-decoration: none;
+      height: 52px;
+      display: flex; align-items: center;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .nav-demo-link:hover { color: #3d8e12; background: transparent; text-decoration: none; }
+    .nav-demo-link.nav-active { color: #3d8e12; background: transparent; }
+  </style>
+
+  <div class="demo-wrap">
+    <div class="demo-label">Live-Demo: Nav-Links (hover für State)</div>
+    <div style="display: flex; align-items: center; height: 52px; background: #2a2a2a; padding: 0 1rem; gap: 0; border-bottom: 1px solid #3a3a3a; box-shadow: 0 2px 8px rgba(0,0,0,0.45);">
+      <span style="color: #3d8e12; font-weight: 700; font-size: 1.2rem; margin-right: auto; display:flex; align-items:center; gap:6px;">
+        <span style="width:10px;height:10px;background:#3d8e12;border-radius:50%;display:inline-block;"></span>
+        origr3n
+      </span>
+      <a class="nav-demo-link">Tools</a>
+      <a class="nav-demo-link nav-active">Tag-Cloud</a>
+      <a class="nav-demo-link">Bildwand</a>
+      <a class="nav-demo-link">Täglich</a>
+      <div style="width:1px;height:20px;background:#3a3a3a;margin:0 0.5rem;"></div>
+      <div style="display:flex;gap:2px;">
+        <button class="icon-demo-btn">🌙</button>
+        <button class="icon-demo-btn">🔍</button>
+        <button class="icon-demo-btn">→</button>
+      </div>
+    </div>
+    <div style="padding: 0.4rem 0.75rem; font-size: 0.72rem; color: var(--text-muted); border-top: 1px solid var(--border);">
+      "Tag-Cloud" = aktive Seite (grün) · hover über andere Links
+    </div>
+  </div>
+
+  <!-- Spec-Tabelle Nav -->
+  <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.83rem;">
+      <thead>
+        <tr style="background: var(--bg3); color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;">
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); width: 22%;">Eigenschaft</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); width: 30%;">Wert</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Begründung / Kontext</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Farbe (default)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>var(--text-secondary)</code> = <span style="color:#b0b0b0;">#b0b0b0</span></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);"><strong>Nicht text-muted!</strong> Nav-Links sind heller als Icon-Buttons (#707070) — stärkere Präsenz, weil primäre Navigation</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(61,142,18,0.06);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Farbe (hover / fokus)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>var(--color-primary)</code> = <span style="color:#3d8e12;">■</span> #3d8e12</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);"><strong>Variant A (aktiv gewählt)</strong> — grüner Text, kein Hintergrund-Highlight. Variante B (Hintergrund) wurde verworfen.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(61,142,18,0.06);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Hintergrund (hover)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>transparent</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Bewusst kein Fill — ruhigeres Erscheinungsbild, nur Farbe signalisiert Interaktivität</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Aktive Seite</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>color: var(--color-primary)</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Identisch mit Hover-State. Kein Unterstrich, kein Bold, kein Hintergrund — Farbe reicht</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Font-Size</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>0.875rem</code> (14px)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Gleich wie Icon-Buttons-Fontgröße · kompakt, nicht zu dominant</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Padding Desktop</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>0 0.75rem</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Vertikal 0 (Höhe über parent height:52px + align-items:center), horizontal 0.75rem Luft</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Transition</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>color 0.15s, background 0.15s</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Identisch mit Icons — einheitliches Reaktionsgefühl im gesamten Header</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Weißer Balken (Shaarli)</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>::after { display: none !important }</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Shaarli setzt <code>hover::after { background:#fff; height:4px }</code> — explizit unterdrückt, passt nicht ins Design</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Header-Bar selbst -->
+  <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 2rem;">
+    <div style="background: var(--bg3); color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border);">Header-Bar (#shaarli-menu)</div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.83rem;">
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted); width:22%;">Hintergrund</td>
+          <td style="padding: 0.45rem 0.75rem; width:30%;"><code>var(--bg-surface)</code> = <span style="color:#aaa;">#2a2a2a</span></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Leicht heller als Page-BG (#1e1e1e) — Header hebt sich ab</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Unterlinie</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>1px solid var(--border-color)</code> = #3a3a3a</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Subtile Trennung zum Content</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Schatten</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>0 2px 8px rgba(0,0,0,0.45)</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Tiefe unter dem Header, besonders wichtig bei sticky</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Position</td>
+          <td style="padding: 0.45rem 0.75rem;"><code>sticky; top: 0; z-index: 100</code></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Header bleibt beim Scrollen sichtbar</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>7 — States der Nav-Links</h2>
+
+  <div style="background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1rem;">
+    <div style="padding: 0.4rem 0.75rem; font-size: 0.75rem; color: var(--text-muted); border-bottom: 1px solid var(--border);">Hover &amp; Aktiv-States</div>
+    <div style="display: flex; height: 52px; align-items: center; padding: 0 1rem; gap: 0; background: var(--bg3);">
+      <!-- Normal -->
+      <a class="target-navlink" style="color: var(--text-muted);">Normal</a>
+      <!-- Hover -->
+      <a class="target-navlink" style="color: var(--primary-light);">Hover</a>
+      <!-- Aktiv / aktuelle Seite -->
+      <a class="target-navlink" style="color: var(--primary-light); border-bottom: 2px solid var(--primary); padding-bottom: 0;">Aktiv</a>
+      <!-- Separator -->
+      <div style="width:1px; height:20px; background: var(--border); margin: 0 0.5rem;"></div>
+      <!-- Icon Normal -->
+      <button class="target-icon-btn" style="color: var(--text-muted);">🌙</button>
+      <!-- Icon Hover -->
+      <button class="target-icon-btn" style="color: var(--text); background: rgba(255,255,255,0.06);">🔍</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>5 — Mobile (unverändert)</h2>
+
+  <div class="mobile-demo">
+    <div class="mobile-header">
+      <span class="logo-dot" style="margin-right:6px;"></span>
+      <span class="mobile-title">origr3n</span>
+      <span style="color: var(--text-muted); font-size: 0.75rem; margin-right: 1rem;">— Mobile bleibt wie es ist —</span>
+      <div class="hamburger">
+        <s class="bar"></s>
+        <s class="bar"></s>
+      </div>
+    </div>
+    <div class="mobile-menu">
+      <div class="mobile-navitem"><span class="mobile-icon">+</span> Shaare</div>
+      <div class="mobile-navitem"><span class="mobile-icon">⚙</span> Tools</div>
+      <div class="mobile-navitem"><span class="mobile-icon">#</span> Tag-Cloud</div>
+      <div class="mobile-navitem"><span class="mobile-icon">🖼</span> Bildwand</div>
+      <div class="mobile-navitem"><span class="mobile-icon">📅</span> Täglich</div>
+      <div class="mobile-navitem"><span class="mobile-icon">📡</span> RSS Feed</div>
+      <div class="mobile-navitem"><span class="mobile-icon">→</span> Logout</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>6 — Feature-Liste: Was kommt wohin?</h2>
+
+  <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 2rem;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.83rem;">
+      <thead>
+        <tr style="background: var(--bg3); color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;">
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Feature</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Zielort im Header</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Bedingung</th>
+          <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- NAV -->
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Logo + Seitentitel</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Nav — ganz links</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">immer</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(255,100,0,0.06);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Shaare-Button</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: #ffaa44;"><strong>⚠ NICHT im Header-Nav</strong><br><span style="color: var(--primary); font-size:0.8rem;">→ nur als FAB (fixed, bottom right, 56px Kreis)</span></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">eingeloggt / openshaarli<br><span style="font-size:0.75rem;">CSS: li:has(#shaarli-menu-shaare) { position: fixed }</span></td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ Entscheidung getroffen (r=91+)</span><br><span style="font-size:0.75rem; color: var(--text-muted);">Im neuen Header: &lt;li&gt; bleibt im HTML, CSS nimmt es aus dem Fluss</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Tools</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Nav — nach Titel</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">eingeloggt / openshaarli</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Tag-Cloud</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Nav</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">immer</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Bildwand</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Nav</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">thumbnails_enabled</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Täglich</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Nav</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">immer</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Plugin-Buttons</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Nav — nach Täglich</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">loop, 0–N Einträge</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden (loop bleibt)</span></td>
+        </tr>
+        <!-- SEPARATOR -->
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">— Separator —</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">1px-Linie zwischen Nav und Icons</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Desktop only</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88aaff;">● neu</span></td>
+        </tr>
+        <!-- ICONS -->
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Dark/Light Toggle</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Icons — ganz links</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">immer</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden (JS: syncIcon)</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Suche (Icon)</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Icons — Mitte</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">immer · öffnet #search</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Login (Icon)</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Icons — ganz rechts</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">ausgeloggt · öffnet #header-login-form</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Logout (Icon)</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--primary);">Icons — ganz rechts</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">eingeloggt · Link → /admin/logout</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden</span></td>
+        </tr>
+        <!-- SUBHEADER -->
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Suchformular</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Subheader unterhalb (bleibt im &lt;main&gt;)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">toggle · immer</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden · unberührt</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Login-Formular</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Subheader unterhalb (bleibt im &lt;main&gt;)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">ausgeloggt · toggle</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden · unberührt</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Bulk-Aktionen</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Subheader unterhalb (bleibt im &lt;main&gt;)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">eingeloggt + linklist</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden · unberührt</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>System-Alerts</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Subheader unterhalb (bleibt im &lt;main&gt;)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">bei Fehlern/Updates</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ vorhanden · unberührt</span></td>
+        </tr>
+        <!-- MOBILE -->
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.45rem 0.75rem;"><strong>Mobile Hamburger</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Mobile-Block (bleibt unverändert)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted;">&lt; 64em</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ bleibt wie es ist</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 0.45rem 0.75rem;"><strong>RSS Feed</strong></td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">Mobile-Menü (Desktop: versteckt)</td>
+          <td style="padding: 0.45rem 0.75rem; color: var(--text-muted);">immer · pure-u-lg-0</td>
+          <td style="padding: 0.45rem 0.75rem;"><span style="color:#88cc88;">✓ bleibt wie es ist</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; font-size: 0.83rem; margin-bottom: 2rem;">
+    <div style="font-weight: 600; margin-bottom: 0.5rem;">Wo lebt diese Liste?</div>
+    <div style="color: var(--text-muted); line-height: 1.8;">
+      Diese Übersicht bleibt während der gesamten Entwicklung als lokale HTML-Referenzdatei (<code>/tmp/origr3n-header-overview.html</code>).
+      Nach Abschluss des Umbaus: relevante Teile in <code>README.md</code> des Repos übernehmen.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>7 — Implementierungsstrategie</h2>
+
+  <div style="background: var(--bg2); border: 1px solid #2a5a2a; border-radius: 6px; padding: 1rem; font-size: 0.85rem; line-height: 1.8;">
+    <div style="margin-bottom: 0.75rem; color: #88cc88; font-weight: 600;">Schritt-Plan</div>
+    <div><span style="color: var(--text-muted);">①</span> &nbsp;CSS: <code>#origr3n-header</code> als eigener Block — <code>display: flex; align-items: center; height: 52px</code></div>
+    <div><span style="color: var(--text-muted);">②</span> &nbsp;CSS: Alle bestehenden <code>#shaarli-menu .pure-menu-horizontal</code> Overrides entfernen</div>
+    <div><span style="color: var(--text-muted);">③</span> &nbsp;CSS: Nav-Links mit <code>height: 52px; display: flex; align-items: center</code> — kein Framework nötig</div>
+    <div><span style="color: var(--text-muted);">④</span> &nbsp;Template: Neue IDs/Klassen auf bestehende <code>&lt;ul&gt;</code> und <code>&lt;div&gt;</code> aufsetzen (kein Umbau der Struktur nötig!)</div>
+    <div><span style="color: var(--text-muted);">⑤</span> &nbsp;Mobile bleibt unberührt (separater Block, eigene CSS-Regeln)</div>
+    <div><span style="color: var(--text-muted);">⑥</span> &nbsp;FAB (Shaare) bleibt CSS-only wie bisher</div>
+    <div style="margin-top: 0.75rem; color: var(--text-muted);">
+      Kein Template-Umbau notwendig — nur neue CSS-Klassen auf bestehende Elemente, alte Overrides entfernen.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
