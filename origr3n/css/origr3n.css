@@ -260,24 +260,31 @@ li:has(> #shaarli-menu-shaare) {
   transform: translate(-50%, -50%) !important;
 }
 
-/* Header-Row Desktop: Nav-Links rechts neben Titel, Icons ganz rechts, vertikal zentriert */
+/* Header-Row Desktop: unabhängiges Flexbox, kein PureCSS-Grid-Kampf */
 @media screen and (min-width: 64em) {
-  /* Grid statt Flex: umgeht PureCSS pure-g align-content:flex-start komplett */
+  /* Einzige Quelle der Wahrheit: 52px hoch, alle Kinder mittig */
   #shaarli-menu .pure-menu-horizontal {
-    display: grid !important;
-    grid-template-columns: 83.3333% 16.6667% !important;
-    grid-template-rows: 52px !important;
-    align-items: stretch !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 52px !important;
     width: 100% !important;
   }
-  /* Nav-Spalte: 100% der Grid-Zelle füllen */
+  /* Nav-Spalte: wächst, PureCSS-Breite ignoriert */
   #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 {
     display: flex !important;
     align-items: center !important;
-    width: 100% !important;
-    min-width: 0;
+    flex: 1 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 52px !important;
   }
-  /* Vertikales Padding entfernen */
+  /* Jedes Nav-<li>: volle Header-Höhe, Inhalt intern zentriert */
+  #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 > .pure-menu-item {
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  /* Nav-Links: kein vertikales Padding */
   #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 .pure-menu-link {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -285,27 +292,29 @@ li:has(> #shaarli-menu-shaare) {
   /* Titel schiebt Nav-Links nach rechts */
   li:has(> #shaarli-title-desktop) {
     margin-right: auto !important;
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
   }
-  /* Icon-Spalte: 100% der Grid-Zelle füllen */
+  /* Icon-Spalte: kompakt, PureCSS-Breite ignoriert */
   .header-buttons {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    width: 100% !important;
-    padding-right: 6px;
+    height: 52px !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    padding-right: 6px !important;
   }
   .header-buttons .pure-menu-list {
     display: flex !important;
-    flex-direction: row;
-    align-items: center;
-    gap: 2px;
-    flex-wrap: nowrap;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 2px !important;
+    flex-wrap: nowrap !important;
   }
   .header-buttons .pure-menu-item {
     display: flex !important;
-    align-items: center;
-    flex-shrink: 0;
+    align-items: center !important;
+    flex-shrink: 0 !important;
   }
 }
 
