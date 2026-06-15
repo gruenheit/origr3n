@@ -139,6 +139,15 @@ a.shaarli-title {
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
+  overflow: hidden;
+}
+
+/* Titeltext — Ellipsis bei Overflow */
+.shaarli-title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .origr3n-logo {
@@ -362,6 +371,10 @@ li:has(> #shaarli-menu-shaare) {
   }
   .mobile-header-icons {
     order: 2;
+  }
+  /* Nav-Leiste auf Mobile unsichtbar wenn Hamburger zu — verhindert Doppelheader */
+  .menu-transform.pure-menu-horizontal {
+    display: none !important;
   }
 }
 

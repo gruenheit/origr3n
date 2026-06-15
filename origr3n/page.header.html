@@ -4,7 +4,7 @@
      <header role="banner">
       <a href="{$titleLink}" class="pure-menu-link shaarli-title" id="shaarli-title-mobile">
         <span class="origr3n-logo" aria-hidden="true"></span>
-        {$shaarlititle}
+        <span class="shaarli-title-text">{$shaarlititle}</span>
       </a>
       </header>
       <div class="mobile-header-icons">
@@ -32,7 +32,7 @@
         <li class="pure-menu-item pure-u-0 pure-u-lg-visible">
           <a href="{$titleLink}" class="pure-menu-link shaarli-title" id="shaarli-title-desktop">
             <span class="origr3n-logo" aria-hidden="true"></span>
-            {$shaarlititle}
+            <span class="shaarli-title-text">{$shaarlititle}</span>
           </a>
         </li>
         {if="$is_logged_in || $openshaarli"}
