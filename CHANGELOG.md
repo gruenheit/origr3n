@@ -1,5 +1,22 @@
 # Changelog
 
+## [v1.4-dev] — Header-Ausrichtung: flex-wrap-Fix (2026-06-15, r=114–117)
+
+### r=117 — Header-Ausrichtung gelöst ✅
+- **Root Cause gefunden:** PureCSS `.pure-g` setzt `flex-wrap: wrap` + `align-content: flex-start` — bei einem Flex-Container mit `flex-wrap: wrap` positioniert `align-content: flex-start` die gesamte Flex-Zeile am oberen Rand des Containers; `align-items: center` zentriert dann nur *innerhalb dieser oben-sitzenden Zeile*, nicht im 52px-Container
+- **Fix:** `flex-wrap: nowrap !important` auf `#shaarli-menu .pure-menu-horizontal` — deaktiviert `align-content` effektiv, gibt `align-items: center` die Kontrolle zurück
+- **Diagnose-Methode:** Temporäre `outline`-Farben auf `.pure-menu-horizontal` (blau), `.header-buttons` (rot), `.pure-menu-list` (grün) haben gezeigt, dass die gesamte Flex-Zeile am oberen Rand saß
+- CSS-Ansatz gewechselt: Grid → Flexbox auf `.pure-menu-horizontal` (Grid hatte dasselbe Problem)
+- Status: **visuell bestätigt** — Icons und Nav-Links auf gleicher Höhe ✅
+
+### r=114–116 — Diagnose-Iterationen
+- r=114: CSS-Grid → `#shaarli-menu`-Präfix auf `.header-buttons`; Icon-Box saß weiterhin oben
+- r=115: Grid → Flexbox gewechselt; Problem blieb (same root cause)
+- r=116: Diagnose-Outlines added (temporär); Root Cause identifiziert
+- RainTPL-Bug-Fix (includes.html): `{$root_path}/tpl/origr3n/css/origr3n.css` statt `{$asset_path}` — doppelter Pfad-Bug in href-Attributen mit `&param=value` umgangen
+
+---
+
 ## [v1.4-dev] — Header-Ausrichtung: defensive Guards (2026-06-14, r=111–113)
 
 ### r=113 — shaarli.min.css Interferenz neutralisiert
