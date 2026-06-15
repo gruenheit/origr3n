@@ -1,5 +1,22 @@
 # Changelog
 
+## [v1.4-dev] — Suche als Modal-Overlay (2026-06-15, r=122–125)
+
+### r=125 — Modal-Overlay final ✅
+- `#search.open` ist jetzt selbst der Backdrop (position: fixed; inset: 0; rgba-Hintergrund; flex-center)
+- `<form>` darin als zentrierte Overlay-Box (480px, dark theme, keine Shaarli-Kollision mehr)
+- Tag/Text-Toggle-Pill: ein Eingabefeld umschaltbar — "tags"-Pill aktiv = Awesomplete Tag-Suche, inaktiv = Volltextsuche
+- Awesomplete-Dropdown Dark-Mode: bg-surface, grüne Marks statt gelb, selected = --color-primary
+- Escape und Backdrop-Klick schließen Overlay; Autofocus auf Öffnung
+- `#search-linklist` in linklist.html per CSS ausgeblendet
+
+### r=122–124 — Overlay-Entwicklung
+- r=122: Grundstruktur Overlay + Backdrop-Div (via JS), #search-linklist ausgeblendet
+- r=123: Tag/Text-Toggle-Pill, Awesomplete-Styling, Suche-Nav-Link (dann wieder entfernt)
+- r=124: `!important`-Fixes gegen shaarli.min.css-Overrides (width:100%, height:30px)
+
+---
+
 ## [v1.4-dev] — Header-Ausrichtung: flex-wrap-Fix (2026-06-15, r=114–117)
 
 ### r=121 — Header-Ausrichtung visuell bestätigt ✅
