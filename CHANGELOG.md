@@ -2,6 +2,15 @@
 
 ## [v1.4-dev] — Header-Ausrichtung: flex-wrap-Fix (2026-06-15, r=114–117)
 
+### r=121 — Header-Ausrichtung visuell bestätigt ✅
+- `transform: translateY(3px)` auf `.header-buttons` — optische Feinkorrektur von ~3px
+- Hintergrund: `line-height: 52px` (Nav-Text) und `align-items: center` (Icon-Boxen) liegen geometrisch beide auf y=26px, aber Font-Icon-Rendering erzeugt eine optische Diskrepanz; `translateY` kompensiert ohne Layout-Impact
+- Kein Einfluss auf Klick-Ziele oder Hover-Verhalten
+
+### r=119–120 — line-height-Ansatz + Icon-Höhe
+- r=119: `line-height: 52px !important` auf Nav-Links → Nav-Text-Zentrierung unabhängig von Flex-Container-Höhe; `justify-content: flex-end` auf `.header-buttons` für konsistente Icon-Position
+- r=120: `height: 52px !important` auf Icon-`<li>`-Items (keine sichtbare Verbesserung)
+
 ### r=117 — Header-Ausrichtung gelöst ✅
 - **Root Cause gefunden:** PureCSS `.pure-g` setzt `flex-wrap: wrap` + `align-content: flex-start` — bei einem Flex-Container mit `flex-wrap: wrap` positioniert `align-content: flex-start` die gesamte Flex-Zeile am oberen Rand des Containers; `align-items: center` zentriert dann nur *innerhalb dieser oben-sitzenden Zeile*, nicht im 52px-Container
 - **Fix:** `flex-wrap: nowrap !important` auf `#shaarli-menu .pure-menu-horizontal` — deaktiviert `align-content` effektiv, gibt `align-items: center` die Kontrolle zurück

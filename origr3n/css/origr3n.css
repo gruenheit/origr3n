@@ -275,7 +275,7 @@ li:has(> #shaarli-menu-shaare) {
     height: 52px !important;
     width: 100% !important;
   }
-  /* Nav-Spalte: wächst, Titel schiebt Nav-Links nach rechts */
+  /* Nav-Spalte */
   #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 {
     flex: 1 1 auto !important;
     display: flex !important;
@@ -283,7 +283,9 @@ li:has(> #shaarli-menu-shaare) {
     align-items: center !important;
     min-width: 0;
   }
+  /* Nav-Links: line-height zentriert Text unabhängig von Container-Höhe */
   #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 .pure-menu-link {
+    line-height: 52px !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
@@ -291,12 +293,14 @@ li:has(> #shaarli-menu-shaare) {
     margin-right: auto !important;
     flex-shrink: 0;
   }
-  /* Icon-Spalte: nur so breit wie nötig */
+  /* Icon-Spalte: natürliche Höhe, durch parent align-items:center zentriert */
   #shaarli-menu .header-buttons {
     flex: 0 0 auto !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: flex-end !important;
     padding-right: 6px;
+    transform: translateY(3px);
   }
   #shaarli-menu .header-buttons .pure-menu-list {
     display: flex !important;
@@ -308,6 +312,7 @@ li:has(> #shaarli-menu-shaare) {
   #shaarli-menu .header-buttons .pure-menu-item {
     display: flex !important;
     align-items: center !important;
+    height: 52px !important;
     flex-shrink: 0;
   }
 }
