@@ -1929,7 +1929,6 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   color: var(--text-primary) !important;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  overflow: hidden;
   margin: 1rem 0;
 }
 
@@ -1937,7 +1936,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 .page-form-configure .window-title {
   font-size: 1rem !important;
   font-weight: 600 !important;
-  color: var(--text-primary) !important;
+  color: var(--color-primary) !important;
   padding: 0.75rem 1.25rem 0.6rem !important;
   margin: 0 !important;
   border-bottom: 2px solid var(--border-color);
@@ -2012,6 +2011,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   color: var(--text-muted);
   line-height: 1.4;
 }
+.cfg-row-field .cfg-desc { margin-top: 0.45rem; }
 
 .cfg-action-link {
   display: block;
@@ -2076,11 +2076,16 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 .cfg-submit {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
   padding: 0.65rem 1.25rem;
   border-top: 1px solid var(--border-color);
   background: var(--bg-elevated);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
-.cfg-submit input[type="submit"] {
+.cfg-submit input[type="submit"],
+.cfg-submit input[type="submit"].button-red {
+  display: inline-block !important;
   width: auto !important;
   min-width: 0 !important;
   height: auto !important;
@@ -2088,15 +2093,20 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   font-size: 0.82rem !important;
   padding: 0.35rem 1.1rem !important;
   border-radius: 6px !important;
-  background: var(--color-primary) !important;
   color: #fff !important;
   border: none !important;
-  font-family: var(--font-main);
-  font-weight: 700;
+  text-align: center !important;
+  font-family: var(--font-main) !important;
+  font-weight: 700 !important;
   cursor: pointer;
   transition: background 0.15s;
+  box-shadow: none !important;
+  margin: 0 !important;
 }
-.cfg-submit input[type="submit"]:hover {
+.cfg-submit input[type="submit"]:not(.button-red) {
+  background: var(--color-primary) !important;
+}
+.cfg-submit input[type="submit"]:not(.button-red):hover {
   background: var(--color-primary-h) !important;
 }
 
@@ -2113,6 +2123,79 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 [data-theme="light"] .cfg-toggle input:checked + .cfg-toggle-slider::before {
   background: #fff;
 }
+
+/* ── cfg-btn: <button>-Elemente in cfg-submit ───────────────── */
+.cfg-btn {
+  display: inline-block !important;
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  padding: 0.35rem 1.1rem !important;
+  cursor: pointer;
+  font-family: var(--font-main) !important;
+  text-align: center !important;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.cfg-btn:hover { background: var(--color-primary-h) !important; }
+.cfg-btn-danger { background: #b03a2e !important; margin-right: auto; }
+.cfg-btn-danger:hover { background: #943126 !important; }
+
+/* ── Danger-Button im cfg-submit (input[type="submit"]) ─────── */
+.cfg-submit input.button-red {
+  background: #b03a2e !important;
+  margin-right: auto;
+}
+.cfg-submit input.button-red:hover { background: #943126 !important; }
+
+/* ── Radio-Gruppe (export, import) ─────────────────────────── */
+.cfg-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+.cfg-radio-group label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.cfg-radio-group input[type="radio"] {
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Datei-Upload-Zeile (import) ────────────────────────────── */
+.cfg-file-upload {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.cfg-file-upload input[type="file"] {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+.cfg-file-upload p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0.4rem 0 0;
+}
+
+/* ── Fußnote nach Form (changetag) ─────────────────────────── */
+.cfg-footer-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0.5rem 1.25rem;
+  margin: 0;
+  border-top: 1px solid var(--border-color);
+}
+.cfg-footer-note a { color: var(--color-primary); }
 
 /* ============================================================
    17. TAG-SORT-BAR (erscheint auf Tag-Cloud- und Tag-List-Seiten)
@@ -2468,7 +2551,8 @@ html .md-editor.md-fullscreen-mode .btn:focus {
    Im hellen Modus ist grün auf weißem Hintergrund zu dominant —
    die grüne Borderlinie der Karte reicht als Primärfarbe-Signal. */
 [data-theme="light"] .page-form .window-title,
-[data-theme="light"] .page-form-light .window-title {
+[data-theme="light"] .page-form-light .window-title,
+[data-theme="light"] .page-form-configure .window-title {
   color: var(--text-primary) !important;
 }
 

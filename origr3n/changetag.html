@@ -5,60 +5,73 @@
 </head>
 <body>
 {include="page.header"}
+
 <div class="pure-g">
   <div class="pure-u-lg-1-3 pure-u-1-24"></div>
-  <div id="addlink-form" class="page-form page-form-light pure-u-lg-1-3 pure-u-22-24">
+  <div class="pure-u-lg-1-3 pure-u-22-24 page-form-configure">
     <h2 class="window-title">{"Manage tags"|t}</h2>
     <form method="POST" action="{$base_path}/admin/tags" name="changetag" id="changetag">
-      <div>
-        <input type="text" name="fromtag" aria-label="{'Tag'|t}" placeholder="{'Tag'|t}" value="{$fromtag}"
-               list="tagsList" autocomplete="off" class="awesomplete autofocus" data-minChars="1">
-        <datalist id="tagsList">
-          {loop="$tags"}<option>{$key}</option>{/loop}
-        </datalist>
+      <div class="cfg-section">
+        <div class="cfg-row cfg-row-field">
+          <label class="cfg-label" for="fromtag">{'Tag'|t}</label>
+          <input type="text" name="fromtag" id="fromtag"
+                 class="cfg-input awesomplete autofocus"
+                 aria-label="{'Tag'|t}" placeholder="{'Tag'|t}" value="{$fromtag}"
+                 list="tagsList" autocomplete="off" data-minChars="1">
+          <datalist id="tagsList">
+            {loop="$tags"}<option>{$key}</option>{/loop}
+          </datalist>
+        </div>
+        <div class="cfg-row cfg-row-field">
+          <label class="cfg-label" for="totag">{'New name'|t}</label>
+          <input type="text" name="totag" id="totag"
+                 class="cfg-input awesomplete"
+                 aria-label="{'New name'|t}" placeholder="{'New name'|t}"
+                 list="toTagsList" autocomplete="off" data-minChars="1">
+          <datalist id="toTagsList">
+            {loop="$tags"}<option>{$key}</option>{/loop}
+          </datalist>
+        </div>
+        <div class="cfg-row cfg-row-field">
+          <span class="cfg-desc"><i class="fa fa-info-circle" aria-hidden="true"></i> {'Case sensitive'|t}</span>
+        </div>
       </div>
-      <div>
-        <input type="text" name="totag" aria-label="{'New name'|t}" placeholder="{'New name'|t}"
-               list="toTagsList" autocomplete="off" class="awesomplete" data-minChars="1">
-        <datalist id="toTagsList">
-          {loop="$tags"}<option>{$key}</option>{/loop}
-        </datalist>
-      </div>
-      <div><i class="fa fa-info-circle" aria-hidden="true"></i> {'Case sensitive'|t}</div>
       <input type="hidden" name="token" value="{$token}">
-      <div>
-        <input type="submit" value="{'Rename tag'|t}" name="renametag">
-        <input type="submit" value="{'Delete tag'|t}" name="deletetag"
-               class="button button-red confirm-delete" data-type="tag">
+      <div class="cfg-submit">
+        <button type="submit" name="deletetag" class="cfg-btn cfg-btn-danger confirm-delete" data-type="tag">{'Delete tag'|t}</button>
+        <button type="submit" name="renametag" class="cfg-btn">{'Rename tag'|t}</button>
       </div>
     </form>
-
-    <p>{'You can also edit tags in the'|t} <a href="{$base_path}/tags/list?sort=usage">{'tag list'|t}</a>.</p>
+    <p class="cfg-footer-note">{'You can also edit tags in the'|t} <a href="{$base_path}/tags/list?sort=usage">{'tag list'|t}</a>.</p>
   </div>
+  <div class="pure-u-lg-1-3 pure-u-1-24"></div>
 </div>
 
 <div class="pure-g">
   <div class="pure-u-lg-1-3 pure-u-1-24"></div>
-  <div class="page-form page-form-light pure-u-lg-1-3 pure-u-22-24">
+  <div class="pure-u-lg-1-3 pure-u-22-24 page-form-configure">
     <h2 class="window-title">{"Change tags separator"|t}</h2>
     <form method="POST" action="{$base_path}/admin/tags/change-separator" name="changeseparator" id="changeseparator">
-      <p>
-        {'Your current tag separator is'|t} <code>{$tags_separator}</code>{if="!empty($tags_separator_desc)"} ({$tags_separator_desc}){/if}.
-      </p>
-      <div>
-        <input type="text" name="separator" placeholder="{'New separator'|t}"
-               id="separator">
+      <div class="cfg-section">
+        <div class="cfg-row cfg-row-field">
+          <span class="cfg-desc">{'Your current tag separator is'|t} <code>{$tags_separator}</code>{if="!empty($tags_separator_desc)"} ({$tags_separator_desc}){/if}.</span>
+        </div>
+        <div class="cfg-row cfg-row-field">
+          <label class="cfg-label" for="separator">{'New separator'|t}</label>
+          <input type="text" name="separator" id="separator" class="cfg-input"
+                 placeholder="{'New separator'|t}">
+          <span class="cfg-desc">{'Note that hashtags won\'t fully work with a non-whitespace separator.'|t}</span>
+        </div>
       </div>
       <input type="hidden" name="token" value="{$token}">
-      <div>
+      <div class="cfg-submit">
         <input type="submit" value="{'Save'|t}" name="saveseparator">
       </div>
-      <p>
-        {'Note that hashtags won\'t fully work with a non-whitespace separator.'|t}
-      </p>
     </form>
   </div>
+  <div class="pure-u-lg-1-3 pure-u-1-24"></div>
 </div>
+
 {include="page.footer"}
 </body>
 </html>
