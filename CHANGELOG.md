@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.4-dev] — Mobile Header (2026-06-15, r=138)
+
+### r=138 — Mobile Header: kein Doppelheader, Titel-Ellipsis ✅
+- `.menu-transform.pure-menu-horizontal { display: none }` in `@media (max-width: 63.99em)` — verhindert zweite Kopfleiste unter der Mobile-Bar
+- `.shaarli-title-text`: `white-space: nowrap; text-overflow: ellipsis; min-width: 0` für lange Seitentitel
+- `{$shaarlititle}` in `<span class="shaarli-title-text">` gewrappt — Voraussetzung für Ellipsis in Flex-Container
+- `overflow: hidden` auf `.shaarli-title` selbst ergänzt
+- CSS-Stand (r=126–137) komplett auf Dev deployed (war noch Jun 13 / r≈113)
+
 ## [v1.4-dev] — Mobile Header Icons + Filter-Panel (2026-06-15, r=126–137)
 
 ### r=137 — Mobile Header Icons ✅
