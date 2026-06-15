@@ -2048,7 +2048,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: var(--bg-elevated);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid rgba(255,255,255,0.22);
   border-radius: 24px;
   transition: background 0.22s, border-color 0.22s;
 }
@@ -2901,6 +2901,29 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   margin: 1rem 0;
+  overflow: hidden;
+}
+
+/* Section-Titel (h3.window-subtitle) als Trennzeile */
+.server-tables-page .window-subtitle,
+.server-tables .window-subtitle {
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--text-muted) !important;
+  text-align: left !important;
+  padding: 0.55rem 1.25rem !important;
+  margin: 0 !important;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+}
+
+/* Erste Titelzeile braucht keinen top-border (direkt nach window-title) */
+.server-tables-page .window-title + .window-subtitle,
+.server-tables .window-title + .window-subtitle {
+  border-top: 1px solid var(--border-color);
 }
 
 .server-tables-page .server-row,
@@ -2915,16 +2938,17 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 .server-tables-page .server-row p,
 .server-tables .server-row p {
+  text-align: left !important;
   color: var(--text-secondary) !important;
   margin: 0;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1.25rem;
   height: auto !important;
 }
 
 .server-tables-page .server-label,
 .server-tables .server-label {
-  color: var(--text-primary) !important;
-  font-weight: 600;
+  color: var(--text-muted) !important;
+  font-weight: 500;
 }
 
 .server-tables-page i.fa-color-green,
@@ -2933,28 +2957,147 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 }
 
 /* --- Plugins-Admin ---------------------------------------- */
-.pluginform-container .pure-g {
+
+/* Section headers (Mikro-Caps Trennlinie + grüner Akzent links) */
+.pluginform-container .window-subtitle {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--text-secondary) !important;
+  text-align: left !important;
+  padding: 0.55rem 1.25rem !important;
+  margin: 0 !important;
+  border-top: 2px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary) !important;
+  background: var(--bg-elevated);
+  display: block;
 }
 
-.pluginform-container .main-row {
-  background: var(--bg-surface) !important;
-  color: var(--text-primary) !important;
+/* Plugin table */
+.pluginform-container .plugin-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
-.pluginform-container .plugin-name {
+/* Feste Spaltenbreiten — sorgt für Ausrichtung zwischen den zwei Tabellen */
+.pluginform-container .plugin-table th:nth-child(1) { width: 64px; }
+.pluginform-container .plugin-table th:nth-child(2) { width: 170px; }
+.pluginform-container .plugin-table th:last-child.center { width: 110px; }
+
+.pluginform-container .plugin-table th {
+  font-size: 0.72rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 0.5rem 0.85rem;
+  text-align: left;
+  border-bottom: 2px solid var(--border-color);
+  background: var(--bg-elevated);
+}
+
+.pluginform-container .plugin-table th.center { text-align: center; }
+
+.pluginform-container .plugin-table td {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  vertical-align: middle;
+  text-transform: none !important;
+}
+
+.pluginform-container .plugin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pluginform-container .plugin-table tbody tr:hover td {
+  background: var(--bg-elevated);
+}
+
+/* Toggle cell — zentriert */
+.pluginform-container .plugin-td-toggle {
+  width: 52px;
+  text-align: center;
+}
+
+/* Plugin name — prominent, kein Umbruch */
+.pluginform-container .plugin-td-name {
+  white-space: nowrap;
+}
+.pluginform-container .plugin-td-name label {
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+/* Description — sekundär */
+.pluginform-container .plugin-td-desc label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: none;
+}
+
+/* Order column */
+.pluginform-container .plugin-td-order {
+  width: 72px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pluginform-container .order {
+  color: var(--text-muted) !important;
+  font-size: 0.8rem;
+  margin: 0 0.15rem;
+  text-decoration: none;
+}
+
+.pluginform-container .order:hover {
+  color: var(--color-primary) !important;
+}
+
+/* "More plugins" Hinweis */
+.pluginform-container .plugin-more-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0.65rem 1.25rem;
+  margin: 0;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+}
+
+.pluginform-container .plugin-more-note a {
   color: var(--color-primary);
 }
 
-.pluginform-container .plugin-desc {
-  color: var(--text-secondary);
+/* Empty-State */
+.pluginform-container .plugin-empty {
+  color: var(--text-muted);
   font-size: 0.88rem;
+  padding: 1rem 1.25rem;
+  margin: 0;
 }
 
-/* Drag-Handle Icon */
-.pluginform-container .order {
-  color: var(--text-muted) !important;
+/* Plugin-Config-Parameter rows */
+.pluginform-container .plugin-param-section:not(:first-child) .window-subtitle {
+  border-top: 2px solid var(--border-color);
+}
+
+.pluginform-container .plugin-param-row {
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pluginform-container .cfg-label code {
+  font-size: 0.82rem;
+  color: var(--color-primary);
+  background: transparent;
+  padding: 0;
 }
 
 /* --- pure-button-shaarli (Batch-Edit Speichern-Button) ----- */
