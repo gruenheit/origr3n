@@ -69,8 +69,12 @@
       });
     }
 
+    var searchOpeners = document.querySelectorAll('.subheader-opener[data-open-id="search"]');
+
     new MutationObserver(function () {
-      if (panel.classList.contains('open')) {
+      var isOpen = panel.classList.contains('open');
+      searchOpeners.forEach(function (btn) { btn.classList.toggle('origr3n-active', isOpen); });
+      if (isOpen) {
         var hasTag = tagsInput && tagsInput.value.trim().length > 0;
         setTagMode(hasTag);
         var inp = hasTag ? tagsInput : termInput;
@@ -230,10 +234,16 @@
     var panel = document.getElementById('filter-panel');
     if (!btns.length || !panel) return;
 
+    function syncFilterActive() {
+      var isOpen = panel.classList.contains('open');
+      btns.forEach(function (btn) { btn.classList.toggle('origr3n-active', isOpen); });
+    }
+
     btns.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         panel.classList.toggle('open');
+        syncFilterActive();
       });
     });
 
@@ -243,12 +253,14 @@
       btns.forEach(function (b) { if (b.contains(e.target)) clickedBtn = true; });
       if (!e.target.closest('#filter-panel') && !clickedBtn) {
         panel.classList.remove('open');
+        syncFilterActive();
       }
     });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && panel.classList.contains('open')) {
         panel.classList.remove('open');
+        syncFilterActive();
       }
     });
   });

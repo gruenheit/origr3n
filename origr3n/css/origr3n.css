@@ -1177,6 +1177,16 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--color-primary);
+  background: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Chrome/Safari überschreiben Autofill-Hintergründe — mit inset box-shadow kaschieren */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-input) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary);
 }
 
 /* select Option-Elemente */
@@ -1356,7 +1366,7 @@ input[type="checkbox"] {
   padding-top: 0.75rem !important;
 }
 
-/* Save-Button: nicht strecken, Shaarli-Base 1.2em überschreiben */
+/* Save-Button: rechts via order (Löschen erscheint links, obwohl es im DOM danach kommt) */
 .page-form .submit-buttons input[type=submit] {
   flex: 0 0 auto !important;
   font-size: 0.9rem !important;
@@ -1364,18 +1374,22 @@ input[type="checkbox"] {
   height: auto !important;
   line-height: normal !important;
   min-width: 0 !important;
+  order: 2 !important;
 }
 
+/* Löschen-Button: links — order:1 + margin-right:auto trennt ihn vom Save-Button */
 .page-form .submit-buttons a.button-red,
 .page-form .submit-buttons .button-red {
   flex: 0 0 auto !important;
   font-size: 0.9rem !important;
   font-weight: 600 !important;
-  margin-left: auto !important;
+  margin: 0 !important;
+  margin-right: auto !important;
   min-width: 0 !important;
   height: auto !important;
   line-height: normal !important;
   padding: 0.45rem 1.1rem !important;
+  order: 1 !important;
 }
 
 /* Delete Ghost-Rot */
@@ -1409,10 +1423,13 @@ a.button-grey,
 /* markdown_toolbar-Plugin — Bootstrap-Markdown (.md-editor .btn) */
 .md-editor {
   border-color: var(--border-color) !important;
+  overflow: hidden !important;
 }
 .md-editor .btn-toolbar {
   background: var(--bg-elevated) !important;
   border-bottom: 1px solid var(--border-color) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 .md-editor .btn {
   background: transparent !important;
@@ -1426,6 +1443,75 @@ a.button-grey,
   background: var(--bg-surface) !important;
   color: var(--color-primary) !important;
   box-shadow: none !important;
+}
+
+/* Expand-Button (.md-control): Plugin-CSS (nach origr3n geladen) setzt :hover { color: #333 }
+   → auf dunklem Hintergrund unsichtbar. html-Präfix erhöht Spezifität über Plugin-Regel. */
+html .md-editor .md-controls .md-control {
+  color: var(--text-muted) !important;
+}
+html .md-editor .md-controls .md-control:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Fullscreen-Modus — Strategie:
+   - body.md-nooverflow: Bootstrap-Markdown setzt diese Klasse → Seitenheader ausblenden
+   - Plugin hat .pure-g-Regeln mit Spezifität (0,4,0)+(0,3,1) → html + .pure-g erforderlich
+   - :focus/:hover auf .md-input separat abdecken */
+
+/* Page-Header verstecken wenn Fullscreen aktiv (Bootstrap-Markdown setzt md-nooverflow) */
+body.md-nooverflow #shaarli-menu {
+  display: none !important;
+}
+
+/* Wrapper: über alles andere, dunkler Hintergrund */
+html .md-editor.md-fullscreen-mode {
+  z-index: 100000 !important;
+  background: var(--bg-base) !important;
+}
+
+/* Textarea + Preview — alle Zustände abdecken */
+html .md-editor.md-fullscreen-mode .md-input,
+html .md-editor.md-fullscreen-mode .md-input:focus,
+html .md-editor.md-fullscreen-mode .md-input:hover,
+html .md-editor.md-fullscreen-mode .md-preview {
+  background: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Textarea margin-top: Plugin setzt via .pure-g 30px → html .pure-g schlägt Spez. (0,3,1) */
+html .pure-g .md-editor.md-fullscreen-mode textarea {
+  margin-top: 0 !important;
+}
+
+/* Toolbar: oben, kein margin-top (Plugin: .pure-g → 30px) — html .pure-g schlägt (0,4,0) */
+html .pure-g .md-editor.md-fullscreen-mode .md-header.btn-toolbar {
+  background: var(--bg-elevated) !important;
+  top: 0 !important;
+  margin-top: 0 !important;
+  z-index: 100001 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding-right: 4rem !important;
+}
+
+/* Exit-Fullscreen-Button (oben rechts): Plugin setzt a:hover { color: #333 } → unsichtbar */
+html .md-editor.md-fullscreen-mode .md-fullscreen-controls a {
+  color: var(--text-muted) !important;
+}
+html .md-editor.md-fullscreen-mode .md-fullscreen-controls a:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Toolbar-Buttons */
+html .md-editor.md-fullscreen-mode .btn {
+  color: var(--text-secondary) !important;
+}
+html .md-editor.md-fullscreen-mode .btn:hover,
+html .md-editor.md-fullscreen-mode .btn.active,
+html .md-editor.md-fullscreen-mode .btn:focus {
+  color: var(--color-primary) !important;
+  background: var(--bg-surface) !important;
 }
 .md-editor .btn-group + .btn-group {
   border-left: 1px solid var(--border-color) !important;
@@ -1738,6 +1824,7 @@ a.button-grey,
 
 .page-form-light .window-title {
   padding: 0.6rem 0 0.5rem;
+  font-weight: 500 !important;
 }
 
 /* Einzelne Werkzeug-Links als Zeilen */
@@ -2213,6 +2300,11 @@ a.button-grey,
   box-shadow: 0 3px 10px rgba(0,0,0,0.1), 0 0 0 1px var(--color-primary) !important;
   border-color: var(--color-primary) !important;
 }
+[data-theme="light"] .linklist-item.private:hover,
+[data-theme="light"] .linklist-item:has(.label-private):hover {
+  border-color: #b07820 !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1), 0 0 0 1px #b07820 !important;
+}
 
 /* --- Light Mode: Eingabefelder ------------------------------ */
 
@@ -2242,8 +2334,9 @@ a.button-grey,
 
 /* --- Light Mode: Neutrale Buttons --------------------------- */
 
-/* Im hellen Modus wirken dunkelgraue Toolbar-Buttons (#2e2e2e) deplatziert */
-[data-theme="light"] button:not(#theme-toggle) {
+/* Im hellen Modus wirken dunkelgraue Toolbar-Buttons (#2e2e2e) deplatziert.
+   Ausgenommen: alle Icon-Buttons (transparent) + Action-Buttons (Textlinks) */
+[data-theme="light"] button:not(#theme-toggle):not([data-theme-toggle]):not([data-select-toggle]):not(.filter-btn-trigger):not(#filter-btn):not(#origr3n-action-delete):not(#origr3n-action-public):not(#origr3n-action-private):not(#origr3n-select-cancel) {
   background: #e4e4e4 !important;
   color: #333 !important;
   border-color: #c0c0c0 !important;
@@ -2475,6 +2568,27 @@ a.button-grey,
   color: #2d6e0a !important;
 }
 
+/* --- Light Mode: Select-Modus -------------------------------- */
+
+/* Bottom-Bar: weicherer Schatten auf hellem Hintergrund */
+[data-theme="light"] #origr3n-select-bar {
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ausgewählte Karte im Select-Modus: Tint auf weißer Karte etwas stärker */
+[data-theme="light"] body.select-mode .linklist-item.selected {
+  background: rgba(61, 142, 18, 0.12) !important;
+}
+[data-theme="light"] body.select-mode .linklist-item.selected.private,
+[data-theme="light"] body.select-mode .linklist-item.selected:has(.label-private) {
+  background: rgba(176, 120, 32, 0.14) !important;
+}
+
+/* Dekoratives Highlight (außerhalb Select-Modus) auf hellen Karten */
+[data-theme="light"] .linklist-item.selected {
+  background: rgba(61, 142, 18, 0.08) !important;
+}
+
 /* ============================================================
    25. RESTLICHE TEMPLATES — Error, Batch-Edit, Server, Plugins
    ============================================================ */
@@ -2616,8 +2730,11 @@ a.button-grey,
 }
 [data-select-toggle]:focus { outline: none; }
 
-/* Select-Toggle-Icon aktiv im Select-Modus */
-body.select-mode [data-select-toggle] {
+/* Aktiver Zustand aller Header-Icon-Opener — Suche, Filter, Select */
+body.select-mode [data-select-toggle],
+.subheader-opener[data-open-id="search"].origr3n-active,
+.filter-btn-trigger.origr3n-active,
+#filter-btn.origr3n-active {
   background: var(--bg-elevated) !important;
   color: var(--color-primary) !important;
 }
@@ -2734,4 +2851,66 @@ body.select-mode #origr3n-select-bar {
 
 .pure-button-shaarli:hover {
   background: var(--color-primary-h) !important;
+}
+
+/* ============================================================
+   ADDLINK-SEITE (Link hinzufügen / Mehrere Links)
+   ============================================================ */
+
+/* Awesomplete-Wrapper: standardmäßig inline-block → Formularfeld bleibt schmaler
+   als die Textarea darüber. Block + 100% bringt beide auf gleiche Breite. */
+.page-form .awesomplete {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Beschreibungstexte in den Addlink-Formularen: kein Mikro-Caps-Label-Style —
+   das sind Hinweis-Sätze, keine Feldnamen */
+.batch-addform label[for="urls"],
+.addform label[for="shaare"] {
+  text-transform: none !important;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  color: var(--text-muted) !important;
+  margin-top: 0 !important;
+}
+
+/* Submit-Button-Container: rechts ausrichten */
+.addform > div:last-child,
+.batch-addform > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+/* Submit-Buttons in den Addlink-Formularen: kompakter als globale Action-Buttons.
+   shaarli.min.css setzt height:35px + line-height:35px → Text oben; mit auto überschreiben. */
+#addlink-form input[type="submit"],
+#batch-addlink-form input[type="submit"] {
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  line-height: normal !important;
+  font-size: 0.82rem !important;
+  padding: 0.3rem 0.85rem !important;
+  border-radius: 6px !important;
+}
+
+/* "Mehrere Links"-Umschalter */
+.addlink-batch-show-more {
+  padding: 0.4rem 0 0.5rem;
+}
+.addlink-batch-show-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.addlink-batch-show-more a:hover {
+  color: var(--color-primary-h);
+  text-decoration: underline;
 }

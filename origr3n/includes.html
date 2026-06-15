@@ -19,7 +19,7 @@
 {if="strpos($formatter, 'markdown') !== false"}
   <link type="text/css" rel="stylesheet" href="{$asset_path}/css/markdown.min.css?v={$version_hash}#" />
 {/if}
-<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=150#" />
+<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=165#" />
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 /* origr3n: URL- und Titel-Feld — vollständiger Inhalt als Browser-Tooltip */
 document.addEventListener('DOMContentLoaded', function(){
-  ['input[name="lf_url"]', 'input[name="lf_title"]'].forEach(function(sel){
+  ['input[name="lf_url"]', 'input[name="lf_title"]', 'input[name="post"]'].forEach(function(sel){
     var el = document.querySelector(sel);
     if (!el) return;
     el.title = el.value;
