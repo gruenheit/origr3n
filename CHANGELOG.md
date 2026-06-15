@@ -1,19 +1,12 @@
 # Changelog
 
-## [v1.4-dev] — Linklist Thumbnail-Integration + Titel-Icon-Hänger (2026-06-16, r=190–192)
+## [v1.4-dev] — Linklist Thumbnail-Integration (Revert, 2026-06-16, r=190–194)
 
-### Thumbnail — Float-Ansatz (r=191–192)
-- Thumbnail zurück in `.linklist-item-title` (floated right) — Grid-Ansatz (r=190) reverted: Footer-Band endete nicht am rechten Rand, Thumbnail wirkte zu extern
-- `float: right; margin: 0 0 0.5rem 1rem` — Thumbnail "klebt" am rechten Titelrand, Text umfließt es
-- `width: 120px; height: 72px; object-fit: cover; object-position: center` — Bild auf festen Frame skaliert ohne Datei-Eingriff
-- `border-radius: var(--border-radius); overflow: hidden` — weiche Ecken wie alle anderen Karten-Elemente
-- Inline `style="width:...;height:..."` entfernt — CSS übernimmt Kontrolle
-
-### Titel-Icon-Hänger (r=192)
-- **Problem:** `<a class="linklist-real-url">` war `inline`, bei Zeilenumbruch begann Zeile 2 vor dem Icon → fransiger linker Rand
-- **Fix:** `.linklist-real-url { display: inline-flex; align-items: flex-start; gap: 0.3em; width: 100% }` — Icon und Textspanne sind Flex-Kinder; Umbruch passiert ausschließlich im `.linklist-link`-Span, Zeile 2 bündig mit Text-Start
-- `.linklist-real-url .fa { flex-shrink: 0; margin-top: 0.18em }` — Icon hängt stabil auf Höhe erster Textzeile
-- `.linklist-real-url .linklist-link { flex: 1; min-width: 0 }` — Textbereich belegt restliche Breite
+### Erkenntnisse (für nächste Session)
+- **Grid-Ansatz (r=190):** Footer-Band endete nicht am rechten Rand; TN in der Ecke wirkte "extern" → verworfen
+- **Float-Ansatz (r=191–193):** `float: right` funktioniert für Text-Wrap, verhindert aber saubere vertikale Textausrichtung (Titel, Domain, Beschreibung starten auf verschiedenen x-Positionen)
+- **Icon-Hänger-Fix (r=192/193):** `inline-flex + width:100%` brach Float-Wrap (neuer BFC); `text-indent + padding-left` korrigiert das, löst aber das Ausrichtungsproblem nicht
+- **Fazit (r=194 Revert):** Thumbnail-Integration benötigt echtes Card-Grid — Bild in eigener Grid-Spalte, Text in anderer; Float ist der falsche Ansatz dafür
 
 ---
 

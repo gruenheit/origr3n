@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: **v1.4-dev** — CSS r=192 · JS r=13 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Select-Modus ✅ · Tools-Seiten cfg-Layout ✅ · Thumbnail Float ✅ · Light Mode + Production-Deploy ausstehend
+> Status: **v1.4-dev** — CSS r=194 · JS r=13 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Select-Modus ✅ · Tools-Seiten cfg-Layout ✅ · Thumbnail-Integration offen (Grid-Ansatz) · Light Mode + Production-Deploy ausstehend
 
 ---
 
@@ -21,7 +21,6 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 ### Linklist (Hauptansicht)
 
 - **Karten-Design:** 3px grüner Akzentrand links; private Karten amber (Hover-Rand + Stripe); Domain-Zeile unter Titel
-- **Thumbnails:** float right innerhalb des Titel-Bereichs (120×72px, `object-fit: cover`); Text umfließt das Bild; Titel-Icon hängt korrekt bei Zeilenumbruch (`inline-flex` auf `.linklist-real-url`)
 - **Dekoratives Highlight:** Klick auf Kartenbereich togglet `.selected` (grüner Rahmen), mehrere Karten gleichzeitig; Klick außerhalb löscht alle
 - **Select-Modus:** Header-Icon aktiviert `body.select-mode` — Karten anklicken selektiert + checkt native Shaarli-Checkboxen; Bottom-Bar mit Zähler, „alle wählen", Löschen/Öffentlich/Privat/Abbrechen; Action-Buttons als farbige Textlinks
 - **Badges:** Privat-Label (amber) + Sticky-Badge (`fa-bookmark`, grün) in `.linklist-item-editbuttons`; Reihenfolge: Privat zuerst
