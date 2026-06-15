@@ -2289,6 +2289,16 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   margin-bottom: 0.5rem !important;
 }
 
+/* --- Light Mode: Formular-Titel ----------------------------- */
+
+/* .page-form .window-title setzt color: var(--color-primary) !important (immer grün).
+   Im hellen Modus ist grün auf weißem Hintergrund zu dominant —
+   die grüne Borderlinie der Karte reicht als Primärfarbe-Signal. */
+[data-theme="light"] .page-form .window-title,
+[data-theme="light"] .page-form-light .window-title {
+  color: var(--text-primary) !important;
+}
+
 /* --- Light Mode: Karten-Definition -------------------------- */
 
 /* Im hellen Modus brauchen Karten etwas mehr Tiefe gegen den #f5f5f5-Hintergrund */
