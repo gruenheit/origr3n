@@ -1,5 +1,37 @@
 # Changelog
 
+## [v1.4-dev] — Addlink-Form + Editlink-Fixes + Markdown-Fullscreen (2026-06-15, r=151–165 / JS r=13)
+
+### Addlink-Form (addlink.html, r=151–155)
+- Deutsche Labels: "Link hinzufügen", "URL — oder leer lassen für eine Notiz", "Hinzufügen", "Mehrere Links", "Links hinzufügen"
+- Awesomplete-Wrapper: `display: block !important; width: 100%` — Tags-Feld gleichbreit wie Textarea
+- Beschreibungs-Labels (`label[for="shaare"]`, `label[for="urls"]`): `text-transform: none; font-size: 0.8rem` — kein CAPS-Stil
+- Submit-Buttons: kompakter (`height: auto; min-width: 0; padding: 0.3rem 0.85rem`) — shaarli.min.css-Override (`height: 35px; min-width: 150px`) übersteuert
+- Submit-Container rechtsbündig via `display: flex; justify-content: flex-end`
+- `page-form-light .window-title`: `font-weight: 500` — schlankere Fensterüberschriften
+
+### Input-Kontrast + URL-Tooltip (r=156–158)
+- Focus-Hintergrund: `background: var(--bg-input) !important` — kein blendend-weißes Chrome-Focus
+- Webkit-Autofill-Override: `-webkit-box-shadow: 0 0 0 1000px var(--bg-input) inset !important`
+- URL-Tooltip auf `input[name="post"]` ergänzt (wie `lf_url` im Editlink)
+
+### Editlink — Button-Reihenfolge (r=159–162)
+- "Löschen" links, "Speichern" rechts: flexbox `order: 1/2` + `margin-right: auto` auf Löschen-Button
+- Kein HTML-Eingriff — DOM-Reihenfolge unverändert, nur visuelle Umsortierung
+- Früherer Ansatz (`margin-left: auto` auf Save) führte zu Überlappung — behoben
+
+### Markdown-Toolbar (r=160–165)
+- Expand-Button hover: `color: var(--color-primary)` — Plugin setzt `color: #333` → unsichtbar auf dunklem BG; html-Präfix erhöht Spezifität
+- **Fullscreen-Modus** — Strategie: `body.md-nooverflow` (Bootstrap-Markdown setzt diese Klasse) zum Verstecken des Seitenheaders; `html .pure-g`-Präfix gegen Plugin-Regeln mit (0,4,0)-Spezifität
+  - Seitenheader ausgeblendet: `body.md-nooverflow #shaarli-menu { display: none }`
+  - Dunkler Hintergrund: `html .md-editor.md-fullscreen-mode { background: var(--bg-base) }`
+  - Textarea alle Zustände: `:focus`, `:hover` explizit abgedeckt (Plugin hat alle drei mit `#fff !important`)
+  - Toolbar oben: `top: 0; margin-top: 0` — Plugin schiebt via `.pure-g` auf 30px, beaten durch `html .pure-g`-Spezifität
+  - Exit-Button (`.md-fullscreen-controls a`): hover → grün; Plugin: `color: #333` → unsichtbar
+- Overflow-Fix: `overflow: hidden` auf `.md-editor`; `width: 100%; box-sizing: border-box` auf `.btn-toolbar` — Toolbar übersteht nicht mehr über Container
+
+---
+
 ## [v1.4-dev] — Select-Modus + Karten-Badges + Footer-Stabilität (2026-06-15, r=141–150 / JS r=10–12)
 
 ### Select-Modus (r=141–150 / JS r=10–12)
