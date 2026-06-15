@@ -711,30 +711,6 @@ li:has(> #shaarli-menu-shaare) {
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-/* Thumbnail — float rechts, Teil des Inhalts */
-.linklist-item-thumbnail {
-  float: right;
-  margin: 0 0 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  flex-shrink: 0;
-  width: auto !important;
-  height: auto !important;
-}
-
-.linklist-item-thumbnail .thumbnail {
-  display: block;
-  line-height: 0;
-}
-
-.linklist-item-thumbnail .thumbnail img {
-  display: block;
-  width: 120px;
-  height: 72px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: var(--border-radius);
-}
 
 /* Shaarli-Base setzt background:#f5f5f5 auf .linklist-item-title */
 .linklist-item-title {
@@ -774,23 +750,6 @@ li:has(> #shaarli-menu-shaare) {
   line-height: 1.4;
 }
 
-/* Icon hängt korrekt: Zeile 2 beginnt bündig mit Text-Start (nicht vor dem Icon) */
-.linklist-real-url {
-  display: inline-flex !important;
-  align-items: flex-start;
-  gap: 0.3em;
-  width: 100%;
-}
-
-.linklist-real-url .fa {
-  flex-shrink: 0;
-  margin-top: 0.18em;
-}
-
-.linklist-real-url .linklist-link {
-  flex: 1;
-  min-width: 0;
-}
 
 .linklist-item-title h2 a,
 .linklist-item-title .linklist-link,
