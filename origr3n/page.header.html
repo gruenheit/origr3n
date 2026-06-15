@@ -21,6 +21,9 @@
           <span class="filter-active-dot"></span>
           {/if}
         </button>
+        <button type="button" data-select-toggle aria-label="Links auswählen">
+          <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        </button>
         {/if}
       </div>
       <a href="#" class="menu-toggle" id="menu-toggle" aria-label="{'Menu'|t}"><s class="bar" aria-hidden="true"></s><s class="bar" aria-hidden="true"></s></a>
@@ -101,6 +104,11 @@
               {if="$visibility==='private' || $visibility==='public' || $untaggedonly"}
               <span class="filter-active-dot"></span>
               {/if}
+            </button>
+          </li>
+          <li class="pure-menu-item" id="origr3n-select-toggle-item">
+            <button type="button" data-select-toggle aria-label="Links auswählen" title="Links auswählen">
+              <i class="fa fa-check-square-o" aria-hidden="true"></i>
             </button>
           </li>
           {/if}

@@ -154,11 +154,11 @@
             {/if}
 
             <div class="linklist-item-editbuttons">
-              {if="$value.sticky"}
-                <span class="label label-sticky">{$strSticky}</span>
-              {/if}
               {if="$value.private"}
                 <span class="label label-private">{$strPrivate}</span>
+              {/if}
+              {if="$value.sticky"}
+                <span class="label label-sticky" title="{$strSticky}" aria-label="{$strSticky}"><i class="fa fa-bookmark" aria-hidden="true"></i></span>
               {/if}
             </div>
 

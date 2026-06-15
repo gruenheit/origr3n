@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: **v1.4-dev** — CSS r=140 · JS r=9 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Light Mode + Production-Deploy ausstehend
+> Status: **v1.4-dev** — CSS r=150 · JS r=12 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Select-Modus ✅ · Light Mode + Production-Deploy ausstehend
 
 ---
 
@@ -20,12 +20,14 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 ### Linklist (Hauptansicht)
 
-- **Karten-Design:** 3px grüner Akzentrand links, private Links amber, Domain-Zeile unter Titel
-- **Multi-Select:** Klick auf Kartenbereich selektiert Karte (grüner Rahmen); mehrere Karten gleichzeitig
-- **Footer-Band:** Tags + Datum-Pille + Icons (□ multi, ✏ edit, × delete, 🔖 pin); Klick klappt auf/zu
-- **Footer-Icons (Variante E):** Grünskala — multi `#5cb81a`, edit `#3d8e12`, delete `#5a7a4a`, pin `#3d8e12`
-- **Multi-Checkbox:** nativer `<input>` mit `appearance: none` — grüner Haken bei `:checked`, zuverlässig klickbar
-- **Private-Share-Link:** amber `#d4851a` (fa-share-alt) — konsistent mit Privat-Badge und Kartenakzent
+- **Karten-Design:** 3px grüner Akzentrand links; private Karten amber (Hover-Rand + Stripe); Domain-Zeile unter Titel
+- **Dekoratives Highlight:** Klick auf Kartenbereich togglet `.selected` (grüner Rahmen), mehrere Karten gleichzeitig; Klick außerhalb löscht alle
+- **Select-Modus:** Header-Icon aktiviert `body.select-mode` — Karten anklicken selektiert + checkt native Shaarli-Checkboxen; Bottom-Bar mit Zähler, „alle wählen", Löschen/Öffentlich/Privat/Abbrechen; Action-Buttons als farbige Textlinks
+- **Badges:** Privat-Label (amber) + Sticky-Badge (`fa-bookmark`, grün) in `.linklist-item-editbuttons`; Reihenfolge: Privat zuerst
+- **Footer-Band:** Tags + Datum-Pille + Icons; Klick klappt auf/zu; Layout-stabil (visibility statt display, kein Reflow)
+- **Footer-Icons (Variante E):** Grünskala — edit `#3d8e12`, delete `#5a7a4a`, pin/fa-bookmark `#3d8e12`
+- **Visibility-Toggle:** fa-lock (amber) / fa-unlock-alt im Footer-Band — togglet Privat↔Öffentlich
+- **Private-Share-Link:** amber `#d4851a` (fa-share-alt) — konsistent mit Privat-Badge
 - **Datum-Pille = Permalink:** Klick öffnet `shaare/{shorturl}` direkt; Höhe auf Tag-Niveau angeglichen
 - **Datumsformat:** „heute, HH:MM" / „gestern, HH:MM" / „11. Jun. 26" für ältere Einträge
 - **Tag-Pills:** Grüner Rand, Hover-Inversion; kein redundantes Tag-Icon
@@ -34,7 +36,8 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 - **FAB „+ Teilen":** Fixierter grüner Kreis (56×56px) unten rechts — immer erreichbar, ohne Nav zu belasten
 - **Nav-Links:** `--text-secondary` Standard, `--color-primary` bei Hover; 0.875rem
-- **Icon-Hover:** runde Hover-Fläche (`border-radius: 50%`); Mond, Suche, Logout/Login
+- **Header-Icons:** runde Hover-Fläche (`border-radius: 50%`); Mond, Suche, Filter, Select-Toggle, Logout/Login; alle gleich gestylt — `var(--text-muted)` initial, `--color-primary` bei Hover; Select-Toggle bleibt im aktivem Modus hervorgehoben
+- **Filter-Panel:** Sichtbarkeits- und Ergebnis-Pro-Seite-Pills; Position fixed
 
 ### Weitere Seiten
 
@@ -64,7 +67,7 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 Shaarli-origr3n/
 ├── origr3n/
 │   ├── css/origr3n.css      — Haupt-Stylesheet (Token-System, alle Seiten)
-│   ├── js/origr3n.js        — Dark/Light-Toggle
+│   ├── js/origr3n.js        — Dark/Light-Toggle, Suche-Overlay, Select-Modus, Filter-Panel
 │   ├── includes.html        — Head: CSS-Einbindung (mit ?r=N Cache-Busting), JS-Snippets
 │   ├── linklist.html        — Hauptansicht
 │   └── ...                  — weitere Templates

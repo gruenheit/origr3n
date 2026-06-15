@@ -93,6 +93,136 @@
   });
 })();
 
+/* origr3n — Select-Modus mit Bottom-Bar */
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    /* Bottom-Bar dynamisch erstellen */
+    var bar = document.createElement('div');
+    bar.id = 'origr3n-select-bar';
+
+    var countEl = document.createElement('span');
+    countEl.id = 'origr3n-select-count';
+    countEl.textContent = '0 ausgewählt';
+
+    var selectAllBtn = document.createElement('a');
+    selectAllBtn.id = 'origr3n-select-all';
+    selectAllBtn.href = '#';
+    selectAllBtn.textContent = 'alle wählen';
+
+    var actionsEl = document.createElement('div');
+    actionsEl.className = 'origr3n-select-actions';
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.id = 'origr3n-action-delete';
+    deleteBtn.type = 'button';
+    deleteBtn.textContent = 'Löschen';
+
+    var publicBtn = document.createElement('button');
+    publicBtn.id = 'origr3n-action-public';
+    publicBtn.type = 'button';
+    publicBtn.textContent = 'Öffentlich';
+
+    var privateBtn = document.createElement('button');
+    privateBtn.id = 'origr3n-action-private';
+    privateBtn.type = 'button';
+    privateBtn.textContent = 'Privat';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.id = 'origr3n-select-cancel';
+    cancelBtn.type = 'button';
+    cancelBtn.textContent = 'Abbrechen';
+
+    actionsEl.appendChild(deleteBtn);
+    actionsEl.appendChild(publicBtn);
+    actionsEl.appendChild(privateBtn);
+    bar.appendChild(countEl);
+    bar.appendChild(selectAllBtn);
+    bar.appendChild(actionsEl);
+    bar.appendChild(cancelBtn);
+    document.body.appendChild(bar);
+
+    function updateCount() {
+      var n = document.querySelectorAll('.link-checkbox:checked').length;
+      countEl.textContent = n + ' ausgewählt';
+    }
+
+    function exitSelectMode() {
+      document.body.classList.remove('select-mode');
+      document.querySelectorAll('.link-checkbox').forEach(function (cb) {
+        if (cb.checked) {
+          cb.checked = false;
+          cb.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+      document.querySelectorAll('.linklist-item.selected').forEach(function (i) {
+        i.classList.remove('selected');
+      });
+      updateCount();
+    }
+
+    /* Select-Toggle-Buttons (Desktop + Mobile) */
+    document.querySelectorAll('[data-select-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (document.body.classList.contains('select-mode')) {
+          exitSelectMode();
+        } else {
+          document.querySelectorAll('.linklist-item.selected').forEach(function (i) {
+            i.classList.remove('selected');
+          });
+          document.body.classList.add('select-mode');
+          updateCount();
+        }
+      });
+    });
+
+    /* Alle wählen / alle abwählen */
+    selectAllBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var allCbs = document.querySelectorAll('.link-checkbox');
+      var checkedCount = document.querySelectorAll('.link-checkbox:checked').length;
+      var doSelect = checkedCount < allCbs.length;
+      allCbs.forEach(function (cb) {
+        if (cb.checked !== doSelect) {
+          cb.checked = doSelect;
+          cb.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+      document.querySelectorAll('.linklist-item').forEach(function (item) {
+        var cb = item.querySelector('.link-checkbox');
+        item.classList.toggle('selected', doSelect && !!cb);
+      });
+      selectAllBtn.textContent = doSelect ? 'alle abwählen' : 'alle wählen';
+      updateCount();
+    });
+
+    /* Abbrechen */
+    cancelBtn.addEventListener('click', function () {
+      exitSelectMode();
+      selectAllBtn.textContent = 'alle wählen';
+    });
+
+    /* Action-Buttons → native Shaarli-Elemente triggern */
+    deleteBtn.addEventListener('click', function () {
+      var native = document.getElementById('actions-delete');
+      if (native) native.click();
+    });
+    publicBtn.addEventListener('click', function () {
+      var native = document.querySelector('.actions-change-visibility[data-visibility="public"]');
+      if (native) native.click();
+    });
+    privateBtn.addEventListener('click', function () {
+      var native = document.querySelector('.actions-change-visibility[data-visibility="private"]');
+      if (native) native.click();
+    });
+
+    /* Checkbox-Änderung → Zähler aktualisieren */
+    document.addEventListener('change', function (e) {
+      if (e.target.classList.contains('link-checkbox')) updateCount();
+    });
+  });
+})();
+
 /* origr3n — Filter Panel */
 (function () {
   document.addEventListener('DOMContentLoaded', function () {

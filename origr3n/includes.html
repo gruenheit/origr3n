@@ -19,7 +19,7 @@
 {if="strpos($formatter, 'markdown') !== false"}
   <link type="text/css" rel="stylesheet" href="{$asset_path}/css/markdown.min.css?v={$version_hash}#" />
 {/if}
-<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=140#" />
+<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=150#" />
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
@@ -89,39 +89,62 @@ document.addEventListener('DOMContentLoaded', function(){
 document.addEventListener('DOMContentLoaded', function(){
   var items = document.querySelectorAll('.linklist-item');
   if (!items.length) return;
+
+  function toggleItemSelect(item) {
+    var cb = item.querySelector('.link-checkbox');
+    var next = !item.classList.contains('selected');
+    item.classList.toggle('selected', next);
+    if (cb) {
+      cb.checked = next;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
   items.forEach(function(item){
     var infos = item.querySelector('.linklist-item-infos');
     var pill = item.querySelector('.linkdate[data-ts]');
     var pl   = item.querySelector('.shaare-permalink');
 
-    /* Datum-Pille = Permalink (Option A): Klick navigiert zur Shaare-URL */
+    /* Datum-Pille = Permalink: Klick navigiert zur Shaare-URL */
     if (pill && pl) {
       pill.addEventListener('click', function(e){
-        e.stopPropagation(); /* kein Footer-Aufklappen, keine Selektion */
+        e.stopPropagation();
         window.location.href = pl.href;
       });
     }
 
-    /* Footer-Band: Klick klappt auf/zu — stoppt Propagation, löst keine Selektion aus */
+    /* Footer-Band: Select-Modus → Selektion; sonst auf/zuklappen */
     if (infos) {
       infos.addEventListener('click', function(e){
         e.stopPropagation();
         if (e.target.closest('a') || e.target.tagName === 'INPUT') return;
+        if (document.body.classList.contains('select-mode')) {
+          toggleItemSelect(item);
+          return;
+        }
         item.classList.toggle('footer-open');
       });
     }
-    /* Kartenbereich (außerhalb Footer): Selektion togglen */
+
+    /* Kartenbereich: Select-Modus → Selektion; sonst dekoratives Highlight-Toggle */
     item.addEventListener('click', function(e){
       if (e.target.closest('a') || e.target.tagName === 'INPUT') return;
-      item.classList.toggle('selected');
+      if (!document.body.classList.contains('select-mode')) {
+        item.classList.toggle('selected');
+        return;
+      }
+      toggleItemSelect(item);
     });
   });
-  /* Klick außerhalb: Selektion und offene Footer zurücksetzen */
+
+  /* Klick außerhalb: Footer zurücksetzen; Selektion nur außerhalb Select-Modus */
   document.addEventListener('click', function(e){
     if (!e.target.closest('.linklist-item')) {
-      document.querySelectorAll('.linklist-item.selected').forEach(function(i){
-        i.classList.remove('selected');
-      });
+      if (!document.body.classList.contains('select-mode')) {
+        document.querySelectorAll('.linklist-item.selected').forEach(function(i){
+          i.classList.remove('selected');
+        });
+      }
       document.querySelectorAll('.linklist-item.footer-open').forEach(function(i){
         i.classList.remove('footer-open');
       });

@@ -1,5 +1,41 @@
 # Changelog
 
+## [v1.4-dev] — Select-Modus + Karten-Badges + Footer-Stabilität (2026-06-15, r=141–150 / JS r=10–12)
+
+### Select-Modus (r=141–150 / JS r=10–12)
+- Neues Header-Icon `[data-select-toggle]` (Desktop + Mobile, nur für eingeloggte User): `fa-check-square-o`
+- Klick aktiviert `body.select-mode`; alle Karten werden klickbar (Cursor, user-select)
+- Karte klicken → `.selected` + nativer Shaarli-Checkbox gechecked → Bottom-Bar aktualisiert Zähler
+- Bottom-Bar (`#origr3n-select-bar`, fixed bottom): Zähler | "alle wählen" | Löschen · Öffentlich · Privat · Abbrechen
+- Action-Buttons proxyen auf native Shaarli-Elemente (`#actions-delete`, `.actions-change-visibility`)
+- Abbrechen: `exitSelectMode()` — entfernt `body.select-mode`, uncheckt alle Checkboxen, löscht `.selected`
+- Native `#actions`-Bar per `display: none !important` versteckt (Bottom-Bar ersetzt sie vollständig)
+- Checkboxen (`link-checkbox`, `ctrl-checkbox`) per CSS unsichtbar gehalten — existieren für Shaarli-JS
+- Dekoratives Karten-Highlight außerhalb Select-Modus beibehalten: Klick togglet `.selected` (kein Checkbox-Link), mehrere Karten gleichzeitig selektierbar; Klick außerhalb löscht alle
+- Einschalten des Select-Modus löscht zuerst bestehende dekorative Highlights
+- Select-Toggle-Icon: identisches Styling wie Suche/Filter/Mond — `var(--text-muted)` initial, runder Hover-Hintergrund; im Select-Modus hervorgehoben (`--bg-elevated` + `--color-primary`)
+- Action-Buttons als reine Textlinks: kein Hintergrund, kein Border; Farben: rot/grün/amber/grau; globale `button { !important }`-Regeln übersteuert
+- Icons (fa-trash, fa-globe, fa-user-secret) aus Action-Buttons entfernt — Farbe trägt semantische Bedeutung
+
+### Privat-Karte Hover-Farbe (r=141)
+- Hover-Border auf privaten Karten: grün → amber (`#b07820`)
+- Zwei unabhängige Hover-Zustände: öffentlich = grüner Rand, privat = amber Rand
+
+### Sticky-Badge — Icon statt Text (r=142–145)
+- "Angeheftet"-Text durch `fa-bookmark`-Icon ersetzt (gleiche Icon-Familie wie Footer-Band)
+- Iterationen: `fa-thumb-tack` (unsichtbar) → `fa-map-marker` (nutzer-Rückfrage) → `fa-bookmark` (bestätigt)
+- Reihenfolge der Badges in `.linklist-item-editbuttons` getauscht: Privat-Label zuerst, Bookmark-Icon dahinter
+- Blauer Rahmen aus `shaarli.min.css` (`.linklist-item-title .label-sticky { border: solid 1px #0b5ea6 }`) mit `border: none !important` überschrieben
+- `color: var(--color-primary) !important; background: transparent !important; padding: 0 !important`
+
+### Footer-Band Layout-Stabilität (r=146–147)
+- **Problem:** Controls-Group (`display: none/flex` Toggle) entfernte das Element aus dem Flex-Flow → Tags und Datum-Pille sprangen beim Aufklappen
+- **Fix:** `visibility: hidden/visible` statt `display: none/flex` — Controls immer im Flow, nur Sichtbarkeit wechselt
+- Unified Padding auf `.linklist-item-infos`: kein Layout-Shift zwischen offen/geschlossen
+- Dateblock immer `display: flex` — garantiert stabile Breite unabhängig vom Controls-Status
+
+---
+
 ## [v1.4-dev] — Mobile Such-Overlay (2026-06-15, r=139–140)
 
 ### r=139–140 — Such-Overlay auf Mobile funktionsfähig ✅
