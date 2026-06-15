@@ -2907,6 +2907,24 @@ body.select-mode #origr3n-select-bar {
   border-radius: 6px !important;
 }
 
+/* Login-Button: gleiche Behandlung wie Addlink-Submit —
+   shaarli.min.css setzt height:35px + line-height:35px → Text oben; width meist 100% */
+#login-form div:has(input[type="submit"]) {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+#login-form input[type="submit"] {
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  line-height: normal !important;
+  font-size: 0.82rem !important;
+  padding: 0.3rem 1.1rem !important;
+  border-radius: 6px !important;
+}
+
 /* "Mehrere Links"-Umschalter */
 .addlink-batch-show-more {
   padding: 0.4rem 0 0.5rem;
