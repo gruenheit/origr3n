@@ -93,6 +93,23 @@
   });
 })();
 
+/* origr3n — Mobile Subheader-Opener
+   Shaarli JS greift nur auf .pure-menu-link.subheader-opener — Mobile-Bar-Buttons
+   fehlen diese Klasse → eigener Handler, nur für .mobile-header-icons */
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.mobile-header-icons .subheader-opener').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = btn.getAttribute('data-open-id');
+        var target = targetId ? document.getElementById(targetId) : null;
+        if (!target) return;
+        target.classList.toggle('open');
+      });
+    });
+  });
+})();
+
 /* origr3n — Filter Panel */
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
