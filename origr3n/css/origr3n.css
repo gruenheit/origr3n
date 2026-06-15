@@ -468,6 +468,11 @@ li:has(> #shaarli-menu-shaare) {
   cursor: pointer;
 }
 
+/* shaarli.min.css: .header-search * { visibility: hidden } auf Mobile — Kinder explizit sichtbar */
+#search.subheader-form.open * {
+  visibility: visible !important;
+}
+
 /* Die <form> ist die eigentliche Overlay-Box */
 #search.subheader-form.open .searchform {
   width: 480px;
