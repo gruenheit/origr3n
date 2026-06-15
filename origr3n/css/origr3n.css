@@ -2082,6 +2082,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   border-top: 1px solid var(--border-color);
   background: var(--bg-elevated);
   border-radius: 0 0 var(--border-radius) var(--border-radius);
+  overflow: hidden;
 }
 .cfg-submit input[type="submit"],
 .cfg-submit input[type="submit"].button-red {
@@ -2141,8 +2142,9 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   transition: background 0.15s;
 }
 .cfg-btn:hover { background: var(--color-primary-h) !important; }
-.cfg-btn-danger { background: #b03a2e !important; margin-right: auto; }
+.cfg-btn-danger { background: #b03a2e !important; }
 .cfg-btn-danger:hover { background: #943126 !important; }
+.cfg-submit-split .cfg-btn { flex: 1; }
 
 /* ── Danger-Button im cfg-submit (input[type="submit"]) ─────── */
 .cfg-submit input.button-red {
