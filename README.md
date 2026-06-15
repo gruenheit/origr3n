@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: **v1.4-dev** — CSS r=150 · JS r=12 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Select-Modus ✅ · Light Mode + Production-Deploy ausstehend
+> Status: **v1.4-dev** — CSS r=189 · JS r=13 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Select-Modus ✅ · Tools-Seiten cfg-Layout ✅ · Light Mode + Production-Deploy ausstehend
 
 ---
 
@@ -43,7 +43,9 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 - **Tag-Cloud:** JS-Farbgradient — häufige Tags heller, seltene dunkler
 - **Tag-Liste:** Grüne Zähler-Badges
-- **Tools:** Akzentlinie links, Menüzeilen mit `→`-Pfeil
+- **Tools-Übersicht:** Akzentlinie links, Menüzeilen mit `→`-Pfeil; alle drei Panels einheitlich `1/2`-Breite
+- **Tools-Unterseiten (cfg-*-Layout):** configure, changepassword, changetag, export, import, pluginsadmin, server — einheitliches Single-Column-Kartenformat mit `cfg-section`, `cfg-row`, `cfg-submit`, Toggle-Switches
+- **Plugin-Administration:** Toggle-Switches für Plugin-Checkboxen, zweispaltige Tabelle mit festen Spaltenbreiten, Mikro-Caps-Sektions-Header mit grünem Akzent
 - **Add/Edit-Formular:** Mikro-Caps Labels, vollbreite Inputs, Ghost-Red Delete, Markdown-Toolbar gestylt
 - **PRIVAT-Haken:** Seitenstreifen wechselt live auf amber (CSS `:has()`, kein JS)
 - **URL + Titel-Tooltip:** vollständiger Inhalt als Browser-Tooltip, aktualisiert sich beim Tippen

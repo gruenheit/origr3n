@@ -1,5 +1,29 @@
 # Changelog
 
+## [v1.4-dev] — Tools-Seiten: cfg-*-Layout + Plugin-Admin-Tabelle (2026-06-15, r=181–189)
+
+### pluginsadmin.html — komplettes Rewrite (r=182–187)
+- Toggle-Switches (`cfg-toggle`) für alle Plugin-Checkboxen (Enabled + Disabled) — HTML-Wrapper `<label class="cfg-toggle"><input><span class="cfg-toggle-slider"></span></label>`
+- `cfg-submit` für beide Submit-Buttons (rechts, kompakt)
+- `window-subtitle` als Mikro-Caps-Trennlinie mit grünem Akzentstreifen links (`border-left: 3px solid var(--color-primary)`)
+- Plugin-Tabelle: `table-layout: fixed`, feste Spaltenbreiten (64 / 170 / auto / 110px) — gleiche Ausrichtung zwischen Enabled- und Disabled-Tabelle
+- Plugin-Config-Parameter: `cfg-row-field` + `cfg-input` — einheitlich mit anderen Formular-Seiten
+- Breite auf `pure-u-lg-22-24` angehoben — vierspaltige Tabelle (inkl. Reihenfolge) hat genug Platz
+- `text-transform: none` auf Beschreibungszellen — ALL-CAPS-Texte aus Plugin-Metadaten korrigiert
+- `cfg-toggle-slider` Border auf `rgba(255,255,255,0.22)` — Off-State Track sichtbar auf dunklem Hintergrund
+
+### server.html — Breite (r=181)
+- Container von `pure-u-lg-1-2` auf `pure-u-lg-3-4` — Tabellenspalten wurden nicht abgeschnitten
+
+### changetag.html — Panel-Breite (r=188)
+- Beide Panels von `pure-u-lg-1-3` auf `pure-u-lg-1-2` — zwei nebeneinanderstehende Buttons haben Platz
+
+### tools.html — Panel-Breite (r=189)
+- Alle drei Panels (`Einstellungen`, `Lesezeichen`, `Ressourcen`) von `pure-u-lg-1-3` auf `pure-u-lg-1-2`
+- "Lesezeichen (Bookmarklets)"-Titel bricht nicht mehr auf zwei Zeilen
+
+---
+
 ## [v1.4-dev] — Addlink-Form + Editlink-Fixes + Markdown-Fullscreen (2026-06-15, r=151–165 / JS r=13)
 
 ### Addlink-Form (addlink.html, r=151–155)
