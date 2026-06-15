@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.4-dev] — Mobile Such-Overlay (2026-06-15, r=139–140)
+
+### r=139–140 — Such-Overlay auf Mobile funktionsfähig ✅
+- Doppel-Toggle-Bug behoben: eigener `.mobile-header-icons .subheader-opener`-Handler aus origr3n.js entfernt — Shaarli-JS deckt via `getElementsByClassName("subheader-opener")` bereits alle Opener ab; zwei Handler toggelten `open` sofort wieder weg
+- CSS: `#search.subheader-form.open * { visibility: visible !important }` — shaarli.min.css setzt `.header-search * { visibility: hidden }` im `@media (max-width: 64em)`-Block; Kinder der Overlay-Form blieben dadurch unsichtbar
+
 ## [v1.4-dev] — Mobile Header (2026-06-15, r=138)
 
 ### r=138 — Mobile Header: kein Doppelheader, Titel-Ellipsis ✅
