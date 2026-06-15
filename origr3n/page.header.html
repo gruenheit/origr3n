@@ -114,7 +114,14 @@
       autocomplete="off" data-multiple data-autofirst data-minChars="1"
       data-list="{loop="$tags"}{$key|escape}, {/loop}"
       >
-      <button type="submit" class="search-button" aria-label="{'Search'|t}"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <div class="search-overlay-actions">
+        <button type="button" id="search-tag-toggle" class="search-tag-toggle" aria-label="{'Filter by tag'|t}">
+          <i class="fa fa-tag" aria-hidden="true"></i> tags
+        </button>
+        <button type="submit" class="search-button" aria-label="{'Search'|t}">
+          <i class="fa fa-search" aria-hidden="true"></i> suche
+        </button>
+      </div>
     </form>
   </div>
 
