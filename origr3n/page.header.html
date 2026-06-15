@@ -7,6 +7,22 @@
         {$shaarlititle}
       </a>
       </header>
+      <div class="mobile-header-icons">
+        <button type="button" data-theme-toggle aria-label="Toggle dark/light mode">
+          <i class="fa fa-moon-o" aria-hidden="true"></i>
+        </button>
+        <a href="#" class="subheader-opener" data-open-id="search" aria-label="{'Search'|t}">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+        {if="$is_logged_in"}
+        <button class="filter-btn-trigger" type="button" aria-label="Filter">
+          <i class="fa fa-filter" aria-hidden="true"></i>
+          {if="$visibility==='private' || $visibility==='public' || $untaggedonly"}
+          <span class="filter-active-dot"></span>
+          {/if}
+        </button>
+        {/if}
+      </div>
       <a href="#" class="menu-toggle" id="menu-toggle" aria-label="{'Menu'|t}"><s class="bar" aria-hidden="true"></s><s class="bar" aria-hidden="true"></s></a>
     </div>
   </div>
@@ -78,6 +94,16 @@
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
           </li>
+          {if="$is_logged_in"}
+          <li class="pure-menu-item" id="origr3n-filter-btn-item">
+            <button id="filter-btn" class="filter-btn-trigger" type="button" aria-label="Filter" title="Filter">
+              <i class="fa fa-filter" aria-hidden="true"></i>
+              {if="$visibility==='private' || $visibility==='public' || $untaggedonly"}
+              <span class="filter-active-dot"></span>
+              {/if}
+            </button>
+          </li>
+          {/if}
           {if="!$is_logged_in"}
             <li class="pure-menu-item" id="shaarli-menu-desktop-login">
               <a href="{$base_path}/login" class="pure-menu-link"
@@ -95,6 +121,40 @@
           {/if}
         </ul>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="filter-panel">
+  {if="$is_logged_in"}
+  <div class="filter-panel-section">
+    <span class="filter-panel-label">Sichtbarkeit</span>
+    <div class="filter-panel-pills">
+      <a href="{$base_path}/admin/visibility/private"
+         class="filter-pill {if="$visibility==='private'"}active{/if}">
+        <i class="fa fa-user-secret" aria-hidden="true"></i> privat
+      </a>
+      <a href="{$base_path}/admin/visibility/public"
+         class="filter-pill {if="$visibility==='public'"}active{/if}">
+        <i class="fa fa-globe" aria-hidden="true"></i> öffentlich
+      </a>
+      <a href="{$base_path}/untagged-only"
+         class="filter-pill {if="$untaggedonly"}active{/if}">
+        <i class="fa fa-tag" aria-hidden="true"></i> ohne Tag
+      </a>
+    </div>
+  </div>
+  <div class="filter-panel-divider"></div>
+  {/if}
+  <div class="filter-panel-section">
+    <span class="filter-panel-label">pro Seite</span>
+    <div class="filter-panel-pills">
+      <a href="{$base_path}/links-per-page?nb=20"
+         class="filter-pill {if="$links_per_page==20"}active{/if}">20</a>
+      <a href="{$base_path}/links-per-page?nb=50"
+         class="filter-pill {if="$links_per_page==50"}active{/if}">50</a>
+      <a href="{$base_path}/links-per-page?nb=100"
+         class="filter-pill {if="$links_per_page==100"}active{/if}">100</a>
     </div>
   </div>
 </div>

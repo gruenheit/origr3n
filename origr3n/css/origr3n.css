@@ -340,6 +340,66 @@ li:has(> #shaarli-menu-shaare) {
   background: var(--bg-surface);
 }
 
+/* ---- Mobile Header Bar: Logo | Icons | Hamburger ---- */
+@media screen and (max-width: 63.99em) {
+  .pure-u-lg-0 .pure-menu {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 8px !important;
+    min-height: 44px;
+  }
+  .pure-u-lg-0 .pure-menu header {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .pure-u-lg-0 .pure-menu .menu-toggle {
+    position: static !important;
+    flex-shrink: 0;
+    order: 99;
+    top: auto !important;
+    right: auto !important;
+  }
+  .mobile-header-icons {
+    order: 2;
+  }
+}
+
+/* Mobile Icon Buttons */
+.mobile-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.mobile-header-icons button,
+.mobile-header-icons a {
+  position: relative;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 32px;
+  height: 32px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-muted) !important;
+  transition: color 0.15s, background 0.15s;
+  padding: 0 !important;
+  text-decoration: none !important;
+}
+
+.mobile-header-icons button:hover,
+.mobile-header-icons a:hover {
+  background: var(--bg-elevated) !important;
+  color: var(--color-primary) !important;
+}
+
+.mobile-header-icons button:focus { outline: none; }
+
 
 /* ============================================================
    6. LAYOUT
@@ -351,15 +411,19 @@ li:has(> #shaarli-menu-shaare) {
 }
 
 /* Shaare-Zähler */
+/* Stats oben (top-right Sidebar) — ausgeblendet, ersetzt durch Bottom-Stats */
 .linkcount {
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  padding: 0.4rem 0 0.4rem 1rem;
+  display: none !important;
 }
 
-.linkcount .strong {
-  color: var(--color-primary);
-  font-weight: 700;
+/* Stats unten — sehr dezente Kursivzeile unterhalb der unteren Pagination */
+.linklist-stats-bottom {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-style: italic;
+  opacity: 0.55;
+  padding: 0.35rem 0 0.75rem;
 }
 
 /* ============================================================
@@ -504,7 +568,115 @@ li:has(> #shaarli-menu-shaare) {
 }
 
 /* ============================================================
-   8. LINK CARDS
+   8. FILTER PANEL — Dropdown unter Filter-Icon
+   ============================================================ */
+
+#filter-btn {
+  position: relative;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-muted) !important;
+  transition: color 0.15s, background 0.15s;
+  padding: 0 !important;
+}
+#filter-btn:hover {
+  background: var(--bg-elevated) !important;
+  color: var(--color-primary) !important;
+}
+#filter-btn:focus {
+  outline: none;
+}
+.filter-active-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  pointer-events: none;
+}
+
+#filter-panel {
+  display: none;
+  position: fixed;
+  top: 54px;
+  right: 8px;
+  z-index: 998;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+  min-width: 180px;
+}
+#filter-panel.open {
+  display: block;
+}
+
+.filter-panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.filter-panel-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+.filter-panel-pills {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+.filter-panel-divider {
+  border-top: 1px solid var(--border-color);
+  margin: 0.65rem 0;
+}
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-decoration: none !important;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.filter-pill:hover,
+.filter-pill:visited:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary) !important;
+  background: transparent;
+}
+.filter-pill.active,
+.filter-pill.active:visited {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff !important;
+}
+.filter-pill.active:hover {
+  opacity: 0.9;
+}
+.filter-pill-reset {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* ============================================================
+   9. LINK CARDS
    ============================================================ */
 #linklist {
   margin-top: 0.5rem;
@@ -830,6 +1002,14 @@ a.tag:hover {
 .linklist-item-editbuttons a.pinned-link,
 .linklist-item-infos-controls-group a.pinned-link { color: #5cb81a !important; }
 .link-checkbox          { accent-color: #5cb81a !important; }
+
+/* Delete, Pin, Visibility: haben pure-u-0 auf dem <a> selbst — shaarli.min.css versteckt sie doppelt */
+.ctrl-delete a,
+.ctrl-pin a,
+.ctrl-visibility a {
+  display: inline-flex !important;
+  align-items: center;
+}
 
 /* Fold-Button: verborgen */
 .linklist-item-buttons {
@@ -1295,9 +1475,22 @@ a.button-grey,
    ============================================================ */
 
 .linklist-paging {
-  border-bottom: 1px solid var(--border-color);
   padding: 0.4rem 0 0.6rem;
   margin-bottom: 0.75rem;
+}
+
+/* Filter-Icons + Links-pro-Seite ausgeblendet — ersetzt durch Header-Filter-Panel */
+.linklist-filters,
+.linksperpage {
+  display: none !important;
+}
+
+/* Mobile-Inline-Buttons: komplett ausgeblendet — Hauptkontrollen in Zeile 1 übernehmen alles */
+.mobile-buttons {
+  display: none !important;
+}
+.linklist-pages {
+  width: 100% !important;
 }
 
 /* Filter-Buttons (privat/öffentlich/ungetaggt/alle auswählen) */
@@ -1371,13 +1564,19 @@ a.button-grey,
 .linklist-pages {
   text-align: center;
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.linklist-pages .strong {
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
 .linklist-pages a {
-  color: var(--text-secondary) !important;
-  font-size: 1.1rem;
-  padding: 0 0.3rem;
+  color: var(--text-muted) !important;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
 }
 
 .linklist-pages a:hover {
@@ -1875,11 +2074,12 @@ a.button-grey,
    ============================================================ */
 #footer {
   text-align: center;
-  padding: 1.25rem 1rem;
+  padding: 0.75rem 1rem;
   color: var(--text-muted);
-  font-size: 0.78rem;
-  border-top: 1px solid var(--border-color);
-  margin-top: 2rem;
+  font-size: 0.68rem;
+  opacity: 0.45;
+  border-top: none;
+  margin-top: 1rem;
 }
 
 #footer a {
@@ -1961,16 +2161,27 @@ a.button-grey,
 
 /* --- Such-Ergebnis-Banner ----------------------------------- */
 
+/* Ergebnis-Kontext (aktive Suche/Filter): dezente Textzeile ohne Box */
+#search-result-block {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.15rem 0 0.4rem !important;
+  margin-bottom: 0.25rem !important;
+  font-size: 0.78rem !important;
+  color: var(--text-muted) !important;
+}
+
 /* Fehler-Banner (Nothing found) */
 #search-result-block.pure-alert-error,
 .pure-alert.pure-alert-error.search-result {
-  background: var(--bg-surface) !important;
+  background: transparent !important;
   border: none !important;
-  border-left: 4px solid #c0392b !important;
+  border-left: 3px solid #8a3030 !important;
   border-radius: 0 !important;
-  padding: 0.5rem 1rem !important;
-  color: var(--text-primary) !important;
-  margin-bottom: 1rem;
+  padding: 0.35rem 0.75rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 0.5rem !important;
 }
 
 /* --- Light Mode: Karten-Definition -------------------------- */
@@ -2050,7 +2261,7 @@ a.button-grey,
 }
 
 [data-theme="light"] .linklist-paging {
-  border-bottom-color: #d8d8d8;
+  /* border entfernt */
 }
 
 /* Filter-Buttons im hellen Modus */

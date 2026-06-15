@@ -1,5 +1,40 @@
 # Changelog
 
+## [v1.4-dev] — Mobile Header Icons + Filter-Panel (2026-06-15, r=126–137)
+
+### r=137 — Mobile Header Icons ✅
+- `.mobile-header-icons` in Mobile-Bar (`.pure-u-lg-0`) eingefügt: Moon, Suche, Filter (für eingeloggte User)
+- Mobile-Bar wird Flex-Container: Logo (flex:1) | Icons | Hamburger (order:99)
+- `.menu-toggle` bekommt `position: static !important` um in Flex-Flow zu rücken
+- `syncIcon()` aktualisiert alle `[data-theme-toggle] .fa` (Desktop + Mobile)
+- Filter-Panel-JS bindet an `.filter-btn-trigger` (Klasse auf beiden Buttons) statt `#filter-btn`
+
+### r=136 — Double-Hiding-Fix: Delete/Pin/Visibility-Icons
+- `.ctrl-delete a, .ctrl-pin a, .ctrl-visibility a`: `display: inline-flex !important`
+- Ursache: shaarli.min.css + `pure-u-0 pure-u-lg-visible` auf Kind-Element UND Eltern-Element → doppelte Unterdrückung; `!important` auf `<a>` direkt nötig
+
+### r=133–135 — Mobile-Buttons-Redundanz aufgelöst
+- `.mobile-buttons { display: none !important }` — komplett ausgeblendet
+- Shaarlis `.mobile-buttons` (Löschen/Pin/Sichtbarkeit auf Mobile) ist in origr3n redundant: Footer-Band auf allen Breiten übernimmt alle Aktionen
+- Iterationen r=133/134 (`.footer-open`-Ansatz) gezeigt, dass Duplikate entstehen → r=135 zurück zu `none`
+
+### r=128–132 — Pagination + Stats: dezent neu gestaltet
+- Pagination: `fa-angle-left/right` statt `fa-arrow-circle-*`; Seitenanzahl als `font-weight:400` in `--text-muted`
+- Obere Border aus `.linklist-paging` entfernt
+- `.linkcount` ausgeblendet (top-right Sidebar); Stats als `.linklist-stats-bottom`: kursiv, 0.68rem, opacity 0.55
+- Footer `#footer`: `font-size: 0.68rem; opacity: 0.45; border-top: none`
+- Suchergebnis-Kontext-Bar `#search-result-block`: transparent, borderless, `--text-muted`
+- Alte Filterleiste + Linksperpage ausgeblendet (`.linklist-filters, .linksperpage { display: none !important }`)
+
+### r=126–127 — Filter-Panel ✅
+- Trichter-Icon `#filter-btn` im Header (nur für eingeloggte User), runder Hover-Hintergrund wie Search-Icon
+- `#filter-panel` (position: fixed, right: 8px): Sichtbarkeit-Pills (privat/öffentlich/ohne Tag) + pro-Seite-Pills (20/50/100)
+- Pills: Border-Radius 999px, `active`-Klasse = `--color-primary` Hintergrund; Pill klicken = Toggle (Shaarli SessionFilterController)
+- Active-Dot-Bug: `$visibility` ist PHP `null` (nicht `''`) wenn kein Filter → `{if="$visibility==='private' || $visibility==='public' || $untaggedonly"}` korrekte Prüfung
+- Filter-Panel schließt per Escape, Außenklick, erneuter Pill-Klick (Toggle)
+
+---
+
 ## [v1.4-dev] — Suche als Modal-Overlay (2026-06-15, r=122–125)
 
 ### r=125 — Modal-Overlay final ✅

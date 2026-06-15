@@ -19,10 +19,9 @@
   }
 
   function syncIcon(theme) {
-    var icon = document.querySelector('#theme-toggle .fa');
-    if (icon) {
+    document.querySelectorAll('[data-theme-toggle] .fa').forEach(function (icon) {
       icon.className = theme === 'dark' ? ICON_DARK : ICON_LIGHT;
-    }
+    });
   }
 
   function toggle() {
@@ -90,6 +89,37 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && panel.classList.contains('open')) closeSearch();
+    });
+  });
+})();
+
+/* origr3n — Filter Panel */
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var btns = document.querySelectorAll('.filter-btn-trigger');
+    var panel = document.getElementById('filter-panel');
+    if (!btns.length || !panel) return;
+
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        panel.classList.toggle('open');
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!panel.classList.contains('open')) return;
+      var clickedBtn = false;
+      btns.forEach(function (b) { if (b.contains(e.target)) clickedBtn = true; });
+      if (!e.target.closest('#filter-panel') && !clickedBtn) {
+        panel.classList.remove('open');
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        panel.classList.remove('open');
+      }
     });
   });
 })();
