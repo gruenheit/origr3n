@@ -19,7 +19,7 @@
 {if="strpos($formatter, 'markdown') !== false"}
   <link type="text/css" rel="stylesheet" href="{$asset_path}/css/markdown.min.css?v={$version_hash}#" />
 {/if}
-<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=197#" />
+<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=220#" />
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
@@ -150,6 +150,91 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
   });
+});
+
+/* origr3n: Daily-Entry + Picwall Selektion */
+document.addEventListener('DOMContentLoaded', function(){
+  var entries = document.querySelectorAll('.daily-entry');
+  if (entries.length) {
+    entries.forEach(function(entry){
+      entry.addEventListener('click', function(e){
+        if (e.target.closest('a') || e.target.tagName === 'INPUT') return;
+        entry.classList.toggle('selected');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if (!e.target.closest('.daily-entry')) {
+        document.querySelectorAll('.daily-entry.selected').forEach(function(el){
+          el.classList.remove('selected');
+        });
+      }
+    });
+  }
+
+  var frames = document.querySelectorAll('.picwall-pictureframe');
+  if (frames.length) {
+    frames.forEach(function(frame){
+      frame.addEventListener('click', function(e){
+        if (e.target.closest('a')) return;
+        frame.classList.toggle('selected');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if (!e.target.closest('.picwall-pictureframe')) {
+        document.querySelectorAll('.picwall-pictureframe.selected').forEach(function(el){
+          el.classList.remove('selected');
+        });
+      }
+    });
+  }
+
+  /* Englische Monatsnamen auf Deutsch (window-subtitle, $dayDesc) */
+  var subtitle = document.querySelector('.window-subtitle');
+  if (subtitle) {
+    var de = {January:'Januar',February:'Februar',March:'März',April:'April',
+              May:'Mai',June:'Juni',July:'Juli',August:'August',
+              September:'September',October:'Oktober',November:'November',December:'Dezember'};
+    var t = subtitle.textContent;
+    Object.keys(de).forEach(function(en){ t = t.replace(en, de[en]); });
+    subtitle.textContent = t;
+  }
+
+  /* Tag-Cloud: Placeholder + Kontext-Label bei aktiver Suche */
+  var cloudInput = document.querySelector('#search-tagcloud input[name="searchtags"]');
+  if (cloudInput) {
+    cloudInput.placeholder = 'Tag eingeben → Co-Tags anzeigen';
+    var params = new URLSearchParams(window.location.search);
+    var searchTag = (params.get('searchtags') || '').trim();
+    if (searchTag) {
+      var cloud = document.getElementById('cloudtag');
+      if (cloud) {
+        var lbl = document.createElement('p');
+        lbl.className = 'cotag-context-label';
+        lbl.innerHTML = 'Gemeinsam mit <strong>»' + searchTag + '«</strong> verwendete Tags:';
+        cloud.parentNode.insertBefore(lbl, cloud);
+      }
+      var wt = document.querySelector('.window-title');
+      if (wt) {
+        var m = wt.textContent.match(/\d+/);
+        wt.innerHTML = 'Co-Tags von »' + searchTag + '«' + (m ? ' <span class="cotag-count">— ' + m[0] + ' Tags</span>' : '');
+      }
+    }
+  }
+
+  /* tag-sort: aktiven Link hervorheben */
+  var tagSort = document.querySelector('.tag-sort');
+  if (tagSort) {
+    var current = window.location.pathname + window.location.search;
+    var sortLinks = tagSort.querySelectorAll('a');
+    var matched = false;
+    sortLinks.forEach(function(a){
+      if (a.pathname + a.search === current) {
+        a.classList.add('tag-sort-active');
+        matched = true;
+      }
+    });
+    if (!matched && sortLinks.length) sortLinks[0].classList.add('tag-sort-active');
+  }
 });
 </script>
 {if="$template === 'linklist' && ! empty($links) && count($links) === 1"}

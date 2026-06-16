@@ -423,6 +423,14 @@ li:has(> #shaarli-menu-shaare) {
   padding: 1.25rem 1rem 2rem;
 }
 
+/* Daily, Tags, Picwall: brauchen mehr als 860px */
+#content:has(#daily),
+#content:has(#cloudtag),
+#content:has(#taglist),
+#content:has(#picwall-container) {
+  max-width: 1280px;
+}
+
 /* Shaare-Zähler */
 /* Stats oben (top-right Sidebar) — ausgeblendet, ersetzt durch Bottom-Stats */
 .linkcount {
@@ -1341,6 +1349,11 @@ input[type="checkbox"] {
   text-align: left !important;
 }
 
+/* Visitor-Seiten (daily, tags, picwall): feinere Überschrift wie Tools */
+.page-form.page-visitor .window-title {
+  font-weight: 500 !important;
+}
+
 /* Seitenstreifen amber sobald PRIVAT-Haken gesetzt — live via :has(), kein JS */
 .page-form:has([name="lf_private"]:checked),
 .page-form:has([name="private"]:checked) {
@@ -1755,30 +1768,49 @@ html .md-editor.md-fullscreen-mode .btn:focus {
    14. TAG-LISTE (Sortierte Tag-Übersicht)
    ============================================================ */
 
+/* Grid-Layout: Tags in Spalten */
 .taglist-container,
 #taglist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.3rem;
   padding: 0.5rem 0;
 }
 
+/* pure-g Override: Item ist nur Grid-Zelle, kein Flex-Wrapper */
 .tag-list-item {
+  display: block !important;
+}
+
+/* Eigentlicher Flex-Zeilencontainer — nicht auf rename-tag-form anwenden */
+.tag-list-item > .pure-u-1:not(.rename-tag-form) {
   display: flex;
   align-items: center;
-  padding: 0.35rem 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-  transition: background 0.1s;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  transition: background 0.1s, border-color 0.1s;
 }
 
-.tag-list-item:hover {
+.tag-list-item > .pure-u-1:not(.rename-tag-form):hover {
   background: var(--bg-elevated);
+  border-color: var(--color-primary);
 }
 
-/* Anzahl-Badge (Zahl vor dem Tag-Namen) */
+/* Reihenfolge: Badge → Name → Icons */
+.tag-list-item a.count    { order: 1; }
+.tag-list-item a.tag-link { order: 2; }
+.tag-list-item a.delete-tag { order: 3; }
+.tag-list-item a.rename-tag { order: 4; }
+
+/* Anzahl-Badge */
 .tag-list-item a.count {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 2rem;
+  flex-shrink: 0;
   background: #1a3a0a;
   color: var(--color-primary) !important;
   border: 1px solid #2a5c0a;
@@ -1786,7 +1818,6 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   font-size: 0.76rem;
   font-weight: 700;
   padding: 0.1rem 0.35rem;
-  text-align: center;
   text-decoration: none !important;
   transition: background 0.1s;
 }
@@ -1797,41 +1828,69 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   border-color: var(--color-primary);
 }
 
-/* Tag-Name-Link */
+/* Tag-Name */
 .tag-list-item a.tag-link {
   color: var(--color-primary) !important;
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none !important;
   flex: 1;
-  margin-left: 0.4rem;
 }
 
 .tag-list-item a.tag-link:hover {
   color: var(--color-primary-h) !important;
 }
 
-/* Admin-Aktionen (Löschen, Umbenennen) */
+/* Admin-Icons: rechts, dezent — bei Hover sichtbar */
 .tag-list-item a.delete-tag,
 .tag-list-item a.rename-tag {
   color: var(--text-muted) !important;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-decoration: none !important;
-  transition: color 0.1s;
+  opacity: 0.45;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.tag-list-item > .pure-u-1:hover .delete-tag,
+.tag-list-item > .pure-u-1:hover .rename-tag {
+  opacity: 0.9;
 }
 
 .tag-list-item a.delete-tag:hover {
   color: #c0392b !important;
+  opacity: 1;
 }
 
 .tag-list-item a.rename-tag:hover {
   color: var(--color-primary) !important;
+  opacity: 1;
 }
 
-/* Umbenennen-Formular (klappt ein wenn aktiv) */
+/* Umbenennen-Formular: standardmäßig versteckt, klappt per JS auf */
 .rename-tag-form {
-  padding: 0.3rem 0.5rem;
+  display: none;
+  position: relative;
+  padding: 0.4rem 0.6rem;
   background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  margin-top: 0.15rem;
+}
+
+.rename-tag-form .rename-tag-input {
+  width: calc(100% - 2.5rem);
+  box-sizing: border-box;
+}
+
+/* Haken absolut rechts — unabhängig vom JS-gesetzten display-Wert */
+.rename-tag-form .validate-rename-tag {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-primary) !important;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 .rename-tag-input {
@@ -2246,30 +2305,32 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Pure.css setzt .pure-alert-success auf grün/weiss — komplett überschreiben */
 .tag-sort {
-  background: var(--bg-surface) !important;
+  background: transparent !important;
   border: none !important;
-  border-bottom: 1px solid var(--border-color) !important;
   border-radius: 0 !important;
-  padding: 0.5rem 1rem !important;
-  margin-bottom: 1rem;
-  color: var(--text-muted) !important;
-  font-size: 0.85rem;
+  padding: 0.6rem 1rem !important;
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
 
+/* Alle Links gedimmt — aktiver Link + Hover grün */
 .tag-sort a {
-  color: var(--text-secondary) !important;
-  margin: 0 0.25rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: var(--border-radius);
-  border: 1px solid transparent;
-  transition: background 0.15s, color 0.15s;
+  color: var(--text-muted) !important;
+  margin: 0 0.6rem;
+  border: none !important;
+  background: none !important;
+  font-size: 0.9rem;
+  transition: color 0.15s;
 }
 
+.tag-sort a.tag-sort-active,
 .tag-sort a:hover {
-  background: var(--bg-elevated);
-  color: var(--text-primary) !important;
-  border-color: var(--border-color);
+  color: var(--color-primary) !important;
   text-decoration: none;
+}
+
+.tag-sort a.tag-sort-active {
+  font-weight: 600;
 }
 
 /* ============================================================
@@ -2278,8 +2339,8 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 #cloudtag,
 .cloudtag-container {
-  padding: 1.5rem 0.5rem;
-  line-height: 2.4;
+  padding: 0.5rem 0.5rem 1rem;
+  line-height: 1.5;
   text-align: center;
 }
 
@@ -2316,13 +2377,41 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   color: var(--color-primary) !important;
 }
 
-/* Such-Formular in der Tag-Cloud */
-#search-tagcloud {
-  margin-bottom: 1.5rem;
+/* Kontext-Label bei Co-Tag-Suche */
+.cotag-context-label {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0.5rem;
 }
 
-/* Tag-Cloud + Tag-Liste Suchbutton: nie vollbreit
-   (Header-Suchbutton ist außerhalb #content und unberührt) */
+.cotag-context-label strong {
+  color: var(--color-primary);
+}
+
+.cotag-count {
+  color: var(--text-muted);
+  font-size: 0.75em;
+  font-weight: 400;
+}
+
+/* Such-Formular in der Tag-Cloud */
+#search-tagcloud {
+  margin-bottom: 0.75rem;
+}
+
+/* Suchfeld + Lupe inline */
+#search-tagcloud form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#search-tagcloud input[type="text"] {
+  flex: 1;
+}
+
+/* Tag-Cloud + Tag-Liste Suchbutton: nie vollbreit */
 #content .search-button,
 #search-tagcloud input[type="submit"] {
   width: auto;
@@ -2345,6 +2434,14 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   border-radius: var(--border-radius);
   background: var(--bg-elevated);
   flex: 0 0 auto;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+  cursor: pointer;
+}
+
+.picwall-pictureframe.selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
 }
 
 .picwall-pictureframe img {
@@ -2416,6 +2513,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 .daily-about a {
   color: var(--text-secondary) !important;
   font-size: 0.88rem;
+  font-weight: 400;
   transition: color 0.15s;
 }
 
@@ -2431,11 +2529,11 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Untertitel (Datum) */
 .window-subtitle {
-  color: var(--text-muted) !important;
+  color: var(--text-secondary) !important;
   font-weight: 400;
-  font-size: 1rem;
-  margin-top: 0.25rem;
-  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  margin: 0.25rem 0 1.25rem;
+  text-align: center;
 }
 
 /* Daily-Artikel-Blöcke */
@@ -2446,23 +2544,40 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   padding: 1rem 1.25rem;
   margin-bottom: 0.6rem;
   box-shadow: var(--shadow-sm);
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
 }
 
 .daily-entry:hover {
   border-color: var(--color-primary);
 }
 
-.daily-entry h2 a,
-.daily-entry h3 a {
-  color: var(--text-primary) !important;
-  font-weight: 600;
+.daily-entry.selected {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-sm);
 }
 
-.daily-entry h2 a:hover,
-.daily-entry h3 a:hover {
+.daily-entry.selected .daily-entry-title a {
+  color: var(--color-primary-h) !important;
+}
+
+/* Template nutzt .daily-entry-title (kein h2/h3) */
+.daily-entry-title a {
   color: var(--color-primary) !important;
+  font-weight: 600;
   text-decoration: none;
+}
+
+.daily-entry-title a:hover {
+  color: var(--color-primary-h) !important;
+  text-decoration: none;
+}
+
+/* fa-link Permalink-Icon: klein und gedimmt */
+.daily-entry-title .fa-link {
+  color: var(--text-muted) !important;
+  font-size: 0.75em;
+  margin-right: 0.25rem;
 }
 
 .daily-entry .daily-entry-description {
@@ -2539,7 +2654,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   letter-spacing: 0.01em;
 }
 
-/* Tag-Label im Such-Ergebnis-Banner */
+/* Tag-Label — globaler Reset (Karten-Tags bleiben unverändert) */
 .label-tag,
 .label.label-tag {
   display: inline-block;
@@ -2558,9 +2673,56 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   text-decoration: none;
 }
 
-.label-tag a:hover,
-.label.label-tag a:hover {
-  text-decoration: none;
+/* Filter-Badge im Such-Ergebnis — origr3n Dark-Green-Badge, scoped */
+.search-result .label-tag,
+.search-result .label.label-tag {
+  display: inline-flex !important;
+  align-items: center;
+  background: #1a3a0a !important;
+  border: 1px solid #2a5c0a !important;
+  border-radius: 3px !important;
+  font-size: 0.76rem !important;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem !important;
+  transition: background 0.1s, border-color 0.1s;
+  /* Anti-Inflate */
+  vertical-align: middle;
+}
+
+.search-result .label-tag:hover,
+.search-result .label.label-tag:hover {
+  background: #1f4510 !important;
+  border-color: var(--color-primary) !important;
+  font-size: 0.76rem !important;
+  padding: 0.1rem 0.4rem !important;
+  border-radius: 3px !important;
+}
+
+.search-result .label-tag a,
+.search-result .label.label-tag a {
+  color: var(--color-primary) !important;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.search-result .label-tag:hover a {
+  color: var(--color-primary-h) !important;
+}
+
+/* × (remove) — kein "|" Trenner */
+.search-result .label-tag .remove {
+  border: none !important;
+  border-left: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 0.75em;
+  opacity: 0.6;
+}
+
+.search-result .label-tag:hover .remove {
+  opacity: 0.9;
 }
 
 /* --- Such-Ergebnis-Banner ----------------------------------- */
