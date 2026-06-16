@@ -3,7 +3,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language**.
 
 > Compatible with Shaarli v0.13+  
-> Status: **v1.4-dev** — CSS r=194 · JS r=13 · Mobile Header ✅ · Such-Overlay Mobile ✅ · Select-Modus ✅ · Tools-Seiten cfg-Layout ✅ · Thumbnail-Integration offen (Grid-Ansatz) · Light Mode + Production-Deploy ausstehend
+> Status: **v1.0.0** — CSS r=244 · JS r=16 · Live auf gr3n.de ✅
 
 ---
 

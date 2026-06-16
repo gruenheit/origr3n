@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.0.0] — Production Release (2026-06-16, r=244 / JS r=16)
+
+- CSS-Refactor: Duplikate bereinigt (#shaarli-menu-shaare, #theme-toggle, .linklist-pages), -19 Zeilen netto
+- Light-Mode: Such-Tag-Pill weißer Hintergrund + grüner Rand statt Dark-Mode-Grün (#1a3a0a)
+- Light-Mode: Toolbar-Buttons (.btn) aus allgemeiner Button-Regel ausgenommen → Hover-Grün funktioniert
+- Blockquote: 3px grüner Rand (statt 0.5em grau), font-style italic
+- metadata.json: Version 0.1.0 → 1.0.0
+- Erstmals live auf gr3n.de deployed
+
+---
+
 ## [v1.4-dev] — Empty State, Such-Overlay Fixes, Footer-Band, Picwall (2026-06-16, r=198–237 / JS r=16)
 
 ### Empty State — 0 Suchergebnisse (r=229–237)
