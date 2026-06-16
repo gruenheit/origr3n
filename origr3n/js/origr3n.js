@@ -56,6 +56,8 @@
       if (!termInput || !tagsInput) return;
       tagsInput.style.display = active ? '' : 'none';
       termInput.style.display = active ? 'none' : '';
+      if (active) termInput.value = '';
+      else tagsInput.value = '';
       if (tagsToggle) tagsToggle.classList.toggle('active', active);
     }
 
@@ -75,12 +77,28 @@
       var isOpen = panel.classList.contains('open');
       searchOpeners.forEach(function (btn) { btn.classList.toggle('origr3n-active', isOpen); });
       if (isOpen) {
-        var hasTag = tagsInput && tagsInput.value.trim().length > 0;
-        setTagMode(hasTag);
-        var inp = hasTag ? tagsInput : termInput;
-        if (inp) { inp.focus(); inp.select(); }
+        setTagMode(false);
+        if (termInput) { termInput.focus(); termInput.select(); }
       }
     }).observe(panel, { attributes: true, attributeFilter: ['class'] });
+
+    /* Awesomplete: Nach Auswahl eines Vorschlags sofort das Formular absenden.
+       Verhindert den Race mit dem Browser-Submit der noch den getippten Wert nimmt. */
+    if (tagsInput) {
+      tagsInput.addEventListener('awesomplete-selectcomplete', function () {
+        var form = panel.querySelector('form');
+        if (form) form.submit();
+      });
+
+      /* Enter wenn Dropdown offen: Awesomplete übernehmen lassen, kein Browser-Submit */
+      tagsInput.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') return;
+        var list = panel.querySelector('.awesomplete ul');
+        if (list && !list.hidden && list.childElementCount > 0) {
+          e.preventDefault();
+        }
+      });
+    }
 
     function closeSearch() {
       panel.classList.remove('open');

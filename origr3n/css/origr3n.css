@@ -3557,3 +3557,29 @@ body.select-mode #origr3n-select-bar {
   color: var(--color-primary-h);
   text-decoration: underline;
 }
+
+/* ── Empty State (0 Treffer) ──────────────────────────────── */
+body:has(#origr3n-empty-state) .linklist-paging {
+  display: none;
+}
+
+#origr3n-empty-state {
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+}
+#origr3n-empty-state .fa-star-o {
+  display: block;
+  font-size: 6rem;
+  color: var(--text-muted);
+  opacity: 0.35;
+  margin-bottom: 1.5rem;
+}
+#origr3n-empty-state p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+#origr3n-empty-state p strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
