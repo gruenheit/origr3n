@@ -759,12 +759,16 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
 
 /* Titel — shaarli.min.css setzt padding:3px 10px 0 auf h2, explizit zurücksetzen */
 .linklist-item-title h2 {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   margin: 0 0 0.3rem;
   padding: 0 !important;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 
