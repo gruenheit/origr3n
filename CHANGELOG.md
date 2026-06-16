@@ -1,5 +1,30 @@
 # Changelog
 
+## [v1.4-dev] — Linklist-Redesign: Grid, TN rechts, Desc volle Breite (2026-06-16, r=195–197)
+
+### Entscheidungen
+- **Kein Link-Icon** — `fa-external-link` / `fa-sticky-note` aus `<h2>` entfernt; Domain + Titelfarbe übernehmen Orientierung vollständig
+- **Thumbnail rechts (Layout B, 110×75px)** — dezente Vorschau, Text dominiert
+- **Beschreibung volle Breite** — unterhalb des Titel+TN-Grids, nicht in der Textspalte
+
+### linklist.html — Struktur-Rewrite
+- `.linklist-item-title` als CSS Grid (`1fr auto`, `align-items: start`)
+- Neues `.linklist-item-text` als Textspalte (editbuttons + h2 + domain)
+- Thumbnail ans Ende des Grids verschoben (→ rechte Spalte)
+- `.linklist-item-description` aus `.linklist-item-text` heraus — Geschwister von `.linklist-item-title`, volle Kartenbreite
+
+### CSS — shaarli.min.css Overrides (r=196)
+- `h2: padding: 0 !important` — shaarli.min.css hatte `padding: 3px 10px 0` → Titel stand 10px weiter rechts als Domain
+- `.linklist-item-description: padding: 0 !important` — shaarli.min.css hatte `padding: 0 10px` → Beschreibung ebenfalls 10px versetzt
+- Beide Elemente jetzt bündig mit Domain auf derselben x-Achse
+
+### CSS — Thumbnail + Editbuttons (r=195, r=197)
+- `.linklist-item-thumbnail`: `float: none !important; height: auto !important` — shaarli.min.css: `float: right; height: 90px`
+- `.linklist-item-thumbnail .thumbnail img`: `width: 110px !important; height: 75px !important; object-fit: cover`
+- `.linklist-item-editbuttons`: `float: none !important; display: flex !important; gap: 0.5rem` — shaarli.min.css: `float: right; margin: 0 1px` auf Kindern (zu eng)
+
+---
+
 ## [v1.4-dev] — Linklist Thumbnail-Integration (Revert, 2026-06-16, r=190–194)
 
 ### Erkenntnisse (für nächste Session)
