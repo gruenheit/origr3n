@@ -157,11 +157,6 @@
                   <a href="{$value.real_url}">{function="parse_url($value.real_url, PHP_URL_HOST)"}</a>
                 </div>
               {/if}
-              {if="$value.description"}
-                <div class="linklist-item-description">
-                  {$value.description}
-                </div>
-              {/if}
             </div>
 
             {if="$thumbnails_enabled && $value.thumbnail !== false"}
@@ -181,6 +176,12 @@
             {/if}
 
           </div>
+
+          {if="$value.description"}
+            <div class="linklist-item-description">
+              {$value.description}
+            </div>
+          {/if}
 
           <div class="linklist-item-infos clear">
             {if="$value.tags"}
