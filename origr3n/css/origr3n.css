@@ -235,6 +235,7 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   font-size: 0 !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
   transition: background 0.15s, transform 0.15s, box-shadow 0.15s !important;
+  position: relative !important;
 }
 
 #shaarli-menu-shaare:hover {
@@ -246,10 +247,6 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
 
 #shaarli-menu-shaare .fa {
   display: none !important;
-}
-
-#shaarli-menu-shaare {
-  position: relative !important;
 }
 
 #shaarli-menu-shaare::before,
@@ -1167,9 +1164,9 @@ a.tag:hover {
    9. DARK / LIGHT TOGGLE
    ============================================================ */
 #theme-toggle {
-  background: transparent;
-  border: none;
-  border-radius: 50%;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 50% !important;
   width: 32px;
   height: 32px;
   display: flex;
@@ -1177,14 +1174,15 @@ a.tag:hover {
   justify-content: center;
   overflow: hidden;
   cursor: pointer;
-  font-size: 14px;
-  color: var(--text-muted);
+  font-size: 14px !important;
+  color: var(--text-muted) !important;
+  padding: 0 !important;
   transition: color 0.15s, background 0.15s;
 }
 
 #theme-toggle:hover {
-  background: var(--bg-elevated);
-  color: var(--color-primary);
+  background: var(--bg-elevated) !important;
+  color: var(--color-primary) !important;
 }
 
 #theme-toggle:focus {
@@ -1282,21 +1280,6 @@ input[type="submit"]:hover,
   background: var(--color-primary-h) !important;
   color: #fff !important;
   text-decoration: none;
-}
-
-/* Toggle-Button Light-Mode: Icon-Style beibehalten (override für globale button-Regel) */
-#theme-toggle {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 50% !important;
-  color: var(--text-muted) !important;
-  padding: 0 !important;
-  font-size: 14px !important;
-}
-
-#theme-toggle:hover {
-  background: var(--bg-elevated) !important;
-  color: var(--color-primary) !important;
 }
 
 /* Globale button-Regel zurücksetzen — Editor-Toolbar-Buttons sollen neutral bleiben */
@@ -1653,9 +1636,6 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 .mobile-buttons {
   display: none !important;
 }
-.linklist-pages {
-  width: 100% !important;
-}
 
 /* Filter-Buttons (privat/öffentlich/ungetaggt/alle auswählen) */
 .linklist-filters a,
@@ -1726,6 +1706,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Pagination (Seite X von Y mit Pfeilen) */
 .linklist-pages {
+  width: 100% !important;
   text-align: center;
   color: var(--text-muted);
   font-size: 0.78rem;
@@ -2838,6 +2819,23 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 }
 
 /* --- Light Mode: Tags --------------------------------------- */
+
+[data-theme="light"] .search-result .label-tag,
+[data-theme="light"] .search-result .label.label-tag {
+  background: #ffffff !important;
+  border-color: var(--color-primary) !important;
+}
+
+[data-theme="light"] .search-result .label-tag a,
+[data-theme="light"] .search-result .label.label-tag a {
+  color: var(--color-primary) !important;
+}
+
+[data-theme="light"] .search-result .label-tag:hover,
+[data-theme="light"] .search-result .label.label-tag:hover {
+  background: #e8f3e0 !important;
+  border-color: var(--color-primary) !important;
+}
 
 [data-theme="light"] .tag-list-item a.count {
   background: #e8f3e0;
