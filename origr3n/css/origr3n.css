@@ -2812,7 +2812,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Im hellen Modus wirken dunkelgraue Toolbar-Buttons (#2e2e2e) deplatziert.
    Ausgenommen: alle Icon-Buttons (transparent) + Action-Buttons (Textlinks) */
-[data-theme="light"] button:not(#theme-toggle):not([data-theme-toggle]):not([data-select-toggle]):not(.filter-btn-trigger):not(#filter-btn):not(#origr3n-action-delete):not(#origr3n-action-public):not(#origr3n-action-private):not(#origr3n-select-cancel) {
+[data-theme="light"] button:not(#theme-toggle):not([data-theme-toggle]):not([data-select-toggle]):not(.filter-btn-trigger):not(#filter-btn):not(#origr3n-action-delete):not(#origr3n-action-public):not(#origr3n-action-private):not(#origr3n-select-cancel):not(.btn) {
   background: #e4e4e4 !important;
   color: #333 !important;
   border-color: #c0c0c0 !important;
@@ -3005,11 +3005,12 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 .markdown blockquote {
   color: var(--text-secondary) !important;
-  border-left-color: var(--text-muted) !important;
+  border-left: 3px solid var(--color-primary) !important;
   background: var(--bg-elevated);
   padding: 0.5rem 0.75rem 0.5rem 1rem;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   margin: 0.5rem 0;
+  font-style: italic;
 }
 
 .markdown pre {
@@ -3051,7 +3052,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Light Mode: markdown.min.css defaults sind bereits hell — nur Akzent-Anpassung */
 [data-theme="light"] .markdown blockquote {
-  border-left-color: var(--text-muted) !important;
+  border-left-color: var(--color-primary) !important;
   background: #f0f7eb;
   color: #444 !important;
 }
