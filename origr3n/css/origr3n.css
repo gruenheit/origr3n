@@ -3567,12 +3567,21 @@ body:has(#origr3n-empty-state) .linklist-paging {
   text-align: center;
   padding: 5rem 2rem 3rem;
 }
-#origr3n-empty-state .fa-star-o {
-  display: block;
-  font-size: 6rem;
-  color: var(--text-muted);
-  opacity: 0.35;
-  margin-bottom: 1.5rem;
+.origr3n-sad-star {
+  width: 220px;
+  height: 220px;
+  max-width: 50vw;
+  max-height: 50vw;
+  margin: 0 auto 1.5rem;
+  background-image: url('../img/sad_star.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.55;
+}
+[data-theme="dark"] .origr3n-sad-star {
+  filter: invert(1) brightness(0.65);
+  opacity: 0.7;
 }
 #origr3n-empty-state p {
   font-size: 1.1rem;
