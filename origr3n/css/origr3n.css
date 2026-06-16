@@ -1738,13 +1738,22 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 }
 
 .linklist-pages a {
-  color: var(--text-muted) !important;
+  color: var(--text-secondary) !important;
   font-size: 0.9rem;
-  padding: 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
 }
 
 .linklist-pages a:hover {
-  color: var(--color-primary) !important;
+  color: var(--main-color) !important;
+  background: rgba(255, 255, 255, 0.13);
+  transform: scale(1.12);
   text-decoration: none;
 }
 
