@@ -1757,6 +1757,10 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   text-decoration: none;
 }
 
+[data-theme="light"] .linklist-pages a:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
 /* ============================================================
    13. BENACHRICHTIGUNGEN (Flash-Messages)
    ============================================================ */
