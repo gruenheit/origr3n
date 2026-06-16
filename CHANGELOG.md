@@ -1,5 +1,42 @@
 # Changelog
 
+## [v1.4-dev] — Empty State, Such-Overlay Fixes, Footer-Band, Picwall (2026-06-16, r=198–237 / JS r=16)
+
+### Empty State — 0 Suchergebnisse (r=229–237)
+- `sad_star.png` aus Shaarli default-Theme als Illustration übernommen (300×300px RGBA)
+- Template: `<div class="origr3n-sad-star">` statt `<img>` — RainTPL rewritet `<img src>`-Attribute (prepended Themepfad vor `{$asset_path}`); Lösung: CSS `background-image: url('../img/sad_star.png')`
+- Text kontextabhängig: Suchbegriff / Tag / generisch (drei `{if=}`-Zweige in `linklist.html`)
+- Pagination bei 0 Treffern ausgeblendet: `body:has(#origr3n-empty-state) .linklist-paging { display: none }`
+- Dark Mode: `filter: invert(1) brightness(0.65); opacity: 0.7` — PNG ist für helle Hintergründe gemacht, Inversion macht helle Striche auf dunklem Grund
+
+### Such-Overlay — JS r=16 (origr3n.js)
+- **Immer Textmodus beim Öffnen:** `setTagMode(false)` im MutationObserver-Callback — verhinderte, dass Seiten mit Tag-Filter die Suche in Tag-Modus öffneten
+- **Dual-Search-Bug behoben:** `setTagMode()` leert das inaktive Input-Feld beim Umschalten — verhindert, dass `?searchterm=x&searchtags=y` gleichzeitig gesendet wird
+- **Awesomplete Enter-Race-Condition:** `awesomplete-selectcomplete`-Event übernimmt den Formular-Submit (nach Wertfüllung); `keydown`-Guard blockiert Browser-Enter wenn Dropdown sichtbar
+
+### Footer-Band — Badges + Icon-Konsolidierung (r=221–228)
+- Privat- und Pin-Badges aus dem Karten-Header entfernt (`.linklist-item-editbuttons { display: none !important }`)
+- Badges als Status-Indikatoren im Footer-Band: `ctrl-visibility` und `ctrl-pin` via `:has()` sichtbar wenn privat/gepinnt
+- Uniform-Icon-Größe: alle Footer-Icons auf `font-size: 0.82rem` — Lesezeichen-Icon war größer als andere
+- Icon-Sortierung im Footer: `order`-Eigenschaft für visuelle Symmetrie
+
+### Picwall — Layout-Optimierung (r=224–228)
+- `max-width: 1316px` für `#content:has(#picwall-container)` — separat von anderen Seiten (1280px)
+- Berechnung: `(1316–32)×20/24–24 = 1046px` → exakt 8 Tiles à 125px + 7 Gaps à 6.4px
+- `justify-content: center` auf `.picwall-container` — letzte Zeile mit weniger als 8 Tiles wird zentriert
+- `font-weight: 400 !important` auf `.picwall-pictureframe .info` — Hover-Text war unbeabsichtigt bold
+
+### FAB (+ Floating Action Button)
+- Nur auf Linklist sichtbar: `li:has(> #shaarli-menu-shaare) { display: none !important }` global; `body:has(#linklist)` hebt es wieder auf
+- Position: `bottom: 4rem` (vorher 2rem) — mehr Abstand zum Seitenrand
+
+### Entscheidung dokumentiert: Pinned-Checkbox im Addlink-Formular
+- **Gewünscht:** `☑ PINNED` neben `☑ PRIVAT` beim Erstellen eines Links
+- **Nicht umsetzbar im Theme:** Shaarlis `ShaarePublishController` kennt kein `lf_sticky`-POST-Feld; `sticky` wird über einen separaten Endpoint `/admin/shaare/{id}/pin?token=...` umgeschaltet, der die Link-ID nach dem Speichern benötigt
+- **Lösung wenn gewünscht:** Shaarli-Plugin mit `hook_save_link` (~25 Zeilen PHP)
+
+---
+
 ## [v1.4-dev] — Linklist-Redesign: Grid, TN rechts, Desc volle Breite (2026-06-16, r=195–197)
 
 ### Entscheidungen
