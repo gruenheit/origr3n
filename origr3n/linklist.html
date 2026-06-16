@@ -136,6 +136,34 @@
 
         <div class="linklist-item linklist-item{if="$value.class"} {$value.class}{/if}" data-id="{$value.id}">
           <div class="linklist-item-title">
+
+            <div class="linklist-item-text">
+              <div class="linklist-item-editbuttons">
+                {if="$value.private"}
+                  <span class="label label-private">{$strPrivate}</span>
+                {/if}
+                {if="$value.sticky"}
+                  <span class="label label-sticky" title="{$strSticky}" aria-label="{$strSticky}"><i class="fa fa-bookmark" aria-hidden="true"></i></span>
+                {/if}
+              </div>
+
+              <h2>
+                <a href="{$value.real_url}" class="linklist-real-url">
+                  <span class="linklist-link">{$value.title_html}</span>
+                </a>
+              </h2>
+              {if="strpos($value.url, $value.shorturl) === false"}
+                <div class="linklist-item-domain">
+                  <a href="{$value.real_url}">{function="parse_url($value.real_url, PHP_URL_HOST)"}</a>
+                </div>
+              {/if}
+              {if="$value.description"}
+                <div class="linklist-item-description">
+                  {$value.description}
+                </div>
+              {/if}
+            </div>
+
             {if="$thumbnails_enabled && $value.thumbnail !== false"}
               <div
                 class="linklist-item-thumbnail {if="$value.thumbnail === null"}hidden{/if}"
@@ -152,38 +180,7 @@
               </div>
             {/if}
 
-            <div class="linklist-item-editbuttons">
-              {if="$value.private"}
-                <span class="label label-private">{$strPrivate}</span>
-              {/if}
-              {if="$value.sticky"}
-                <span class="label label-sticky" title="{$strSticky}" aria-label="{$strSticky}"><i class="fa fa-bookmark" aria-hidden="true"></i></span>
-              {/if}
-            </div>
-
-            <h2>
-              <a href="{$value.real_url}" class="linklist-real-url">
-                {if="strpos($value.url, $value.shorturl) === false"}
-                  <i class="fa fa-external-link" aria-hidden="true"></i>
-                {else}
-                  <i class="fa fa-sticky-note" aria-hidden="true"></i>
-                {/if}
-
-                <span class="linklist-link">{$value.title_html}</span>
-              </a>
-            </h2>
-            {if="strpos($value.url, $value.shorturl) === false"}
-              <div class="linklist-item-domain">
-                <a href="{$value.real_url}">{function="parse_url($value.real_url, PHP_URL_HOST)"}</a>
-              </div>
-            {/if}
           </div>
-
-          {if="$value.description"}
-            <div class="linklist-item-description">
-              {$value.description}
-            </div>
-          {/if}
 
           <div class="linklist-item-infos clear">
             {if="$value.tags"}

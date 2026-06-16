@@ -716,6 +716,10 @@ li:has(> #shaarli-menu-shaare) {
 .linklist-item-title {
   background: transparent !important;
   color: var(--text-primary) !important;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
 }
 
 /* Private Links: Amber-Akzent statt Grün.
@@ -785,11 +789,25 @@ li:has(> #shaarli-menu-shaare) {
   text-decoration: none;
 }
 
-/* Icon vor dem Titel */
-.linklist-item-title .fa {
-  color: var(--color-primary);
-  margin-right: 0.3rem;
-  font-size: 0.85em;
+/* Thumbnail — Layout B: 110×75 rechts */
+.linklist-item-thumbnail {
+  width: 110px;
+  flex-shrink: 0;
+}
+.linklist-item-thumbnail.hidden {
+  display: none;
+}
+.linklist-item-thumbnail .thumbnail {
+  width: 110px;
+  height: 75px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.linklist-item-thumbnail .thumbnail img {
+  width: 110px;
+  height: 75px;
+  object-fit: cover;
+  display: block;
 }
 
 /* Beschreibung */
