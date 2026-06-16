@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>origr3n — Card Layout: Beschreibung in Spalte vs. volle Breite</title>
+<style>
+  :root {
+    --bg-base:         #1a1f17;
+    --bg-card:         #252b20;
+    --bg-card-hover:   #2c3426;
+    --bg-elevated:     #1e2419;
+    --border-color:    #3a4233;
+    --border-primary:  #5cb81a;
+    --color-primary:   #5cb81a;
+    --color-primary-h: #7cd830;
+    --text-primary:    #f0f0f0;
+    --text-secondary:  #b8c4b0;
+    --text-muted:      #6e8060;
+    --amber:           #d4851a;
+    --amber-h:         #e8a030;
+    --shadow-sm:       0 1px 3px rgba(0,0,0,0.4);
+    --shadow-md:       0 2px 8px rgba(0,0,0,0.5);
+    --border-radius:   6px;
+    --tn-bg:           #2e3a5a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Quicksand', system-ui, sans-serif;
+    font-size: 15px;
+    padding: 2rem;
+  }
+  h1 { font-size: 1rem; color: var(--color-primary); letter-spacing: 0.05em;
+       text-transform: uppercase; margin-bottom: 0.3rem; }
+  .sub { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 2rem; line-height: 1.55; }
+
+  /* Spalten */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .col-head {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-muted); margin-bottom: 1rem;
+    padding: 0.4rem 0.8rem; border-left: 2px solid;
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .col-head em { font-style: normal; font-size: 0.64rem; color: #4a5a40;
+                 text-transform: none; letter-spacing: 0; }
+  .col-a { border-color: #5a8ab0; }
+  .col-b { border-color: var(--color-primary); }
+
+  /* ===================== BASIS KARTE ===================== */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.15rem 1.3rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s, border-color 0.15s;
+    position: relative;
+  }
+  .card:hover { box-shadow: var(--shadow-md); border-color: var(--border-primary); }
+  .card.private { border-left: 2px solid #b07820 !important; }
+  .card.private:hover { border-color: #b07820; }
+
+  /* --- Editbuttons --- */
+  .editbuttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;         /* Fix: war 1px, jetzt 0.5rem */
+    margin-bottom: 0.35rem;
+  }
+  .label-private {
+    display: inline-block;
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+    background: rgba(212,133,26,0.1);
+  }
+  .label-sticky {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    background: rgba(92,184,26,0.1);
+  }
+
+  /* --- Titel --- */
+  .item-h2 {
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: 0.01em; margin: 0 0 0.2rem;
+    line-height: 1.4; padding: 0 !important;
+  }
+  .item-h2 a { color: var(--color-primary); text-decoration: none; }
+  .item-h2 a:hover { color: var(--color-primary-h); }
+
+  /* --- Domain --- */
+  .item-domain {
+    font-size: 0.73rem; color: var(--text-muted);
+    margin-bottom: 0.25rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .item-domain a { color: var(--text-muted); text-decoration: none; }
+  .item-domain a:hover { color: var(--color-primary); }
+
+  /* --- Beschreibung --- */
+  .item-desc {
+    font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.55; padding: 0 !important;
+    margin: 0.3rem 0 0.4rem;
+  }
+  .item-desc p { margin: 0 0 0.3rem; }
+  .item-desc p:last-child { margin-bottom: 0; }
+  .item-desc strong { color: var(--text-primary); font-weight: 600; }
+  .item-desc code {
+    font-family: 'Menlo', monospace;
+    font-size: 0.85em;
+    color: var(--color-primary);
+    background: rgba(92,184,26,0.08);
+    border-radius: 3px;
+    padding: 0.1rem 0.3rem;
+  }
+
+  /* --- Thumbnail --- */
+  .item-tn {
+    width: 110px; flex-shrink: 0;
+  }
+  .item-tn .thumb {
+    width: 110px; height: 75px;
+    overflow: hidden; border-radius: 4px;
+    background: linear-gradient(135deg, var(--tn-bg) 0%, #1e2e4a 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.62rem; color: #6080a0; text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  /* Echter Bildinhalt simulieren */
+  .item-tn .thumb.map {
+    background: linear-gradient(135deg, #2a4a3a, #1a3a2a);
+    background-image: repeating-linear-gradient(
+      45deg, transparent, transparent 3px,
+      rgba(92,184,26,0.05) 3px, rgba(92,184,26,0.05) 6px
+    );
+  }
+
+  /* --- Footer --- */
+  .item-footer {
+    font-size: 0.73rem; color: var(--text-muted);
+    margin: 0.5rem -1.3rem -1.15rem;
+    padding: 0.35rem 1.3rem 0.4rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    border-radius: 0 0 5px 5px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.25rem;
+  }
+  .item-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .tag {
+    background: rgba(92,184,26,0.12); color: var(--color-primary);
+    border-radius: 3px; padding: 0.1rem 0.4rem; font-size: 0.7rem;
+    border: 1px solid rgba(92,184,26,0.2);
+  }
+  .item-date { color: var(--color-primary); font-size: 0.72rem; }
+  .item-share { color: var(--amber); font-size: 0.85rem; }
+
+  /* ==========================================
+     LAYOUT A: Beschreibung in Textspalte
+     .card-header = grid (1fr auto)
+     Textspalte: editbuttons + h2 + domain + desc
+  ========================================== */
+  .la .card-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    align-items: start;
+    margin-bottom: 0;
+  }
+  .la .card-text { min-width: 0; }
+
+  /* ==========================================
+     LAYOUT B: Beschreibung volle Breite
+     .card-top = grid (1fr auto) — nur Titel+Domain+Badges+TN
+     Beschreibung darunter, volle Breite
+  ========================================== */
+  .lb .card-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    align-items: start;
+    margin-bottom: 0;
+  }
+  .lb .card-text { min-width: 0; }
+  .lb .item-desc {
+    margin-top: 0.4rem;
+  }
+
+  /* Trennlinie zwischen Karten */
+  .section-label {
+    font-size: 0.67rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: #3a4a32; margin: 1.2rem 0 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>origr3n — Card Layout: Vergleich</h1>
+<p class="sub">
+  Badge-Gap fix (+0.5rem), Thumbnail 110×75. Frage: Beschreibung neben Thumbnail (A) oder volle Breite darunter (B)?<br>
+  Drei Szenarien: kurze Beschreibung · langer Text · Privat+Sticky ohne Thumbnail.
+</p>
+
+<div class="cols">
+
+  <!-- ===== SPALTE A ===== -->
+  <div>
+    <div class="col-head col-a">
+      A — Beschreibung in Textspalte
+      <em>Kompakter · Text neben TN · kürzere Karte</em>
+    </div>
+
+    <!-- 1. Kurze Beschreibung + TN -->
+    <div class="section-label">— Kurze Beschreibung + Thumbnail</div>
+    <div class="card la">
+      <div class="card-header">
+        <div class="card-text">
+          <div class="item-h2"><a href="#">400 Islands Race: Neues Bucketlist-Rennen vom Kieler Yacht-Club</a></div>
+          <div class="item-domain"><a href="#">www.yacht.de</a></div>
+          <div class="item-desc"><p>Neues Ostseerennen ab 2026 — 700 Seemeilen.</p></div>
+        </div>
+        <div class="item-tn"><div class="thumb map"></div></div>
+      </div>
+      <div class="item-footer">
+        <div class="item-tags"><span class="tag">kiel</span><span class="tag">segeln</span></div>
+        <span class="item-date">gestern, 18:16</span>
+      </div>
+    </div>
+
+    <!-- 2. Langer Text + TN -->
+    <div class="section-label">— Langer Text + Thumbnail</div>
+    <div class="card la">
+      <div class="card-header">
+        <div class="card-text">
+          <div class="item-h2"><a href="#">ZDF Streaming-Portal: Filme, Serien und Dokus online anschauen</a></div>
+          <div class="item-domain"><a href="#">www.zdf.de</a></div>
+          <div class="item-desc"><p>Alle Videos und Livestreams im ZDF anschauen – ständig verfügbar und interaktiv! Entdecke Filme, Serien, Sportevents, Dokumentationen und vieles mehr. Das Angebot umfasst Mediathek, Live-TV und exklusive ZDF-Produktionen.</p></div>
+        </div>
+        <div class="item-tn"><div class="thumb"></div></div>
+      </div>
+      <div class="item-footer">
+        <div class="item-tags"><span class="tag">streaming</span><span class="tag">tv</span></div>
+        <span class="item-date">13. Jun 26</span>
+      </div>
+    </div>
+
+    <!-- 3. Privat + Sticky, kein TN, langer Text -->
+    <div class="section-label">— Privat + Sticky, kein Thumbnail</div>
+    <div class="card la private">
+      <div class="card-header">
+        <div class="card-text">
+          <div class="editbuttons">
+            <span class="label-private">Privat</span>
+            <span class="label-sticky">📌</span>
+          </div>
+          <div class="item-h2"><a href="#">was steht hier?</a></div>
+          <div class="item-domain"><a href="#">vox.ppimedia.de</a></div>
+          <div class="item-desc">
+            <p>20260612T1956</p>
+            <p>Eine kleine <strong>Mickymaus</strong></p>
+            <p><code>Quelltext hier einfügen</code></p>
+          </div>
+        </div>
+      </div>
+      <div class="item-footer">
+        <div class="item-tags"><span class="tag">prima</span><span class="tag">toll</span></div>
+        <span class="item-share">⤴</span>
+        <span class="item-date">12. Jun 26</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===== SPALTE B ===== -->
+  <div>
+    <div class="col-head col-b">
+      B — Beschreibung volle Breite
+      <em>Luftiger · Text unter TN · höhere Karte</em>
+    </div>
+
+    <!-- 1. Kurze Beschreibung + TN -->
+    <div class="section-label">— Kurze Beschreibung + Thumbnail</div>
+    <div class="card lb">
+      <div class="card-top">
+        <div class="card-text">
+          <div class="item-h2"><a href="#">400 Islands Race: Neues Bucketlist-Rennen vom Kieler Yacht-Club</a></div>
+          <div class="item-domain"><a href="#">www.yacht.de</a></div>
+        </div>
+        <div class="item-tn"><div class="thumb map"></div></div>
+      </div>
+      <div class="item-desc"><p>Neues Ostseerennen ab 2026 — 700 Seemeilen.</p></div>
+      <div class="item-footer">
+        <div class="item-tags"><span class="tag">kiel</span><span class="tag">segeln</span></div>
+        <span class="item-date">gestern, 18:16</span>
+      </div>
+    </div>
+
+    <!-- 2. Langer Text + TN -->
+    <div class="section-label">— Langer Text + Thumbnail</div>
+    <div class="card lb">
+      <div class="card-top">
+        <div class="card-text">
+          <div class="item-h2"><a href="#">ZDF Streaming-Portal: Filme, Serien und Dokus online anschauen</a></div>
+          <div class="item-domain"><a href="#">www.zdf.de</a></div>
+        </div>
+        <div class="item-tn"><div class="thumb"></div></div>
+      </div>
+      <div class="item-desc"><p>Alle Videos und Livestreams im ZDF anschauen – ständig verfügbar und interaktiv! Entdecke Filme, Serien, Sportevents, Dokumentationen und vieles mehr. Das Angebot umfasst Mediathek, Live-TV und exklusive ZDF-Produktionen.</p></div>
+      <div class="item-footer">
+        <div class="item-tags"><span class="tag">streaming</span><span class="tag">tv</span></div>
+        <span class="item-date">13. Jun 26</span>
+      </div>
+    </div>
+
+    <!-- 3. Privat + Sticky, kein TN, langer Text -->
+    <div class="section-label">— Privat + Sticky, kein Thumbnail</div>
+    <div class="card lb private">
+      <div class="card-top">
+        <div class="card-text">
+          <div class="editbuttons">
+            <span class="label-private">Privat</span>
+            <span class="label-sticky">📌</span>
+          </div>
+          <div class="item-h2"><a href="#">was steht hier?</a></div>
+          <div class="item-domain"><a href="#">vox.ppimedia.de</a></div>
+        </div>
+      </div>
+      <div class="item-desc">
+        <p>20260612T1956</p>
+        <p>Eine kleine <strong>Mickymaus</strong></p>
+        <p><code>Quelltext hier einfügen</code></p>
+      </div>
+      <div class="item-footer">
+        <div class="item-tags"><span class="tag">prima</span><span class="tag">toll</span></div>
+        <span class="item-share">⤴</span>
+        <span class="item-date">12. Jun 26</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

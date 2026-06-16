@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>origr3n — Titel-Größe & Line-Clamp Vergleich</title>
+<style>
+  @import url('origr3n/fonts/quicksand.css');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-primary:   #3d8e12;
+    --color-primary-h: #4aa316;
+    --bg-base:         #141414;
+    --bg-surface:      #2a2a2a;
+    --bg-elevated:     #333333;
+    --text-primary:    #ffffff;
+    --text-secondary:  #b0b0b0;
+    --text-muted:      #707070;
+    --border-color:    #3a3a3a;
+    --border-radius:   6px;
+    --shadow-sm:       0 2px 8px rgba(0,0,0,0.45);
+    --shadow-md:       0 4px 12px rgba(0,0,0,0.5);
+    --font-main:       'Quicksand', system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--bg-base);
+    font-family: var(--font-main);
+    font-size: 16px;
+    color: var(--text-primary);
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.4rem;
+  }
+  .subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Spalten-Layout ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .col-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .col-label span {
+    color: var(--color-primary);
+  }
+
+  /* ── Karten-Basis (identisch zu origr3n.css) ── */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.15rem 1.3rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 0.8rem;
+  }
+
+  .card-title-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    align-items: start;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-text { min-width: 0; }
+
+  /* Editbuttons (simuliert) */
+  .edit-btns {
+    display: flex;
+    gap: 0.3rem;
+    margin-bottom: 0.3rem;
+    flex-wrap: wrap;
+  }
+  .edit-btn {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 0.1rem 0.35rem;
+    font-family: var(--font-main);
+    white-space: nowrap;
+  }
+
+  /* Titel — die Variable */
+  .card-h2 {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    margin: 0 0 0.3rem;
+    padding: 0;
+  }
+  .card-h2 a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  /* Domain */
+  .card-domain {
+    font-size: 0.73rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.1rem;
+  }
+
+  /* Thumbnail */
+  .card-tn {
+    width: 110px;
+    height: 75px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-tn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-tn-placeholder {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 4px;
+  }
+
+  /* Description */
+  .card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* Tags + Footer */
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.75rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--border-color);
+  }
+  .tag {
+    font-size: 0.68rem;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    padding: 0.15rem 0.55rem;
+    font-weight: 600;
+  }
+  .card-date {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  /* ── Varianten ── */
+
+  /* A: aktuell — 1.1rem, kein clamp */
+  .v-a .card-h2 { font-size: 1.1rem; }
+
+  /* B: 1.25rem, 3 Zeilen */
+  .v-b .card-h2 {
+    font-size: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* C: 1.25rem, 2 Zeilen */
+  .v-c .card-h2 {
+    font-size: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* D: 1.35rem, 3 Zeilen */
+  .v-d .card-h2 {
+    font-size: 1.35rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Trennlinie zwischen Gruppen ── */
+  .section-head {
+    grid-column: 1 / -1;
+    margin: 2rem 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4rem;
+  }
+  .section-head:first-of-type { margin-top: 0; }
+
+  /* ── Maßlinie ── */
+  .ruler {
+    grid-column: 1 / -1;
+    background: var(--bg-elevated);
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .ruler b { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<h1>origr3n — Titel-Größe &amp; Line-Clamp</h1>
+<p class="subtitle">Varianten A–D · Dark Mode · Normaler Titel + Extrem-Titel (Gitea-URL)</p>
+
+<div class="grid">
+
+  <!-- Spaltenüberschriften -->
+  <div>
+    <div class="col-label">A — <span>aktuell</span></div>
+    <div style="font-size:0.7rem;color:var(--text-muted)">1.1rem · kein Clamp</div>
+  </div>
+  <div>
+    <div class="col-label">B — <span>Empfehlung</span></div>
+    <div style="font-size:0.7rem;color:var(--text-muted)">1.25rem · 3 Zeilen</div>
+  </div>
+  <div>
+    <div class="col-label">C</div>
+    <div style="font-size:0.7rem;color:var(--text-muted)">1.25rem · 2 Zeilen</div>
+  </div>
+  <div>
+    <div class="col-label">D</div>
+    <div style="font-size:0.7rem;color:var(--text-muted)">1.35rem · 3 Zeilen</div>
+  </div>
+
+  <!-- Maßlinie -->
+  <div class="ruler">
+    <span><b>Base:</b> 16px</span>
+    <span><b>A:</b> 17.6px</span>
+    <span><b>B/C:</b> 20px</span>
+    <span><b>D:</b> 21.6px</span>
+    <span><b>Domain:</b> 11.7px (immer)</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       GRUPPE 1 — normaler Artikel-Titel
+  ══════════════════════════════════════════ -->
+  <div class="section-head">Normaler Artikel-Titel (~80 Zeichen)</div>
+
+  <!-- A -->
+  <div class="v-a">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span>
+            <span class="edit-btn">📌 Pin</span>
+            <span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">OpenAI kauft Kieler Startup Ona — Mega-Exit oder Ausverkauf?</a></h2>
+          <div class="card-domain">kn-online.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">Kieler Startup Ona wird für 280 Mio. Dollar übernommen. Gründer sehen es als Erfolg, Kritiker als Ausverkauf.</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="v-b">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span>
+            <span class="edit-btn">📌 Pin</span>
+            <span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">OpenAI kauft Kieler Startup Ona — Mega-Exit oder Ausverkauf?</a></h2>
+          <div class="card-domain">kn-online.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">Kieler Startup Ona wird für 280 Mio. Dollar übernommen. Gründer sehen es als Erfolg, Kritiker als Ausverkauf.</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="v-c">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span>
+            <span class="edit-btn">📌 Pin</span>
+            <span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">OpenAI kauft Kieler Startup Ona — Mega-Exit oder Ausverkauf?</a></h2>
+          <div class="card-domain">kn-online.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">Kieler Startup Ona wird für 280 Mio. Dollar übernommen. Gründer sehen es als Erfolg, Kritiker als Ausverkauf.</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D -->
+  <div class="v-d">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span>
+            <span class="edit-btn">📌 Pin</span>
+            <span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">OpenAI kauft Kieler Startup Ona — Mega-Exit oder Ausverkauf?</a></h2>
+          <div class="card-domain">kn-online.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">Kieler Startup Ona wird für 280 Mio. Dollar übernommen. Gründer sehen es als Erfolg, Kritiker als Ausverkauf.</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       GRUPPE 2 — Kurztitel (1 Zeile)
+  ══════════════════════════════════════════ -->
+  <div class="section-head">Kurztitel (1 Zeile, ~30 Zeichen)</div>
+
+  <!-- A -->
+  <div class="v-a">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">Claude 4 — Modellübersicht</a></h2>
+          <div class="card-domain">anthropic.com</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">ai</span>
+        <span class="card-date">gestern</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="v-b">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">Claude 4 — Modellübersicht</a></h2>
+          <div class="card-domain">anthropic.com</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">ai</span>
+        <span class="card-date">gestern</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="v-c">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">Claude 4 — Modellübersicht</a></h2>
+          <div class="card-domain">anthropic.com</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">ai</span>
+        <span class="card-date">gestern</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D -->
+  <div class="v-d">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">Claude 4 — Modellübersicht</a></h2>
+          <div class="card-domain">anthropic.com</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">ai</span>
+        <span class="card-date">gestern</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       GRUPPE 3 — Extrem-Titel (Gitea-URL, wie Screenshot)
+  ══════════════════════════════════════════ -->
+  <div class="section-head">Extrem-Titel — Gitea-URL als Seitentitel (wie dein Screenshot)</div>
+
+  <!-- A -->
+  <div class="v-a">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">news/kn-online_20260616_Mega-Exit OpenAI kauft Kieler Startup Ona - Erfolg oder Ausverkauf.md in 41c40b570c31fdd67ea4f4811ece784385df45cd - news - Gitea: Git with a cup of tea</a></h2>
+          <div class="card-domain">4.gr3n.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">news - my relevant news</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="v-b">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">news/kn-online_20260616_Mega-Exit OpenAI kauft Kieler Startup Ona - Erfolg oder Ausverkauf.md in 41c40b570c31fdd67ea4f4811ece784385df45cd - news - Gitea: Git with a cup of tea</a></h2>
+          <div class="card-domain">4.gr3n.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">news - my relevant news</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="v-c">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">news/kn-online_20260616_Mega-Exit OpenAI kauft Kieler Startup Ona - Erfolg oder Ausverkauf.md in 41c40b570c31fdd67ea4f4811ece784385df45cd - news - Gitea: Git with a cup of tea</a></h2>
+          <div class="card-domain">4.gr3n.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">news - my relevant news</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D -->
+  <div class="v-d">
+    <div class="card">
+      <div class="card-title-row">
+        <div class="card-text">
+          <div class="edit-btns">
+            <span class="edit-btn">✏ Edit</span><span class="edit-btn">📌</span><span class="edit-btn">🗑</span>
+          </div>
+          <h2 class="card-h2"><a href="#">news/kn-online_20260616_Mega-Exit OpenAI kauft Kieler Startup Ona - Erfolg oder Ausverkauf.md in 41c40b570c31fdd67ea4f4811ece784385df45cd - news - Gitea: Git with a cup of tea</a></h2>
+          <div class="card-domain">4.gr3n.de</div>
+        </div>
+        <div class="card-tn">
+          <div class="card-tn-placeholder">Thumbnail<br>110×75</div>
+        </div>
+      </div>
+      <div class="card-desc">news - my relevant news</div>
+      <div class="card-footer">
+        <span class="tag">kn</span>
+        <span class="card-date">heute, 14:43</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+<p style="margin-top:3rem;font-size:0.72rem;color:var(--text-muted)">
+  Vergleichsseite origr3n · S106 · 2026-06-16
+</p>
+
+</body>
+</html>
