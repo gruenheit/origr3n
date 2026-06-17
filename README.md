@@ -9,6 +9,15 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 ---
 
+## Feature Showcase
+
+Not sure what Shaarli can do — or why origr3n makes it better?
+
+**[→ Full Feature Showcase (EN)](https://dia.gr3n.de/shaarli-showcase-en.html)** — 12 core features, 10 origr3n enhancements, 7 use cases, comparison table and quick-start guide.  
+**[→ Feature-Showcase (DE)](https://dia.gr3n.de/shaarli-showcase-de.html)** — Deutschsprachige Version.
+
+---
+
 ## Screenshots
 
 | Dark Mode | Light Mode |
