@@ -469,5 +469,5 @@
 ### Added
 - Theme-Struktur nach Shaarli-Standard (`tpl/`-kompatibel)
 - gr3n Design Language: Deep Forest (#3d8e12), Quicksand, Dark/Light-Toggle
-- Dev-Umgebung: shaarli-dev Container (dockerbase:5378), Deploy via scp
+- Dev-Umgebung: separater shaarli-dev Container, Deploy via rsync
 - Cache-Busting: `?v={$version_hash}&r=N` in `includes.html`
