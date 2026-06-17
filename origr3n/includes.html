@@ -228,17 +228,18 @@ document.addEventListener('DOMContentLoaded', function(){
     var params = new URLSearchParams(window.location.search);
     var searchTag = (params.get('searchtags') || '').trim();
     if (searchTag) {
+      var safeTag = searchTag.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       var cloud = document.getElementById('cloudtag');
       if (cloud) {
         var lbl = document.createElement('p');
         lbl.className = 'cotag-context-label';
-        lbl.innerHTML = _tCloud.cotagUsed(searchTag);
+        lbl.innerHTML = _tCloud.cotagUsed(safeTag);
         cloud.parentNode.insertBefore(lbl, cloud);
       }
       var wt = document.querySelector('.window-title');
       if (wt) {
         var m = wt.textContent.match(/\d+/);
-        wt.innerHTML = _tCloud.cotagTitle(searchTag, m && m[0]);
+        wt.innerHTML = _tCloud.cotagTitle(safeTag, m && m[0]);
       }
     }
   }
