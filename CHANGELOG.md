@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.0.0-pub] — GitHub-Veröffentlichung (2026-06-17, r=252 / JS r=16)
+
+- i18n: JS-Strings (Select-Bar, Datum-Pille, Tag-Cloud) folgen `document.documentElement.lang`; DE + EN eingebaut, Fallback EN
+- i18n: Templates (`addlink.html`, `linklist.html`) auf `t()`-Funktion umgestellt
+- Such-Overlay: Awesomplete-Auswahl von Solid-Green auf Muted-Overlay (`rgba(61,142,18,0.18)`) geändert
+- `/`-Shortcut öffnet Such-Overlay (Standard: GitHub, YouTube, Reddit)
+- Screenshots erneuert: gr3n.de, englische UI, Safari Privat-Fenster, 1280 px
+- README: englisch, v1.0.3+, Plugins-Sektion (markdown + markdown_toolbar), i18n-Abschnitt, `/`-Shortcut
+- Security: `dockerbase`-Hostname, interne Ports und `4.gr3n.de` aus `_design/`-Dateien und CHANGELOG entfernt
+- GitHub-Repo erstellt: `gruenheit/origr3n` · Topics gesetzt · Labels ergänzt (css, javascript, shaarli-compatibility)
+- GitHub Release v1.0.0 erstellt mit nutzerorientierten Release Notes
+
+---
+
 ## [v1.0.0] — Production Release (2026-06-16, r=244 / JS r=16)
 
 - CSS-Refactor: Duplikate bereinigt (#shaarli-menu-shaare, #theme-toggle, .linklist-pages), -19 Zeilen netto
