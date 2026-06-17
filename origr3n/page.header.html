@@ -14,6 +14,9 @@
         <a href="#" class="subheader-opener" data-open-id="search" aria-label="{'Search'|t}">
           <i class="fa fa-search" aria-hidden="true"></i>
         </a>
+        <button id="origr3n-timeline-btn-mobile" type="button" aria-label="Zeitstrahl">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </button>
         {if="$is_logged_in"}
         <button class="filter-btn-trigger" type="button" aria-label="Filter">
           <i class="fa fa-filter" aria-hidden="true"></i>
@@ -96,6 +99,11 @@
                id="search-button" aria-label="{'Search'|t}" title="{'Search'|t}">
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
+          </li>
+          <li class="pure-menu-item" id="origr3n-timeline-btn-item">
+            <button id="origr3n-timeline-btn" type="button" aria-label="Zeitstrahl" title="Zeitstrahl">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </button>
           </li>
           {if="$is_logged_in"}
           <li class="pure-menu-item" id="origr3n-filter-btn-item">

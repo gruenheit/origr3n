@@ -39,6 +39,7 @@ Not sure what Shaarli can do — or why origr3n makes it better?
 - **Footer icons:** green scale — edit `#3d8e12`, delete `#5a7a4a`, pin/bookmark `#3d8e12`
 - **Visibility toggle:** fa-lock (amber) / fa-unlock-alt — toggles private ↔ public
 - **Private share link:** amber `#d4851a` (fa-share-alt)
+- **Timeline toggle:** clock icon in the header activates day-separator dividers between link cards; state persists in localStorage
 - **Date pill = permalink:** click opens `shaare/{shorturl}`; relative format ("today, 14:32" / "yesterday" / "11 Jun 26")
 - **Tag pills:** green border, hover inversion; no redundant tag icon
 

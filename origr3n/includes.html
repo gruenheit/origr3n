@@ -19,7 +19,7 @@
 {if="strpos($formatter, 'markdown') !== false"}
   <link type="text/css" rel="stylesheet" href="{$asset_path}/css/markdown.min.css?v={$version_hash}#" />
 {/if}
-<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=252#" />
+<link type="text/css" rel="stylesheet" href="{$root_path}/tpl/origr3n/css/origr3n.css?r=255#" />
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
@@ -258,6 +258,95 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!matched && sortLinks.length) sortLinks[0].classList.add('tag-sort-active');
   }
 });
+</script>
+<script>
+/* origr3n: Timeline Variant A — DEV only */
+(function() {
+  var STORAGE_KEY = 'origr3n-timeline';
+  var GRAN = 'day';
+
+  function getDateKey(ts) {
+    var d = new Date(ts * 1000);
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  }
+
+  function formatSepLabel(ts) {
+    var d = new Date(ts * 1000);
+    var locale = document.documentElement.lang || 'de';
+    return d.toLocaleDateString(locale, {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'});
+  }
+
+  function buildSep(ts) {
+    var sep = document.createElement('div');
+    sep.className = 'origr3n-timeline-sep';
+    var lineL = document.createElement('span');
+    lineL.className = 'sep-a-line';
+    var label = document.createElement('span');
+    label.className = 'sep-a-label';
+    label.textContent = formatSepLabel(ts);
+    var lineR = document.createElement('span');
+    lineR.className = 'sep-a-line';
+    sep.appendChild(lineL);
+    sep.appendChild(label);
+    sep.appendChild(lineR);
+    return sep;
+  }
+
+  function injectSeparators() {
+    document.querySelectorAll('.origr3n-timeline-sep').forEach(function(el) { el.remove(); });
+    var items = document.querySelectorAll('#linklist-loop-content .linklist-item');
+    if (!items.length) return;
+    var lastKey = null;
+    items.forEach(function(item) {
+      var pill = item.querySelector('.linkdate[data-ts]');
+      if (!pill) return;
+      var ts = parseInt(pill.getAttribute('data-ts'), 10);
+      var key = getDateKey(ts);
+      if (key !== lastKey) {
+        var sep = buildSep(ts);
+        var anchor = item.previousElementSibling;
+        if (anchor && anchor.classList.contains('anchor')) {
+          anchor.parentNode.insertBefore(sep, anchor);
+        } else {
+          item.parentNode.insertBefore(sep, item);
+        }
+        lastKey = key;
+      }
+    });
+  }
+
+  function applyTimeline(active) {
+    document.body.classList.toggle('origr3n-timeline', active);
+    if (active) {
+      injectSeparators();
+    } else {
+      document.querySelectorAll('.origr3n-timeline-sep').forEach(function(el) { el.remove(); });
+    }
+    ['origr3n-timeline-btn', 'origr3n-timeline-btn-mobile'].forEach(function(id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.classList.toggle('active', active);
+    });
+  }
+
+  function initTimeline() {
+    var items = document.querySelectorAll('#linklist-loop-content .linklist-item');
+    if (!items.length) return;
+    var active = localStorage.getItem(STORAGE_KEY) === '1';
+    applyTimeline(active);
+    function handleToggle(e) {
+      e.preventDefault();
+      var next = !document.body.classList.contains('origr3n-timeline');
+      localStorage.setItem(STORAGE_KEY, next ? '1' : '0');
+      applyTimeline(next);
+    }
+    ['origr3n-timeline-btn', 'origr3n-timeline-btn-mobile'].forEach(function(id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', handleToggle);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initTimeline);
+})();
 </script>
 {if="$template === 'linklist' && ! empty($links) && count($links) === 1"}
   {$link=reset($links)}

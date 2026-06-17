@@ -2829,7 +2829,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Im hellen Modus wirken dunkelgraue Toolbar-Buttons (#2e2e2e) deplatziert.
    Ausgenommen: alle Icon-Buttons (transparent) + Action-Buttons (Textlinks) */
-[data-theme="light"] button:not(#theme-toggle):not([data-theme-toggle]):not([data-select-toggle]):not(.filter-btn-trigger):not(#filter-btn):not(#origr3n-action-delete):not(#origr3n-action-public):not(#origr3n-action-private):not(#origr3n-select-cancel):not(.btn) {
+[data-theme="light"] button:not(#theme-toggle):not([data-theme-toggle]):not([data-select-toggle]):not(.filter-btn-trigger):not(#filter-btn):not(#origr3n-action-delete):not(#origr3n-action-public):not(#origr3n-action-private):not(#origr3n-select-cancel):not(.btn):not(#origr3n-timeline-btn):not(#origr3n-timeline-btn-mobile) {
   background: #e4e4e4 !important;
   color: #333 !important;
   border-color: #c0c0c0 !important;
@@ -3650,4 +3650,54 @@ body:has(#origr3n-empty-state) .linklist-paging {
 #origr3n-empty-state p strong {
   color: var(--text-secondary);
   font-weight: 600;
+}
+
+/* ─── Timeline Variant A — DEV only ─────────────────────────────────────── */
+.origr3n-timeline-sep {
+  display: none;
+}
+body.origr3n-timeline .origr3n-timeline-sep {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  margin: 0.25rem 0 0.5rem;
+  user-select: none;
+}
+body.origr3n-timeline .origr3n-timeline-sep .sep-a-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-primary) 20%, var(--color-primary) 80%, transparent);
+  opacity: 0.35;
+}
+body.origr3n-timeline .origr3n-timeline-sep .sep-a-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-4);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#origr3n-timeline-btn,
+#origr3n-timeline-btn-mobile {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px !important;
+  color: var(--text-muted) !important;
+  padding: 0 !important;
+  transition: color 0.15s, background 0.15s;
+}
+#origr3n-timeline-btn:hover,
+#origr3n-timeline-btn-mobile:hover,
+#origr3n-timeline-btn.active,
+#origr3n-timeline-btn-mobile.active {
+  background: var(--bg-elevated) !important;
+  color: var(--color-primary) !important;
 }

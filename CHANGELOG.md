@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.1.0] — Timeline Feature (2026-06-17, r=255)
+
+- **Timeline Variant A:** day-separator dividers between link cards in the linklist — thin gradient line + uppercase date label
+- Clock icon (`fa-clock-o`) in header icon row — Desktop + Mobile — toggles `body.origr3n-timeline`
+- State persistent via `localStorage` (`origr3n-timeline`); separators injected/removed on toggle
+- Icon styling: identical to all other header icons — `var(--text-muted)` default, gray circle + green on hover/active
+- Light-mode fix: timeline buttons added to button-exclusion list (Light-Mode catch-all rule)
+- CSS r=255
+
+---
+
 ## [v1.0.0-pub] — GitHub-Veröffentlichung (2026-06-17, r=252 / JS r=16)
 
 - i18n: JS-Strings (Select-Bar, Datum-Pille, Tag-Cloud) folgen `document.documentElement.lang`; DE + EN eingebaut, Fallback EN
