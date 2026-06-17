@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shaarli + origr3n — Feature Showcase</title>
+  <meta name="description" content="Shaarli is a self-hosted bookmarking platform. Combined with the origr3n theme, it becomes a beautiful, keyboard-friendly knowledge tool.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OTIgNDkyIj48Y2lyY2xlIGN4PSIyNDYiIGN5PSIyNDYiIHI9IjI0NiIgZmlsbD0iIzA5MGUwOSIvPjxwYXRoIGZpbGw9IiM3ZWI5MjgiIGQ9Ik0xMzEuNTYsMjQ2LjA0Yy00LjUtMTcuOTMtNS43MS0zNi41Ny0zLjYxLTU1LjQ0LDYuODYtNDUuMjksMzEuMjMtODQuNTUsNjguNjItMTEwLjQxLDQwLjYxLTI4LjA4LDkzLjA1LTM3Ljk2LDE0My44OS0yNy4xMSw3Mi41MSwxOC4zOSwxMjYuOTMsNzMuMzcsMTQ1LjQxLDE0Ny4wMyw4Ljk5LDM1LjgyLDguNjMsNzQuMi0xLjAzLDExMC45OS0xOC44LDYzLjExLTYxLjYxLDExMy43OS0xMjAuNTIsMTQyLjU4LTYxLjg3LDMwLjI0LTEzNS4yMywzMi43OS0yMDEuMjQsN0M4NS42OCw0MjguMzIsMjkuMzIsMzYyLjI0LDguNTUsMjc5LjQzYy0yMy4zNy05My4xMiwyLjgzLTE4OS4xMSw2OC40LTI1Ni43NUM4My40OSwyMi42OCw5MS42LDE0LjM4LDEwMC41OCw4Ljc0YzEuMzMtLjg0LDUuNjEtMi45Miw4LjIzLTEuNjMsMi4xNiwxLjA2LDMuNDQsNC4xOSwzLjgxLDUuNjl2LjAyYy45OCwzLjkxLTEuOSw5LTkuMjEsMTcuMDhDNzAuMjQsNjcuNiw0OS4wNiwxMDcuNTUsMzguNTcsMTUxLjEyYy04LjczLDM4LjQ4LTguMyw3OC44NCwxLjIyLDExNi43OCwyMi41OSw5MC4wNCw5MS4zOCwxNTUuNDMsMTc5LjU0LDE3MC42NSw1NS4yNSw4LjA2LDExMS4xOC02LjE2LDE1My41NC0zOSwzOC42Ni0yOS45Niw2Mi44Mi03My4xNCw2OC4wNC0xMjEuNTgsMS4zOC0xOC4wMS0uMTQtMzUuODYtNC40OC01My4xOC0xNi44OC02Ny4zLTcxLjczLTExMi4wMy0xMzYuNS0xMTEuMzMtMzQuNzIsMS42NC02OC40LDE4Ljc2LTg4LjA1LDQ0LjcyLTExLjY0LDE1LjM3LTIzLjg3LDQwLjczLTE2LjEsNzQuMzYsNS42OSwyMC45LDIwLjg0LDM5LjUyLDM4LjY3LDQ3LjYsMTMuNCw2LjA4LDI3LjMsNS45OSw0MC4xNy0uMjUsOS43NC01LjM0LDE5LjQtMTkuMDUsMTcuMS0yOC4yNC0uNjgtMi43LTIuMjgtNS4wMS00LjYzLTYuNjctMi41Ny0xLjQ1LTQuODctMS4xNy04LjA2LS44LTUuNzUuNjgtMTQuNDYsMS43LTIxLjk5LTkuMjgtMS4yNC0yLjEzLTIuMjgtNC42Ni0yLjk0LTcuMjctNC4yNy0xNy4wMyw4LjkyLTMzLjAzLDI0LjE2LTQwLjAzLDE1LjA3LTUuOTYsMzAuOC01LjIzLDQ1LjI5LDIuMjEsMTcuODIsOS4xNSwzMi4yNCwyOC4xNywzNy42Miw0OS42NC40NCwxLjc3LjgzLDMuNDgsMS4yMSw1LjY5LDMuNTcsMjYuOTYtNC40NSw1My4wNi0yMi42NSw3My4yOS0yMS4yNCwyMy42NC01NC4yNiwzNy4yMi04OC4zMSwzNi4zNS01Ny40My0zLjk2LTEwNC4xNi00NC40Mi0xMTguODctMTAzLjA2Ii8+PC9zdmc+">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7/css/materialdesignicons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #090e09;
+      --surface:     #0d160d;
+      --surface-2:   #111e11;
+      --border:      rgba(60,130,30,.15);
+      --border-soft: rgba(60,130,30,.08);
+      --green:       #3d8e12;
+      --green-l:     #5aac28;
+      --green-text:  #6dba40;
+      --green-dim:   #122010;
+      --text-1:      #ffffff;
+      --text-2:      #c8c8c8;
+      --text-3:      #8a9a80;
+      --text-4:      #5a6850;
+      --link:        #6dba40;
+    }
+    :root[data-theme="light"] {
+      --bg:          #f2f7ef;
+      --surface:     #ffffff;
+      --surface-2:   #e8f0e4;
+      --border:      rgba(60,130,30,.25);
+      --border-soft: rgba(60,130,30,.12);
+      --green:       #3d8e12;
+      --green-l:     #3d8e12;
+      --green-text:  #2d7a08;
+      --green-dim:   #e4f0dc;
+      --text-1:      #0d1a08;
+      --text-2:      #243518;
+      --text-3:      #4a6035;
+      --text-4:      #7a9060;
+      --link:        #2d7a08;
+    }
+
+    body {
+      font-family: 'Quicksand', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-2);
+      line-height: 1.7;
+      padding-bottom: 5rem;
+      transition: background .2s, color .2s;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--green-l); text-decoration: underline; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-dot {
+      width: 9px; height: 9px;
+      background: var(--green-l);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--green-l);
+      flex-shrink: 0;
+    }
+    .topbar-brand {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+    .topbar-brand span { color: var(--green-text); }
+    .topbar-badge {
+      font-size: .65rem;
+      font-weight: 700;
+      background: var(--green-dim);
+      color: var(--green-text);
+      border: 1px solid rgba(109,186,64,.25);
+      padding: .1rem .55rem;
+      border-radius: 20px;
+    }
+    .topbar-sep { flex: 1; }
+    .topbar-lang {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--text-3);
+    }
+    .topbar-lang a {
+      color: var(--text-3);
+      padding: .2rem .45rem;
+      border-radius: 4px;
+      transition: color .15s;
+    }
+    .topbar-lang a:hover { color: var(--green-text); text-decoration: none; }
+    .topbar-lang .active { color: var(--green-text); font-weight: 700; }
+    .toggle-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      font-family: inherit;
+      font-size: .8rem;
+      padding: .28rem .65rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      transition: border-color .15s, color .15s;
+    }
+    .toggle-btn:hover { border-color: var(--green-l); color: var(--green-text); }
+    .toggle-btn .mdi { font-size: .9rem; }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 3.5rem 2rem 3rem;
+      border-bottom: 1px solid var(--border-soft);
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--green);
+      margin-bottom: .9rem;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--text-1);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+      margin-bottom: .9rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--green-text); }
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-2);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 1.8rem;
+    }
+    .hero-cta { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: inherit;
+      font-size: .86rem;
+      font-weight: 600;
+      padding: .55rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .15s;
+      border: none;
+    }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: var(--green-l); text-decoration: none; color: #fff; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--green-l); color: var(--green-text); text-decoration: none; }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .stat-item { display: flex; flex-direction: column; gap: .1rem; }
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green-text);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 2.5rem 0; border-bottom: 1px solid var(--border-soft); }
+    .section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--green);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text-1);
+      letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+    .section-desc {
+      font-size: .9rem;
+      color: var(--text-3);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── FEATURE GRID ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: .9rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.3rem;
+      transition: border-color .15s, background .15s;
+    }
+    .feature-card:hover {
+      border-color: var(--green-l);
+      background: var(--surface-2);
+    }
+    .fc-icon {
+      width: 36px; height: 36px;
+      background: var(--green-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .85rem;
+      color: var(--green-text);
+      font-size: 1.1rem;
+    }
+    .fc-title {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: .4rem;
+    }
+    .fc-desc {
+      font-size: .81rem;
+      color: var(--text-3);
+      line-height: 1.65;
+    }
+
+    /* ── ORIGR3N DIVIDER ── */
+    .origr3n-divider {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 2rem 0 .5rem;
+    }
+    .origr3n-divider::before,
+    .origr3n-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .origr3n-pill {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: var(--green-text);
+      background: var(--green-dim);
+      border: 1px solid rgba(109,186,64,.2);
+      padding: .3rem 1rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* ── USE CASE GRID ── */
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: .9rem;
+    }
+    .usecase-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: border-color .15s;
+    }
+    .usecase-card:hover { border-color: var(--green-l); }
+    .uc-top {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    .uc-icon {
+      width: 34px; height: 34px;
+      background: var(--green-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-text);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .uc-title {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+    .uc-quote {
+      font-size: .82rem;
+      color: var(--text-3);
+      line-height: 1.65;
+      font-style: italic;
+      border-left: 2px solid var(--green);
+      padding-left: .75rem;
+    }
+    .uc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-top: .25rem;
+    }
+    .uc-tag {
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--text-3);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: .1rem .5rem;
+      border-radius: 10px;
+    }
+
+    /* ── INTRO TEXT BOX ── */
+    .intro-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 10px 10px 0;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .intro-box p {
+      font-size: .92rem;
+      color: var(--text-2);
+      line-height: 1.75;
+      margin-bottom: .6rem;
+    }
+    .intro-box p:last-child { margin-bottom: 0; }
+    .intro-box strong { color: var(--text-1); font-weight: 600; }
+
+    /* ── COMPARISON TABLE ── */
+    .comparison {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+      font-size: .84rem;
+    }
+    .comparison th {
+      text-align: left;
+      padding: .6rem .9rem;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison td {
+      padding: .65rem .9rem;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-2);
+      vertical-align: middle;
+    }
+    .comparison tr:last-child td { border-bottom: none; }
+    .comparison .check { color: var(--green-text); font-size: 1rem; }
+    .comparison .cross { color: var(--text-4); font-size: 1rem; }
+    .comparison .feature-name { font-weight: 600; color: var(--text-1); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: var(--green-dim);
+      border: 1px solid rgba(109,186,64,.2);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+    .cta-banner-text h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: .3rem;
+    }
+    .cta-banner-text p {
+      font-size: .84rem;
+      color: var(--text-3);
+    }
+    .cta-links { display: flex; gap: .6rem; flex-wrap: wrap; }
+
+    /* ── INSTALL BLOCK ── */
+    .install-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .install-tab {
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: .55rem 1rem;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-3);
+    }
+    .install-code {
+      padding: 1rem 1.2rem;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: .82rem;
+      color: var(--green-text);
+      line-height: 1.8;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 3rem;
+      padding: 1.5rem 0 0;
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .75rem;
+      color: var(--text-4);
+    }
+    .footer-dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+    .footer-links { display: flex; gap: 1.2rem; font-size: .75rem; }
+    .footer-links a { color: var(--text-3); }
+    .footer-links a:hover { color: var(--green-text); }
+
+    @media (max-width: 680px) {
+      .hero h1 { font-size: 1.9rem; }
+      .hero { padding: 2.5rem 1.5rem 2rem; }
+      .wrap { padding: 0 1.5rem; }
+      .topbar { padding: 0 1.5rem; }
+      .stats { gap: 1.5rem; }
+      .cta-banner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-dot"></div>
+  <span class="topbar-brand">Shaarli <span>+ origr3n</span></span>
+  <span class="topbar-badge">v1.0.0</span>
+  <div class="topbar-sep"></div>
+  <div class="topbar-lang">
+    <a href="./shaarli-showcase-de.html">DE</a>
+    <span style="color:var(--text-4);margin:0 .2rem">/</span>
+    <span class="active">EN</span>
+  </div>
+  <button class="toggle-btn" id="themeToggle">
+    <i class="mdi mdi-weather-night"></i>
+    <span id="themeLabel">Light</span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Feature Showcase · 2026</div>
+  <h1>Bookmarking.<br><em>Reinvented.</em></h1>
+  <p class="hero-sub">
+    Shaarli is a lean, self-hosted bookmarking platform with no database required — combined with the <strong>origr3n</strong> theme, it becomes a beautiful, keyboard-friendly tool for personal knowledge management.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="https://github.com/gruenheit/origr3n" target="_blank">
+      <i class="mdi mdi-github"></i> origr3n on GitHub
+    </a>
+    <a class="btn btn-ghost" href="https://github.com/shaarli/Shaarli" target="_blank">
+      <i class="mdi mdi-open-in-new"></i> Shaarli Project
+    </a>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Core Features</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">10</span>
+      <span class="stat-label">origr3n Enhancements</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Databases required</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Self-Hosted</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">DE/EN</span>
+      <span class="stat-label">i18n Support</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-label">What is Shaarli?</div>
+    <div class="section-title">The bookmark manager for people who mean it</div>
+
+    <div class="intro-box">
+      <p>
+        <strong>Shaarli</strong> is an open-source bookmarking service that runs entirely on your own server — no database, no cloud dependency, no tracking. A single PHP application stores all data in a flat file. Backup means copying one file. Migration means transferring one file.
+      </p>
+      <p>
+        What sets Shaarli apart from commercial alternatives like Pocket or Pinboard: <strong>complete data ownership</strong>, a <strong>machine-readable REST API</strong>, per-link privacy controls, and an active open-source ecosystem maintained for over a decade.
+      </p>
+      <p>
+        Combined with the <strong>origr3n</strong> theme, Shaarli gains a polished Deep Forest interface — keyboard shortcuts, smart autocomplete, an optimized Picwall, and a Dark/Light toggle — without sacrificing any of its lightweight simplicity.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-bookmark-plus-outline"></i></div>
+        <div class="fc-title">Save Bookmarks</div>
+        <div class="fc-desc">Capture URLs with title, description and tags in seconds. Mark each link individually as private or public — granular, not all-or-nothing.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-tag-multiple-outline"></i></div>
+        <div class="fc-title">Flexible Tag System</div>
+        <div class="fc-desc">Tags instead of rigid folder hierarchies. The tag cloud shows your focus areas at a glance. Combine multiple tags and a search term simultaneously.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-magnify"></i></div>
+        <div class="fc-title">Full-Text Search</div>
+        <div class="fc-desc">Searches titles, descriptions and tags simultaneously. Results are instant — no loading screens, no delays, even with thousands of bookmarks.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-lock-open-outline"></i></div>
+        <div class="fc-title">Private or Public</div>
+        <div class="fc-desc">Granular visibility: keep individual links private or share them publicly. Private links are only visible after login — your personal notebook alongside your public feed.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-image-multiple-outline"></i></div>
+        <div class="fc-title">Picwall</div>
+        <div class="fc-desc">All links with a thumbnail as a visual gallery. Perfect for design inspiration, reference collections, or anything where the image tells more than the URL.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-calendar-today-outline"></i></div>
+        <div class="fc-title">Daily View</div>
+        <div class="fc-desc">A chronological day-by-day digest of all saved links. A clean overview by date for anyone who adds links regularly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-rss"></i></div>
+        <div class="fc-title">RSS/Atom Feeds</div>
+        <div class="fc-desc">Subscribe to any tag view, search result, or the full list as a machine-readable feed. Connect feed readers, newsletter tools and aggregators directly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-api"></i></div>
+        <div class="fc-title">REST API</div>
+        <div class="fc-desc">Full CRUD API for programmatically managing links. Build browser extensions, CLI shortcuts, and automation workflows without depending on the UI.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-puzzle-outline"></i></div>
+        <div class="fc-title">Plugin System</div>
+        <div class="fc-desc">Markdown rendering, QR code generator, thumbnail preview and more. Official and community plugins extend Shaarli's behavior without touching the core.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-swap-horizontal"></i></div>
+        <div class="fc-title">Import &amp; Export</div>
+        <div class="fc-desc">Netscape Bookmark Format for direct import from Chrome, Firefox and Pocket. Migrate from Pinboard and other services without data loss.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-database-off-outline"></i></div>
+        <div class="fc-title">No Database</div>
+        <div class="fc-desc">All data in a single flat file. No MySQL, no Redis, no overhead. Backup is one file copy. Migration is one file transfer. Truly minimal.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-server-outline"></i></div>
+        <div class="fc-title">Self-Hosted &amp; Private</div>
+        <div class="fc-desc">Your server, your rules. No tracking, no data sharing, no vendor lock-in. Runs on any PHP-capable web server from PHP 7.4 onwards.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="origr3n-divider">
+      <span class="origr3n-pill">origr3n makes the difference</span>
+    </div>
+
+    <div class="section-label" style="margin-top:1.5rem">origr3n Theme</div>
+    <div class="section-title">Visually superior. Functionally better.</div>
+    <div class="section-desc">
+      The origr3n theme doesn't just change how Shaarli looks — it makes daily use more productive: faster search, better overview, a more pleasant reading experience.
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-weather-night"></i></div>
+        <div class="fc-title">Deep Forest Dark Theme</div>
+        <div class="fc-desc">A thoughtfully crafted dark atmosphere in forest green — not simply inverted colors. Contrast-optimized for long sessions, calm on the eyes, clear in hierarchy.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-theme-light-dark"></i></div>
+        <div class="fc-title">Light/Dark Toggle</div>
+        <div class="fc-desc">Manual switching or following the system preference. Your choice is stored in the browser — it's correct on the next visit without any configuration.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-magnify-plus-outline"></i></div>
+        <div class="fc-title">Search Overlay + / Shortcut</div>
+        <div class="fc-desc">Press <kbd style="background:var(--surface-2);border:1px solid var(--border);padding:.1rem .4rem;border-radius:4px;font-size:.78rem">/</kbd> to open the search overlay from anywhere on the page. No scrolling, no mouse clicks required.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-auto-fix"></i></div>
+        <div class="fc-title">Tag Autocomplete</div>
+        <div class="fc-desc">Awesomplete suggests matching tags from your own library as you type. No typos, consistent taxonomy — your collection stays clean over years of use.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-view-grid-outline"></i></div>
+        <div class="fc-title">Optimized Picwall</div>
+        <div class="fc-desc">Exactly 8 tiles per row with optimized spacing, centered last row. Visually balanced across all screen widths without manual configuration.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-shield-check-outline"></i></div>
+        <div class="fc-title">Status Badges</div>
+        <div class="fc-desc">Subtle Private and Pinned indicators in the footer of each link card — not cluttering the title area. Clean, unobtrusive, immediately readable.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-plus-circle-outline"></i></div>
+        <div class="fc-title">Floating Action Button</div>
+        <div class="fc-desc">The + button is always visible on the link list without being distracting. Add a new link without navigating through the menu — straight from browse mode.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-emoticon-sad-outline"></i></div>
+        <div class="fc-title">Smart Empty State</div>
+        <div class="fc-desc">When a search returns 0 results, a contextual message with illustration replaces the empty page. Search term, tag filter or general empty state — always communicated appropriately.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-translate"></i></div>
+        <div class="fc-title">i18n — Language Detection</div>
+        <div class="fc-desc">Dynamic UI strings follow the browser's language setting. German and English built-in, more languages easily added — without rebuilding the theme.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon"><i class="mdi mdi-format-text"></i></div>
+        <div class="fc-title">Quicksand Typography</div>
+        <div class="fc-desc">A humanistic, highly readable typeface for long browsing sessions. Bundled locally under the SIL Open Font License — no CDN, no external requests on page load.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Shaarli vs. Alternatives</div>
+    <div class="section-title">Why self-host your bookmarks?</div>
+    <div class="section-desc">
+      Commercial alternatives come with trade-offs. Here's how Shaarli compares.
+    </div>
+
+    <table class="comparison">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Shaarli + origr3n</th>
+          <th>Pocket</th>
+          <th>Pinboard</th>
+          <th>Browser Bookmarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature-name">No data tracking</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-minus cross"></i></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Free forever</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-minus cross"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+        </tr>
+        <tr>
+          <td class="feature-name">REST API</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+        </tr>
+        <tr>
+          <td class="feature-name">RSS feeds per tag</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+        </tr>
+        <tr>
+          <td class="feature-name">No database required</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Own server</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Beautiful dark theme</td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-check check"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+          <td><i class="mdi mdi-close cross"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Use Cases</div>
+    <div class="section-title">Who uses Shaarli — and how?</div>
+    <div class="section-desc">
+      Shaarli isn't a single-purpose tool. Here are seven common scenarios — from a personal knowledge base to a team link collection.
+    </div>
+
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-brain"></i></div>
+          <div class="uc-title">Personal Knowledge Base</div>
+        </div>
+        <div class="uc-quote">"I collect everything in one place — articles, docs, videos, references. Shaarli is my digital memory for links I'll need again someday."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Tags</span>
+          <span class="uc-tag">Full-Text Search</span>
+          <span class="uc-tag">No Expiry</span>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-clock-outline"></i></div>
+          <div class="uc-title">Read-Later Queue</div>
+        </div>
+        <div class="uc-quote">"I come across interesting content throughout the day but don't have time to read it. Private links as a reading list — organized and accessible when I'm ready."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Private</span>
+          <span class="uc-tag">Tag: read-later</span>
+          <span class="uc-tag">Mobile</span>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-newspaper-variant-outline"></i></div>
+          <div class="uc-title">Curated Link Feed</div>
+        </div>
+        <div class="uc-quote">"I share my most interesting finds publicly. Shaarli is my link micro-blog — with an RSS feed my readers can subscribe to."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Public</span>
+          <span class="uc-tag">RSS</span>
+          <span class="uc-tag">Descriptions</span>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-code-braces"></i></div>
+          <div class="uc-title">Developer Resources</div>
+        </div>
+        <div class="uc-quote">"Repos, docs, Stack Overflow answers, API references — all organized with tags. Search finds it instantly, even if the bookmark is months old."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Tags</span>
+          <span class="uc-tag">API</span>
+          <span class="uc-tag">Browser Extension</span>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-shield-lock-outline"></i></div>
+          <div class="uc-title">Privacy-First Pocket Alternative</div>
+        </div>
+        <div class="uc-quote">"No Pocket account, no tracking, no data sharing. My reading list lives on my server — and stays there."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Self-Hosted</span>
+          <span class="uc-tag">No Tracking</span>
+          <span class="uc-tag">Import from Pocket</span>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-account-group-outline"></i></div>
+          <div class="uc-title">Team Knowledge Base</div>
+        </div>
+        <div class="uc-quote">"Links to internal tools, onboarding resources, useful articles — in a shared Shaarli instance for the whole team. No more searching through Slack."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Public internally</span>
+          <span class="uc-tag">Search</span>
+          <span class="uc-tag">No login required</span>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="uc-top">
+          <div class="uc-icon"><i class="mdi mdi-pencil-outline"></i></div>
+          <div class="uc-title">Blog Research</div>
+        </div>
+        <div class="uc-quote">"For every article draft I collect sources and inspiration in Shaarli. Tags link material to the upcoming post — research and writing stay cleanly separated."</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Tags</span>
+          <span class="uc-tag">Private</span>
+          <span class="uc-tag">Markdown</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Getting Started</div>
+    <div class="section-title">Install origr3n in minutes</div>
+    <div class="section-desc">origr3n works with Shaarli v0.12.0 or later. The Quicksand font is bundled locally — no internet connection required after installation.</div>
+
+    <div class="install-block">
+      <div class="install-tab">Installation</div>
+      <div class="install-code"># 1. Download origr3n into your Shaarli themes directory
+cd /path/to/shaarli/tpl
+git clone https://github.com/gruenheit/origr3n.git origr3n
+
+# 2. In Shaarli admin panel → Tools → Theme → select "origr3n"
+
+# 3. Recommended plugins: markdown, addlink_toolbar</div>
+    </div>
+
+    <div class="cta-banner">
+      <div class="cta-banner-text">
+        <h3>Ready to try it?</h3>
+        <p>origr3n is open source under the MIT License. Quicksand font bundled under SIL OFL.</p>
+      </div>
+      <div class="cta-links">
+        <a class="btn btn-primary" href="https://github.com/gruenheit/origr3n" target="_blank">
+          <i class="mdi mdi-github"></i> Get origr3n
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/shaarli/Shaarli" target="_blank">
+          <i class="mdi mdi-open-in-new"></i> Get Shaarli
+        </a>
+        <a class="btn btn-ghost" href="./shaarli-showcase-de.html">
+          <i class="mdi mdi-translate"></i> Deutsche Version
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-left">
+        <div class="footer-dot"></div>
+        <span>origr3n v1.0.0 · Shaarli Theme · christian grünheit · 2026</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/gruenheit/origr3n" target="_blank">GitHub</a>
+        <a href="https://github.com/shaarli/Shaarli" target="_blank">Shaarli</a>
+        <a href="https://dia.gr3n.de" target="_blank">dia.gr3n.de</a>
+      </div>
+    </footer>
+  </section>
+
+</div>
+
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const lbl = document.getElementById('themeLabel');
+  const saved = localStorage.getItem('origr3n-theme');
+  if (saved) html.setAttribute('data-theme', saved);
+
+  function updateBtn() {
+    const dark = html.getAttribute('data-theme') !== 'light';
+    btn.querySelector('.mdi').className = 'mdi mdi-' + (dark ? 'weather-night' : 'white-balance-sunny');
+    lbl.textContent = dark ? 'Light' : 'Dark';
+  }
+  updateBtn();
+
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('origr3n-theme', next);
+    updateBtn();
+  });
+</script>
+
+</body>
+</html>
