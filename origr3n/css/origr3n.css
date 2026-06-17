@@ -552,8 +552,8 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
 }
 #search .awesomplete > ul > li:hover,
 #search .awesomplete > ul > li[aria-selected="true"] {
-  background: var(--color-primary) !important;
-  color: #fff !important;
+  background: rgba(61, 142, 18, 0.18) !important;
+  color: var(--text-primary) !important;
 }
 #search .awesomplete > ul > li > mark {
   background: transparent !important;
@@ -562,7 +562,7 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
 }
 #search .awesomplete > ul > li[aria-selected="true"] > mark,
 #search .awesomplete > ul > li:hover > mark {
-  color: #fff !important;
+  color: #6abf3a !important;
 }
 
 /* Action-Buttons (tags-Toggle + submit) */

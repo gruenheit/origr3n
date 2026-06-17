@@ -112,6 +112,15 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && panel.classList.contains('open')) closeSearch();
     });
+
+    /* / öffnet Suche (quasi-Standard: GitHub, YouTube, Reddit …) */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== '/') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+      e.preventDefault();
+      var opener = document.querySelector('.subheader-opener[data-open-id="search"]');
+      if (opener) opener.click();
+    });
   });
 })();
 
