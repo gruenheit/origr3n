@@ -60,6 +60,19 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 ---
 
+## Recommended plugins
+
+origr3n is styled and tested with these plugins:
+
+| Plugin | Source | Purpose |
+|--------|--------|---------|
+| **markdown** | [built into Shaarli](https://github.com/shaarli/Shaarli/tree/master/plugins/markdown) | Renders descriptions as Markdown/MarkdownExtra — enables blockquote styling, code blocks, lists |
+| **markdown_toolbar** | [immanuelfodor/shaarli-markdown-toolbar](https://github.com/immanuelfodor/shaarli-markdown-toolbar) | Adds a Bootstrap Markdown toolbar + fullscreen editor to the description field |
+
+Enable both in **Tools → Plugin administration**. Install `markdown_toolbar` by downloading the release and placing it in your Shaarli `plugins/` directory.
+
+---
+
 ## Internationalization
 
 origr3n follows the language configured in Shaarli (the `<html lang="...">` attribute):
