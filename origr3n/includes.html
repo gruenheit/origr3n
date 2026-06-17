@@ -60,23 +60,28 @@ document.addEventListener('DOMContentLoaded', function(){
 
 /* origr3n: Datums-Pille — Edit-Formular (.created-date) und Linklist (.linkdate) */
 document.addEventListener('DOMContentLoaded', function(){
+  var _locale = document.documentElement.lang || 'en';
+  var _langShort = _locale.toLowerCase().split('-')[0];
+  var _todayStr    = _langShort === 'de' ? 'heute'   : 'today';
+  var _yesterdayStr = _langShort === 'de' ? 'gestern' : 'yesterday';
+
   function formatDatePill(el) {
     var d = new Date(parseInt(el.getAttribute('data-ts'), 10) * 1000);
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var yesterday = new Date(today.getTime() - 86400000);
     var dDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    var hhmm = d.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
+    var hhmm = d.toLocaleTimeString(_locale, {hour: '2-digit', minute: '2-digit'});
     var label;
     if (dDay >= today) {
-      label = 'heute, ' + hhmm;
+      label = _todayStr + ', ' + hhmm;
     } else if (dDay >= yesterday) {
-      label = 'gestern, ' + hhmm;
+      label = _yesterdayStr + ', ' + hhmm;
     } else {
-      label = d.toLocaleDateString('de-DE', {day: 'numeric', month: 'short', year: '2-digit'});
+      label = d.toLocaleDateString(_locale, {day: 'numeric', month: 'short', year: '2-digit'});
     }
     el.textContent = label;
-    el.title = d.toLocaleDateString('de-DE', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
+    el.title = d.toLocaleDateString(_locale, {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}) + ', ' + hhmm;
   }
   /* Edit-Formular: einzelnes Element */
   var editEl = document.querySelector('.created-date[data-ts]');
@@ -152,8 +157,23 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-/* origr3n: Daily-Entry + Picwall Selektion */
+/* origr3n: Daily-Entry + Picwall Selektion + i18n */
 document.addEventListener('DOMContentLoaded', function(){
+  var _langShort = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+  var _i18nCloud = {
+    de: {
+      placeholder: 'Tag eingeben → Co-Tags anzeigen',
+      cotagUsed: function(tag) { return 'Gemeinsam mit <strong>»' + tag + '«</strong> verwendete Tags:'; },
+      cotagTitle: function(tag, n) { return 'Co-Tags von »' + tag + '«' + (n ? ' <span class="cotag-count">— ' + n + ' Tags</span>' : ''); }
+    },
+    en: {
+      placeholder: 'Enter tag → show co-tags',
+      cotagUsed: function(tag) { return 'Tags used together with <strong>»' + tag + '«</strong>:'; },
+      cotagTitle: function(tag, n) { return 'Co-tags of »' + tag + '«' + (n ? ' <span class="cotag-count">— ' + n + ' tags</span>' : ''); }
+    }
+  };
+  var _tCloud = _i18nCloud[_langShort] || _i18nCloud.en;
+
   var entries = document.querySelectorAll('.daily-entry');
   if (entries.length) {
     entries.forEach(function(entry){
@@ -188,21 +208,23 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  /* Englische Monatsnamen auf Deutsch (window-subtitle, $dayDesc) */
-  var subtitle = document.querySelector('.window-subtitle');
-  if (subtitle) {
-    var de = {January:'Januar',February:'Februar',March:'März',April:'April',
-              May:'Mai',June:'Juni',July:'Juli',August:'August',
-              September:'September',October:'Oktober',November:'November',December:'Dezember'};
-    var t = subtitle.textContent;
-    Object.keys(de).forEach(function(en){ t = t.replace(en, de[en]); });
-    subtitle.textContent = t;
+  /* window-subtitle: Monatsnamen lokalisieren (server-seitig englisch gerendert) */
+  if (_langShort === 'de') {
+    var subtitle = document.querySelector('.window-subtitle');
+    if (subtitle) {
+      var _deMonths = {January:'Januar',February:'Februar',March:'März',April:'April',
+                May:'Mai',June:'Juni',July:'Juli',August:'August',
+                September:'September',October:'Oktober',November:'November',December:'Dezember'};
+      var _st = subtitle.textContent;
+      Object.keys(_deMonths).forEach(function(en){ _st = _st.replace(en, _deMonths[en]); });
+      subtitle.textContent = _st;
+    }
   }
 
   /* Tag-Cloud: Placeholder + Kontext-Label bei aktiver Suche */
   var cloudInput = document.querySelector('#search-tagcloud input[name="searchtags"]');
   if (cloudInput) {
-    cloudInput.placeholder = 'Tag eingeben → Co-Tags anzeigen';
+    cloudInput.placeholder = _tCloud.placeholder;
     var params = new URLSearchParams(window.location.search);
     var searchTag = (params.get('searchtags') || '').trim();
     if (searchTag) {
@@ -210,13 +232,13 @@ document.addEventListener('DOMContentLoaded', function(){
       if (cloud) {
         var lbl = document.createElement('p');
         lbl.className = 'cotag-context-label';
-        lbl.innerHTML = 'Gemeinsam mit <strong>»' + searchTag + '«</strong> verwendete Tags:';
+        lbl.innerHTML = _tCloud.cotagUsed(searchTag);
         cloud.parentNode.insertBefore(lbl, cloud);
       }
       var wt = document.querySelector('.window-title');
       if (wt) {
         var m = wt.textContent.match(/\d+/);
-        wt.innerHTML = 'Co-Tags von »' + searchTag + '«' + (m ? ' <span class="cotag-count">— ' + m[0] + ' Tags</span>' : '');
+        wt.innerHTML = _tCloud.cotagTitle(searchTag, m && m[0]);
       }
     }
   }

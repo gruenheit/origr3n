@@ -126,6 +126,8 @@
     <div id="linklist-loop-content" class="pure-u-lg-20-24 pure-u-22-24">
       {ignore}Set translation here, for performances{/ignore}
       {$strPrivate=t('Private')}
+      {$strMakePublic=t('Make public')}
+      {$strMakePrivate=t('Make private')}
       {$strEdit=t('Edit')}
       {$strDelete=t('Delete')}
       {$strFold=t('Fold')}
@@ -209,13 +211,13 @@
                     <span class="linklist-item-infos-controls-item ctrl-visibility">
                       {if="$value.private"}
                         <a href="{$base_path}/admin/shaare/visibility?token={$token}&amp;newVisibility=public&amp;id={$value.id}"
-                           title="Öffentlich machen" aria-label="Öffentlich machen"
+                           title="{$strMakePublic}" aria-label="{$strMakePublic}"
                            class="visibility-link visibility-link-private pure-u-0 pure-u-lg-visible">
                           <i class="fa fa-lock" aria-hidden="true"></i>
                         </a>
                       {else}
                         <a href="{$base_path}/admin/shaare/visibility?token={$token}&amp;newVisibility=private&amp;id={$value.id}"
-                           title="Privat machen" aria-label="Privat machen"
+                           title="{$strMakePrivate}" aria-label="{$strMakePrivate}"
                            class="visibility-link visibility-link-public pure-u-0 pure-u-lg-visible">
                           <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </a>

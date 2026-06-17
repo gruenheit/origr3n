@@ -118,18 +118,28 @@
 /* origr3n — Select-Modus mit Bottom-Bar */
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
+    /* i18n: Strings follow <html lang="..."> */
+    var _lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+    var _i18n = {
+      de: { selected: ' ausgewählt', selectAll: 'alle wählen', selectNone: 'alle abwählen',
+            del: 'Löschen', pub: 'Öffentlich', priv: 'Privat', cancel: 'Abbrechen' },
+      en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
+            del: 'Delete', pub: 'Public', priv: 'Private', cancel: 'Cancel' }
+    };
+    var _t = _i18n[_lang] || _i18n.en;
+
     /* Bottom-Bar dynamisch erstellen */
     var bar = document.createElement('div');
     bar.id = 'origr3n-select-bar';
 
     var countEl = document.createElement('span');
     countEl.id = 'origr3n-select-count';
-    countEl.textContent = '0 ausgewählt';
+    countEl.textContent = '0' + _t.selected;
 
     var selectAllBtn = document.createElement('a');
     selectAllBtn.id = 'origr3n-select-all';
     selectAllBtn.href = '#';
-    selectAllBtn.textContent = 'alle wählen';
+    selectAllBtn.textContent = _t.selectAll;
 
     var actionsEl = document.createElement('div');
     actionsEl.className = 'origr3n-select-actions';
@@ -137,22 +147,22 @@
     var deleteBtn = document.createElement('button');
     deleteBtn.id = 'origr3n-action-delete';
     deleteBtn.type = 'button';
-    deleteBtn.textContent = 'Löschen';
+    deleteBtn.textContent = _t.del;
 
     var publicBtn = document.createElement('button');
     publicBtn.id = 'origr3n-action-public';
     publicBtn.type = 'button';
-    publicBtn.textContent = 'Öffentlich';
+    publicBtn.textContent = _t.pub;
 
     var privateBtn = document.createElement('button');
     privateBtn.id = 'origr3n-action-private';
     privateBtn.type = 'button';
-    privateBtn.textContent = 'Privat';
+    privateBtn.textContent = _t.priv;
 
     var cancelBtn = document.createElement('button');
     cancelBtn.id = 'origr3n-select-cancel';
     cancelBtn.type = 'button';
-    cancelBtn.textContent = 'Abbrechen';
+    cancelBtn.textContent = _t.cancel;
 
     actionsEl.appendChild(deleteBtn);
     actionsEl.appendChild(publicBtn);
@@ -165,7 +175,7 @@
 
     function updateCount() {
       var n = document.querySelectorAll('.link-checkbox:checked').length;
-      countEl.textContent = n + ' ausgewählt';
+      countEl.textContent = n + _t.selected;
     }
 
     function exitSelectMode() {
@@ -214,14 +224,14 @@
         var cb = item.querySelector('.link-checkbox');
         item.classList.toggle('selected', doSelect && !!cb);
       });
-      selectAllBtn.textContent = doSelect ? 'alle abwählen' : 'alle wählen';
+      selectAllBtn.textContent = doSelect ? _t.selectNone : _t.selectAll;
       updateCount();
     });
 
-    /* Abbrechen */
+    /* Cancel */
     cancelBtn.addEventListener('click', function () {
       exitSelectMode();
-      selectAllBtn.textContent = 'alle wählen';
+      selectAllBtn.textContent = _t.selectAll;
     });
 
     /* Action-Buttons → native Shaarli-Elemente triggern */
