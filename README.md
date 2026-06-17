@@ -5,7 +5,7 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 **GitHub:** [github.com/gruenheit/origr3n](https://github.com/gruenheit/origr3n)
 
 > Compatible with Shaarli v0.16.3+  
-> Status: **v1.0.0** — live at [gr3n.de](https://gr3n.de)
+> Status: **v1.1.0** — live at [gr3n.de](https://gr3n.de)
 
 ---
 
@@ -13,8 +13,8 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 Not sure what Shaarli can do — or why origr3n makes it better?
 
-**[→ Full Feature Showcase (EN)](https://dia.gr3n.de/shaarli-showcase-en.html)** — 12 core features, 10 origr3n enhancements, 7 use cases, comparison table and quick-start guide.  
-**[→ Feature-Showcase (DE)](https://dia.gr3n.de/shaarli-showcase-de.html)** — Deutschsprachige Version.
+**[→ Full Feature Showcase (EN)](https://gruenheit.github.io/origr3n/)** — 12 core features, 11 origr3n enhancements, 7 use cases, comparison table and quick-start guide.  
+**[→ Feature-Showcase (DE)](https://gruenheit.github.io/origr3n/shaarli-showcase-de.html)** — Deutschsprachige Version.
 
 ---
 
