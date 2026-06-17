@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>origr3n — Awesomplete Dropdown Varianten</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-primary: #3d8e12;
+    --bg-main:       #1e1e1e;
+    --bg-surface:    #2a2a2a;
+    --bg-elevated:   #2e2e2e;
+    --bg-hover:      #333333;
+    --text-primary:  #ffffff;
+    --text-muted:    #999999;
+    --border-color:  #3a3a3a;
+    --border-radius: 6px;
+  }
+
+  body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Quicksand', system-ui, sans-serif;
+    padding: 40px 32px;
+  }
+
+  h1 { font-size: 1rem; color: var(--text-muted); margin-bottom: 32px; letter-spacing: .04em; text-transform: uppercase; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .variant { display: flex; flex-direction: column; gap: 12px; }
+
+  .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .label strong { color: var(--text-primary); display: block; font-size: 0.85rem; margin-bottom: 2px; text-transform: none; letter-spacing: 0; }
+
+  /* Gemeinsames Dropdown-Grundgerüst */
+  .search-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    width: 100%;
+    margin-bottom: -1px;
+  }
+
+  .dropdown {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    overflow: hidden;
+    list-style: none;
+  }
+  .dropdown li {
+    padding: 9px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .dropdown li mark {
+    background: transparent;
+    font-weight: 700;
+  }
+
+  /* ── AKTUELL (Ist-Zustand) ─────────────────────────── */
+  .ist .dropdown li.selected,
+  .ist .dropdown li:hover {
+    background: #3d8e12;
+    color: #fff;
+  }
+  .ist .dropdown li mark { color: #3d8e12; }
+  .ist .dropdown li.selected mark,
+  .ist .dropdown li:hover mark { color: #fff; }
+
+  /* ── VARIANTE A — Muted Overlay ───────────────────── */
+  .var-a .dropdown li.selected,
+  .var-a .dropdown li:hover {
+    background: rgba(61, 142, 18, 0.18);
+    color: var(--text-primary);
+  }
+  .var-a .dropdown li mark { color: #3d8e12; }
+  .var-a .dropdown li.selected mark,
+  .var-a .dropdown li:hover mark { color: #6abf3a; }
+
+  /* ── VARIANTE B — Left-Border Akzent ─────────────── */
+  .var-b .dropdown li.selected,
+  .var-b .dropdown li:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-left: 3px solid #3d8e12;
+    padding-left: 11px;
+  }
+  .var-b .dropdown li mark { color: #3d8e12; }
+  .var-b .dropdown li.selected mark { color: #5ab82a; }
+
+  /* ── VARIANTE C — Grüner Text, kein grüner BG ────── */
+  .var-c .dropdown li.selected,
+  .var-c .dropdown li:hover {
+    background: var(--bg-elevated);
+    color: #5ab82a;
+  }
+  .var-c .dropdown li mark { color: #3d8e12; }
+  .var-c .dropdown li.selected mark { color: #7fdf40; }
+
+  /* Beschreibungstext */
+  .desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .desc code {
+    font-family: monospace;
+    background: #333;
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 0.75rem;
+    color: #aaa;
+  }
+</style>
+</head>
+<body>
+
+<h1>origr3n · Awesomplete Dropdown — Variantenvergleich</h1>
+
+<div class="grid">
+
+  <!-- IST -->
+  <div class="variant ist">
+    <div class="label"><strong>Aktuell (Ist)</strong>Vollflächiges Primärgrün</div>
+    <input class="search-box" value="lebrade" readonly>
+    <ul class="dropdown">
+      <li class="selected"><mark>lebrade</mark></li>
+      <li>lebrade-tipps</li>
+      <li>lebrade-natur</li>
+    </ul>
+    <p class="desc">
+      Background: <code>#3d8e12</code> (volle Sättigung).<br>
+      Sehr präsent — fällt sofort ins Auge.
+    </p>
+  </div>
+
+  <!-- A -->
+  <div class="variant var-a">
+    <div class="label"><strong>A — Muted Overlay</strong>Transparentes Grün, normaler Text</div>
+    <input class="search-box" value="lebrade" readonly>
+    <ul class="dropdown">
+      <li class="selected"><mark>lebrade</mark></li>
+      <li>lebrade-tipps</li>
+      <li>lebrade-natur</li>
+    </ul>
+    <p class="desc">
+      Background: <code>rgba(grün, 0.18)</code>.<br>
+      Suggestion bleibt erkennbar, ohne den Text zu dominieren.
+    </p>
+  </div>
+
+  <!-- B -->
+  <div class="variant var-b">
+    <div class="label"><strong>B — Left-Border Akzent</strong>Subtile Erhebung + grüner Strich</div>
+    <input class="search-box" value="lebrade" readonly>
+    <ul class="dropdown">
+      <li class="selected"><mark>lebrade</mark></li>
+      <li>lebrade-tipps</li>
+      <li>lebrade-natur</li>
+    </ul>
+    <p class="desc">
+      Background: <code>--bg-hover</code> + 3px grüner Left-Border.<br>
+      Minimalistisch — Akzent durch Linie, nicht Fläche.
+    </p>
+  </div>
+
+  <!-- C -->
+  <div class="variant var-c">
+    <div class="label"><strong>C — Grüner Text</strong>Kein grüner Hintergrund</div>
+    <input class="search-box" value="lebrade" readonly>
+    <ul class="dropdown">
+      <li class="selected"><mark>lebrade</mark></li>
+      <li>lebrade-tipps</li>
+      <li>lebrade-natur</li>
+    </ul>
+    <p class="desc">
+      Background: <code>--bg-elevated</code>, Text wird grün.<br>
+      Klarste Trennung zwischen bg und Akzent.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
