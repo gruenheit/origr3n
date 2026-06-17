@@ -4,7 +4,7 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 
 **GitHub:** [github.com/gruenheit/origr3n](https://github.com/gruenheit/origr3n)
 
-> Compatible with Shaarli v0.13+  
+> Compatible with Shaarli v0.16.3+  
 > Status: **v1.0.0** — live at [gr3n.de](https://gr3n.de)
 
 ---
