@@ -37,7 +37,7 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 - **Nav links:** `--text-secondary` default, `--color-primary` on hover
 - **Header icons:** round hover surface; moon, search, filter, select-toggle, logout/login; uniform `var(--text-muted)` → `--color-primary` on hover
 - **Filter panel:** visibility and results-per-page pills; position fixed
-- **Search overlay:** full-screen backdrop, Awesomplete autocomplete
+- **Search overlay:** full-screen backdrop, Awesomplete autocomplete; press `/` anywhere to open (standard shortcut: GitHub, YouTube, Reddit), `Escape` to close
 
 ### Other pages
 
@@ -55,6 +55,17 @@ A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built o
 - Code blocks: dark background, green inline code
 - Lists: proper indent (Pure CSS reset corrected)
 - Editor preview (`.md-preview`): same dark/light theme as rendered output
+
+---
+
+## Internationalization
+
+origr3n follows the language configured in Shaarli (the `<html lang="...">` attribute):
+
+- **Templates** use Shaarli's built-in `t()` function — strings like *Private*, *Make public* follow the instance language automatically
+- **JS strings** (select bar, date pill, tag cloud labels) read `document.documentElement.lang` at runtime — German and English are built in; other languages fall back to English
+
+No configuration needed: set your Shaarli language in `config.json` (`general.language`) and the theme follows.
 
 ---
 
