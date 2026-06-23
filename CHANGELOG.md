@@ -1,5 +1,33 @@
 # Changelog
 
+## [post-v1.1.0] — Showcase-Texte & Sicherheitskorrekturen (2026-06-17–23)
+
+### Sicherheit & Korrekturen
+
+- **XSS-Fix:** Template-Ausgaben escaped; interne Hostnamen und Ports aus Showcase-Seiten entfernt
+- **CDN SRI:** Subresource Integrity Hashes ergänzt; `gruenheit.de`-CDN-Referenz entfernt, `metadata.json` auf v1.1.0 aktualisiert
+- **`.github/` Struktur:** Issue-Templates und Security Policy eingerichtet
+- Interne Domain-Links aus allen Showcase-Footern entfernt
+
+### Showcase-Texte — DE überarbeitet
+
+- KI-generierte Formulierungsmuster aufgebrochen — authentischere, konkretere Beschreibungen
+- Quicksand-Karte: persönlicher Ton statt typografischer Fachbeschreibung
+- Empty-State-Text kürzer und sachlicher
+- Team-Use-Case → Merkliste-Fokus (treffender für private Nutzung)
+- EU-Datenschutz-Argument und Bildwand-Referenz als Argument ergänzt
+- Pocket als Alternativ-Nennung entfernt; „Selbermacher" → „Individualisten"
+- Tagline „kein Datenbankserver" verschärft und gekürzt
+- Diverse Einzelkorrekturen: Jargon, Anglizismen, Kommas, Parallelkonstrukte
+
+### Showcase-Texte — EN synchronisiert
+
+- EN-Version vollständig auf DE-Stand gebracht (Privacy, Stil, Use Cases)
+- Quicksand card: `theme author's` statt `author's`, `connections` statt `requests`
+- Futur-Formulierung korrigiert: „will notice" statt Präsens
+
+---
+
 ## [v1.1.0] — Timeline Feature (2026-06-17, r=255)
 
 - **Timeline Variant A:** day-separator dividers between link cards in the linklist — thin gradient line + uppercase date label
