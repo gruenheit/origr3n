@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### JS Refactoring (2026-06-23)
+
+- **Consolidated DOMContentLoaded handlers:** Merged 4 separate IIFE blocks into a single outer IIFE with named init functions (`initTheme`, `initSearch`, `initSelectMode`, `initFilterPanel`) called from one `DOMContentLoaded` listener
+- Anti-FOUC `apply()` for theme still runs immediately before DOM parse
+- JS cache-busting bumped to `r=17`
+
 ### CSS Refactoring & Template Fix (2026-06-23)
 
 - **CSS Custom Properties:** Replaced ~39 hard-coded values with variables for secondary colors, rgba transparencies, and button dimensions
