@@ -1,5 +1,16 @@
 # Changelog
 
+## [post-v1.1.0b] — CSS Refactoring & Template-Fix (2026-06-23)
+
+- **CSS Custom Properties:** Sekundärfarben, rgba-Transparenzen und Button-Dimensionen durch Variablen ersetzt (~39 Hard-Coded Werte)
+  - `--color-primary-rgb` für `rgba()`-Transparenzen (4 Stellen)
+  - `--color-success`, `--color-public`, `--color-private`, `--color-amber` für semantische Farben (~23 Stellen)
+  - `--size-icon-btn`, `--size-fab`, `--size-header` für feste Dimensionen (12 Stellen)
+- **`includes.html` Fix:** CSS-Einbindung von `{$root_path}/tpl/origr3n/` auf `{$asset_path}/` umgestellt — robuster, kein hardcoded Themepfad
+- **RainTPL-Eigenheit dokumentiert:** Asset-`href`-Attribute mit `{$asset_path}` benötigen `#` am URL-Ende, sonst normalisiert RainTPL den Pfad doppelt (kein visueller Effekt, aber CSS wird nicht geladen)
+
+---
+
 ## [post-v1.1.0] — Showcase-Texte & Sicherheitskorrekturen (2026-06-17–23)
 
 ### Sicherheit & Korrekturen
