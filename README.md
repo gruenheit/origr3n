@@ -1,5 +1,9 @@
 # origr3n
 
+[![Version](https://img.shields.io/badge/version-1.1.0-3d8e12)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/license-MIT-3d8e12)](LICENSE)
+[![Shaarli](https://img.shields.io/badge/Shaarli-v0.16.3%2B-3d8e12)](https://github.com/shaarli/Shaarli)
+
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language** — Deep Forest green, Quicksand typeface, dark/light toggle.
 
 > Compatible with Shaarli v0.16.3+  
