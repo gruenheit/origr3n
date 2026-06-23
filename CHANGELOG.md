@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Bug Fixes (2026-06-23)
+
+- **Fixed: semantic color variables were self-referential** — `--color-success`, `--color-public`, `--color-private`, `--color-private-h`, `--color-success-l`, `--color-amber` all pointed to themselves (circular CSS custom property references resolve as invalid). Restored correct hex values: `#5cb81a`, `#5a7a4a`, `#d4851a`, `#e8a030`, `#6abf3a`, `#b07820`. Private card amber border, public/private control icons, and tag badges now render correctly. (r=257)
+- **Fixed: description body links invisible on hover** — `shaarli.min.css` overrides all in-card link hover colors to `#252525` (near-black). origr3n's `!important` counter-override only covered `.linklist-item-title h2 a` and `.linklist-real-url`, not generic `<a>` tags inside `.linklist-item-description`. Added explicit rules for initial and hover states on description links. Hover now shows `--color-primary-h` (#4aa316) with underline. (r=258)
+
 ### JS Refactoring (2026-06-23)
 
 - **Consolidated DOMContentLoaded handlers:** Merged 4 separate IIFE blocks into a single outer IIFE with named init functions (`initTheme`, `initSearch`, `initSelectMode`, `initFilterPanel`) called from one `DOMContentLoaded` listener

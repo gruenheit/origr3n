@@ -59,12 +59,12 @@
   --color-primary-rgb:  61, 142, 18;
 
   /* Semantische Farben — Public / Private / Akzente */
-  --color-success:      var(--color-success);
-  --color-success-l:    var(--color-success-l);
-  --color-public:       var(--color-public);
-  --color-private:      var(--color-private);
-  --color-private-h:    var(--color-private-h);
-  --color-amber:        var(--color-amber);
+  --color-success:      #5cb81a;
+  --color-success-l:    #6abf3a;
+  --color-public:       #5a7a4a;
+  --color-private:      #d4851a;
+  --color-private-h:    #e8a030;
+  --color-amber:        #b07820;
 
   /* Feste Dimensionen — Icon-Buttons, FAB, Header */
   --size-icon-btn:      32px;
@@ -877,6 +877,18 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   margin: 0.3rem 0 0.5rem;
   padding: 0 !important;
   line-height: 1.55;
+}
+
+/* shaarli.min.css setzt Links in Content-Bereichen auf #252525 — auf dunklem Bg unsichtbar */
+.linklist-item-description a,
+.linklist-item-description a:visited {
+  color: var(--color-primary) !important;
+}
+
+.linklist-item-description a:hover,
+.linklist-item-description a:visited:hover {
+  color: var(--color-primary-h) !important;
+  text-decoration: underline;
 }
 
 .linklist-item-description .markdown p {
