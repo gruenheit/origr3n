@@ -1,6 +1,11 @@
-/* origr3n — Dark/Light Toggle */
+/* origr3n — all modules in one IIFE, single DOMContentLoaded entry point */
 (function () {
   'use strict';
+
+  /* ══════════════════════════════════════════════════════════════
+     Dark/Light Toggle
+     apply() runs immediately to avoid flash before paint
+  ══════════════════════════════════════════════════════════════ */
 
   const STORAGE_KEY = 'origr3n-theme';
   const ATTR = 'data-theme';
@@ -31,20 +36,21 @@
     syncIcon(next);
   }
 
-  // Apply immediately (before paint) to avoid flash
+  // Runs immediately (before DOM) — Anti-FOUC
   apply(getPreferred());
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function initTheme() {
     syncIcon(document.documentElement.getAttribute(ATTR) || 'dark');
     document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
       btn.addEventListener('click', toggle);
     });
-  });
-})();
+  }
 
-/* origr3n — Search Overlay: Tag-Toggle, Escape, Autofocus */
-(function () {
-  document.addEventListener('DOMContentLoaded', function () {
+  /* ══════════════════════════════════════════════════════════════
+     Search Overlay: Tag-Toggle, Escape, Autofocus
+  ══════════════════════════════════════════════════════════════ */
+
+  function initSearch() {
     var panel = document.getElementById('search');
     if (!panel) return;
 
@@ -82,8 +88,7 @@
       }
     }).observe(panel, { attributes: true, attributeFilter: ['class'] });
 
-    /* Awesomplete: Nach Auswahl eines Vorschlags sofort das Formular absenden.
-       Verhindert den Race mit dem Browser-Submit der noch den getippten Wert nimmt. */
+    /* Nach Awesomplete-Auswahl sofort absenden — verhindert Race mit Browser-Submit */
     if (tagsInput) {
       tagsInput.addEventListener('awesomplete-selectcomplete', function () {
         var form = panel.querySelector('form');
@@ -121,12 +126,13 @@
       var opener = document.querySelector('.subheader-opener[data-open-id="search"]');
       if (opener) opener.click();
     });
-  });
-})();
+  }
 
-/* origr3n — Select-Modus mit Bottom-Bar */
-(function () {
-  document.addEventListener('DOMContentLoaded', function () {
+  /* ══════════════════════════════════════════════════════════════
+     Select-Modus mit Bottom-Bar
+  ══════════════════════════════════════════════════════════════ */
+
+  function initSelectMode() {
     /* i18n: Strings follow <html lang="..."> */
     var _lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
     var _i18n = {
@@ -261,12 +267,13 @@
     document.addEventListener('change', function (e) {
       if (e.target.classList.contains('link-checkbox')) updateCount();
     });
-  });
-})();
+  }
 
-/* origr3n — Filter Panel */
-(function () {
-  document.addEventListener('DOMContentLoaded', function () {
+  /* ══════════════════════════════════════════════════════════════
+     Filter Panel
+  ══════════════════════════════════════════════════════════════ */
+
+  function initFilterPanel() {
     var btns = document.querySelectorAll('.filter-btn-trigger');
     var panel = document.getElementById('filter-panel');
     if (!btns.length || !panel) return;
@@ -300,5 +307,17 @@
         syncFilterActive();
       }
     });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     Single initialization entry point
+  ══════════════════════════════════════════════════════════════ */
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initTheme();
+    initSearch();
+    initSelectMode();
+    initFilterPanel();
   });
+
 })();
