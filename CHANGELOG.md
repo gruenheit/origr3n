@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added (2026-06-23)
+
+- **Live instance button in showcase** — Both `docs/index.html` (EN) and `docs/shaarli-showcase-de.html` (DE) now include a "Live instance" / "Live-Instanz" button linking to `https://gr3n.de/?searchtags=demo+`. This is a real Shaarli installation running origr3n, filtered to links tagged `demo` (~25 entries). The tag was renamed from `test` → `demo` on 2026-06-23 for clarity.
+
+  > **Operational note:** The `demo` tag on gr3n.de is a hard dependency for this button and for the reference in PR shaarli/Shaarli#2225. It must not be renamed or deleted. If gr3n.de's data is ever reset, restoring the `demo` tag with representative links is the first recovery step.
+
 ### Security (2026-06-23)
 
 - **Removed Google Fonts CDN from showcase pages** — `docs/index.html` and `docs/shaarli-showcase-de.html` loaded Quicksand from `fonts.googleapis.com` without SRI (not possible for dynamic Google Fonts responses). Replaced with local `@font-face` declarations pointing to the bundled `../origr3n/fonts/Quicksand-*.woff2` files already in the repo.
