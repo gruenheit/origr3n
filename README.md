@@ -26,6 +26,10 @@ Not sure what Shaarli can do — or why origr3n makes it better?
 |-----------|------------|
 | ![origr3n dark mode](screenshots/dark-linklist.png) | ![origr3n light mode](screenshots/light-linklist.png) |
 
+| Filter Panel (Visibility + Per Page) |
+|--------------------------------------|
+| ![origr3n filter panel](screenshots/filter-panel.png) |
+
 ---
 
 ## Features
