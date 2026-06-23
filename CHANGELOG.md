@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed (2026-06-23)
+
+- **Filter panel labels now follow browser language** — "Sichtbarkeit", "privat", "öffentlich", "ohne Tag", "pro Seite" were hardcoded in `page.header.html`. Moved `_lang`/`_i18n`/`_t` to the IIFE top level (shared across all modules); `initFilterPanel()` now translates section labels and pill text via JS on init. JS cache-busting bumped to `r=18`.
+
 ### Added (2026-06-23)
 
 - **Live instance button in showcase** — Both `docs/index.html` (EN) and `docs/shaarli-showcase-de.html` (DE) now include a "Live instance" / "Live-Instanz" button linking to `https://gr3n.de/?searchtags=demo+`. This is a real Shaarli installation running origr3n, filtered to links tagged `demo` (~25 entries). The tag was renamed from `test` → `demo` on 2026-06-23 for clarity.

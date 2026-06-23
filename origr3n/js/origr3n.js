@@ -3,6 +3,23 @@
   'use strict';
 
   /* ══════════════════════════════════════════════════════════════
+     Shared i18n — strings follow <html lang="...">
+  ══════════════════════════════════════════════════════════════ */
+
+  var _lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+  var _i18n = {
+    de: { selected: ' ausgewählt', selectAll: 'alle wählen', selectNone: 'alle abwählen',
+          del: 'Löschen', pub: 'Öffentlich', priv: 'Privat', cancel: 'Abbrechen',
+          filterVisibility: 'Sichtbarkeit', filterPrivate: 'privat',
+          filterPublic: 'öffentlich', filterUntagged: 'ohne Tag', filterPerPage: 'pro Seite' },
+    en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
+          del: 'Delete', pub: 'Public', priv: 'Private', cancel: 'Cancel',
+          filterVisibility: 'Visibility', filterPrivate: 'Private',
+          filterPublic: 'Public', filterUntagged: 'Untagged', filterPerPage: 'per page' }
+  };
+  var _t = _i18n[_lang] || _i18n.en;
+
+  /* ══════════════════════════════════════════════════════════════
      Dark/Light Toggle
      apply() runs immediately to avoid flash before paint
   ══════════════════════════════════════════════════════════════ */
@@ -133,16 +150,6 @@
   ══════════════════════════════════════════════════════════════ */
 
   function initSelectMode() {
-    /* i18n: Strings follow <html lang="..."> */
-    var _lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
-    var _i18n = {
-      de: { selected: ' ausgewählt', selectAll: 'alle wählen', selectNone: 'alle abwählen',
-            del: 'Löschen', pub: 'Öffentlich', priv: 'Privat', cancel: 'Abbrechen' },
-      en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
-            del: 'Delete', pub: 'Public', priv: 'Private', cancel: 'Cancel' }
-    };
-    var _t = _i18n[_lang] || _i18n.en;
-
     /* Bottom-Bar dynamisch erstellen */
     var bar = document.createElement('div');
     bar.id = 'origr3n-select-bar';
@@ -277,6 +284,25 @@
     var btns = document.querySelectorAll('.filter-btn-trigger');
     var panel = document.getElementById('filter-panel');
     if (!btns.length || !panel) return;
+
+    /* Translate hardcoded labels in page.header.html */
+    var labels = panel.querySelectorAll('.filter-panel-label');
+    if (labels[0]) labels[0].textContent = _t.filterVisibility;
+    if (labels[1]) labels[1].textContent = _t.filterPerPage;
+
+    function setPillText(selector, text) {
+      var el = panel.querySelector(selector);
+      if (!el) return;
+      var icon = el.querySelector('i');
+      var node = icon ? icon.nextSibling : el.firstChild;
+      while (node) {
+        if (node.nodeType === 3) { node.textContent = ' ' + text; break; }
+        node = node.nextSibling;
+      }
+    }
+    setPillText('a[href*="visibility/private"]', _t.filterPrivate);
+    setPillText('a[href*="visibility/public"]',  _t.filterPublic);
+    setPillText('a[href*="untagged-only"]',       _t.filterUntagged);
 
     function syncFilterActive() {
       var isOpen = panel.classList.contains('open');
