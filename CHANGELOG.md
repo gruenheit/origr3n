@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **Visibility filter preserves search context** — Clicking Private/Public in the filter panel previously redirected via HTTP Referer, which Cloudflare and some browsers strip, causing the search query (`?searchtags=…`) to be lost. Fixed via `fetch()` to set the session flag, then explicit redirect back to `window.location.pathname + search`. (r=19)
 
+- **Filter panel pills no longer inherit `:visited` color** — global `a:visited { color: var(--color-primary) }` caused visited filter pills to appear green in browsers that cache the `/admin/visibility/` URLs. Added explicit `.filter-pill:visited { color: var(--text-secondary) }` override. (r=259)
+
 - **Filter panel labels now follow browser language** — "Sichtbarkeit", "privat", "öffentlich", "ohne Tag", "pro Seite" were hardcoded in `page.header.html`. Moved `_lang`/`_i18n`/`_t` to the IIFE top level (shared across all modules); `initFilterPanel()` now translates section labels and pill text via JS on init. JS cache-busting bumped to `r=18`.
 
 ### Added (2026-06-23)

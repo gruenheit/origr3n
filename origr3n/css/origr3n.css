@@ -714,6 +714,9 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   text-decoration: none !important;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
+.filter-pill:visited {
+  color: var(--text-secondary);
+}
 .filter-pill:hover,
 .filter-pill:visited:hover {
   border-color: var(--color-primary);
