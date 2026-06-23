@@ -304,6 +304,19 @@
     setPillText('a[href*="visibility/public"]',  _t.filterPublic);
     setPillText('a[href*="untagged-only"]',       _t.filterUntagged);
 
+    /* Preserve search context when toggling visibility.
+       Shaarli redirects via HTTP Referer — unreliable with Cloudflare/Safari.
+       Instead: fetch the session-setter, then reload current URL. */
+    panel.querySelectorAll('a[href*="/admin/visibility/"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var returnTo = window.location.pathname + window.location.search + window.location.hash;
+        fetch(link.href, { credentials: 'same-origin', redirect: 'manual' })
+          .then(function ()  { window.location.href = returnTo; })
+          .catch(function () { window.location.href = returnTo; });
+      });
+    });
+
     function syncFilterActive() {
       var isOpen = panel.classList.contains('open');
       btns.forEach(function (btn) { btn.classList.toggle('origr3n-active', isOpen); });
