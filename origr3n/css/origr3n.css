@@ -54,6 +54,22 @@
   /* shaarli.min.css verwendet --main-color (20×) — auf Primärfarbe mappen */
   --main-color:         #3d8e12;
   --background-color:   #141414;
+
+  /* Primärfarbe als RGB-Tripel — für rgba()-Transparenzen */
+  --color-primary-rgb:  61, 142, 18;
+
+  /* Semantische Farben — Public / Private / Akzente */
+  --color-success:      var(--color-success);
+  --color-success-l:    var(--color-success-l);
+  --color-public:       var(--color-public);
+  --color-private:      var(--color-private);
+  --color-private-h:    var(--color-private-h);
+  --color-amber:        var(--color-amber);
+
+  /* Feste Dimensionen — Icon-Buttons, FAB, Header */
+  --size-icon-btn:      32px;
+  --size-fab:           56px;
+  --size-header:        52px;
 }
 
 /* ============================================================
@@ -239,8 +255,8 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 56px !important;
-  height: 56px !important;
+  width: var(--size-fab) !important;
+  height: var(--size-fab) !important;
   border-radius: 50% !important;
   background: var(--color-primary) !important;
   color: #fff !important;
@@ -294,7 +310,7 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
     flex-wrap: nowrap !important;
     align-items: center !important;
     align-content: center !important;
-    height: 52px !important;
+    height: var(--size-header) !important;
     width: 100% !important;
   }
   /* Nav-Spalte */
@@ -307,7 +323,7 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   }
   /* Nav-Links: line-height zentriert Text unabhängig von Container-Höhe */
   #shaarli-menu .pure-menu-horizontal > .pure-u-lg-5-6 .pure-menu-link {
-    line-height: 52px !important;
+    line-height: var(--size-header) !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
@@ -334,7 +350,7 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   #shaarli-menu .header-buttons .pure-menu-item {
     display: flex !important;
     align-items: center !important;
-    height: 52px !important;
+    height: var(--size-header) !important;
     flex-shrink: 0;
   }
 }
@@ -344,8 +360,8 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: var(--size-icon-btn) !important;
+  height: var(--size-icon-btn) !important;
   padding: 0 !important;
   border-radius: 50% !important;
   color: var(--text-muted) !important;
@@ -405,8 +421,8 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   background: transparent !important;
   border: none !important;
   border-radius: 50% !important;
-  width: 32px;
-  height: 32px;
+  width: var(--size-icon-btn);
+  height: var(--size-icon-btn);
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -562,7 +578,7 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
 }
 #search .awesomplete > ul > li[aria-selected="true"] > mark,
 #search .awesomplete > ul > li:hover > mark {
-  color: #6abf3a !important;
+  color: var(--color-success-l) !important;
 }
 
 /* Action-Buttons (tags-Toggle + submit) */
@@ -619,8 +635,8 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   background: transparent !important;
   border: none !important;
   border-radius: 50% !important;
-  width: 32px;
-  height: 32px;
+  width: var(--size-icon-btn);
+  height: var(--size-icon-btn);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -754,13 +770,13 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
 .linklist-item.private:hover,
 .linklist-item:has(.label-private),
 .linklist-item:has(.label-private):hover {
-  border-left: 2px solid #b07820 !important;
+  border-left: 2px solid var(--color-amber) !important;
 }
 
 /* Private Hover: amber statt grün — höhere Spezifität schlägt :hover-Regel */
 .linklist-item.private:hover,
 .linklist-item:has(.label-private):hover {
-  border-color: #b07820;
+  border-color: var(--color-amber);
 }
 
 /* Sticky: kein visueller Unterschied — nur Pinnnadel reicht */
@@ -909,7 +925,7 @@ a.tag {
   display: inline-block;
   background: var(--bg-surface);
   color: var(--color-primary) !important;
-  border: 1px solid rgba(61,142,18,0.45);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.45);
   border-radius: 3px;
   padding: 0.1rem 0.45rem;
   font-size: 0.76rem;
@@ -967,7 +983,7 @@ a.tag:hover {
   display: inline-block;
   background: transparent;
   color: var(--color-primary) !important;
-  border: 1px solid rgba(61,142,18,0.25);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
   border-radius: 20px;
   padding: 0.1rem 0.4rem;
   font-size: 0.76rem;
@@ -977,8 +993,8 @@ a.tag:hover {
   transition: background 0.12s, border-color 0.12s;
 }
 .linkdate:hover {
-  background: rgba(61,142,18,0.10);
-  border-color: rgba(61,142,18,0.5);
+  background: rgba(var(--color-primary-rgb), 0.10);
+  border-color: rgba(var(--color-primary-rgb), 0.5);
 }
 
 /* Permalink-Label: immer ausgeblendet (wird erst beim Footer-Aufklappen relevant) */
@@ -1055,7 +1071,7 @@ a.tag:hover {
   -webkit-appearance: none;
   width: 0.75rem;
   height: 0.75rem;
-  border: 1.5px solid #5a7a4a;
+  border: 1.5px solid var(--color-public);
   border-radius: 1px;
   background: transparent;
   cursor: pointer;
@@ -1066,11 +1082,11 @@ a.tag:hover {
   transition: border-color 0.12s, background 0.12s;
 }
 .ctrl-checkbox .link-checkbox:hover {
-  border-color: #5cb81a;
+  border-color: var(--color-success);
 }
 .ctrl-checkbox .link-checkbox:checked {
-  background: #5cb81a;
-  border-color: #5cb81a;
+  background: var(--color-success);
+  border-color: var(--color-success);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
   background-size: 80%;
   background-repeat: no-repeat;
@@ -1078,26 +1094,26 @@ a.tag:hover {
 }
 
 /* Private-Share-Link: Amber — konsistent mit Privat-Badge und Kartenakzent */
-.linklist-item-infos .fa-share-alt             { color: #d4851a !important; }
-.linklist-item-infos a:hover .fa-share-alt     { color: #e8a030 !important; }
+.linklist-item-infos .fa-share-alt             { color: var(--color-private) !important; }
+.linklist-item-infos a:hover .fa-share-alt     { color: var(--color-private-h) !important; }
 
 /* Visibility-Toggle: fa-lock = privat (amber), fa-unlock-alt = öffentlich (muted) */
-.linklist-item-infos-controls-group a.visibility-link-private       { color: #d4851a !important; }
-.linklist-item-infos-controls-group a.visibility-link-private:hover { color: #e8a030 !important; }
-.linklist-item-infos-controls-group a.visibility-link-public        { color: #5a7a4a !important; }
-.linklist-item-infos-controls-group a.visibility-link-public:hover  { color: #5cb81a !important; }
+.linklist-item-infos-controls-group a.visibility-link-private       { color: var(--color-private) !important; }
+.linklist-item-infos-controls-group a.visibility-link-private:hover { color: var(--color-private-h) !important; }
+.linklist-item-infos-controls-group a.visibility-link-public        { color: var(--color-public) !important; }
+.linklist-item-infos-controls-group a.visibility-link-public:hover  { color: var(--color-success) !important; }
 
 /* Variante E — shaarli.min.css-Klassen direkt überschreiben (gleiche Spezifizität, origr3n.css später → gewinnt) */
 /* edit-link ist auf <i>, nicht auf <a> → einfacher Klassenselektor reicht */
 .edit-link              { color: #3d8e12 !important; }
 /* delete-link / pin-link / pinned-link sind auf <a> → höhere Spezifizität nötig gegen .linklist-item-editbuttons a (0,1,1) */
 .linklist-item-editbuttons a.delete-link,
-.linklist-item-infos-controls-group a.delete-link { color: #5a7a4a !important; }
+.linklist-item-infos-controls-group a.delete-link { color: var(--color-public) !important; }
 .linklist-item-editbuttons a.pin-link,
 .linklist-item-infos-controls-group a.pin-link    { color: #3d8e12 !important; }
 .linklist-item-editbuttons a.pinned-link,
-.linklist-item-infos-controls-group a.pinned-link { color: #5cb81a !important; }
-.link-checkbox          { accent-color: #5cb81a !important; }
+.linklist-item-infos-controls-group a.pinned-link { color: var(--color-success) !important; }
+.link-checkbox          { accent-color: var(--color-success) !important; }
 
 /* Delete, Pin, Visibility: haben pure-u-0 auf dem <a> selbst — shaarli.min.css versteckt sie doppelt */
 .ctrl-delete a,
@@ -1120,7 +1136,7 @@ a.tag:hover {
 /* Private Karte selected: amber gewinnt, kein Glow-Ring — amber hat schon hohen Kontrast */
 .linklist-item.selected.private,
 .linklist-item.selected:has(.label-private) {
-  border-color: #b07820;
+  border-color: var(--color-amber);
   box-shadow: var(--shadow-md);
 }
 
@@ -1184,8 +1200,8 @@ a.tag:hover {
   background: transparent !important;
   border: none !important;
   border-radius: 50% !important;
-  width: 32px;
-  height: 32px;
+  width: var(--size-icon-btn);
+  height: var(--size-icon-btn);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1365,7 +1381,7 @@ input[type="checkbox"] {
 /* Seitenstreifen amber sobald PRIVAT-Haken gesetzt — live via :has(), kein JS */
 .page-form:has([name="lf_private"]:checked),
 .page-form:has([name="private"]:checked) {
-  border-left-color: #b07820 !important;
+  border-left-color: var(--color-amber) !important;
 }
 
 /* Datum-Pill: top:50% + translateY(-50%) zentriert relativ zur .title-row padding-box */
@@ -2638,7 +2654,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 .label-private,
 .label.label-private {
   display: inline-block;
-  background: #d4851a !important;
+  background: var(--color-private) !important;
   color: #fff !important;
   border-radius: 3px;
   font-size: 0.72rem;
@@ -2795,8 +2811,8 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 }
 [data-theme="light"] .linklist-item.private:hover,
 [data-theme="light"] .linklist-item:has(.label-private):hover {
-  border-color: #b07820 !important;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1), 0 0 0 1px #b07820 !important;
+  border-color: var(--color-amber) !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1), 0 0 0 1px var(--color-amber) !important;
 }
 
 /* --- Light Mode: Eingabefelder ------------------------------ */
@@ -3396,8 +3412,8 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   background: transparent !important;
   border: none !important;
   border-radius: 50% !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: var(--size-icon-btn) !important;
+  height: var(--size-icon-btn) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -3440,8 +3456,8 @@ body.select-mode .linklist-item.selected {
 body.select-mode .linklist-item.selected.private,
 body.select-mode .linklist-item.selected:has(.label-private) {
   background: rgba(176, 120, 32, 0.18) !important;
-  border-color: #b07820;
-  box-shadow: 0 0 0 1px #b07820, var(--shadow-md);
+  border-color: var(--color-amber);
+  box-shadow: 0 0 0 1px var(--color-amber), var(--shadow-md);
 }
 
 /* Platz für Bottom-Bar */
@@ -3517,7 +3533,7 @@ body.select-mode #origr3n-select-bar {
 
 #origr3n-action-delete  { color: #c0392b !important; }
 #origr3n-action-public  { color: var(--color-primary) !important; }
-#origr3n-action-private { color: #b07820 !important; }
+#origr3n-action-private { color: var(--color-amber) !important; }
 #origr3n-select-cancel  { color: var(--text-muted) !important; }
 
 @media screen and (max-width: 63.99em) {
@@ -3683,8 +3699,8 @@ body.origr3n-timeline .origr3n-timeline-sep .sep-a-label {
   background: transparent !important;
   border: none !important;
   border-radius: 50% !important;
-  width: 32px;
-  height: 32px;
+  width: var(--size-icon-btn);
+  height: var(--size-icon-btn);
   display: flex;
   align-items: center;
   justify-content: center;
