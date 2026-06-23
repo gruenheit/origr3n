@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Security (2026-06-23)
+
+- **Removed Google Fonts CDN from showcase pages** — `docs/index.html` and `docs/shaarli-showcase-de.html` loaded Quicksand from `fonts.googleapis.com` without SRI (not possible for dynamic Google Fonts responses). Replaced with local `@font-face` declarations pointing to the bundled `../origr3n/fonts/Quicksand-*.woff2` files already in the repo.
+
 ### Bug Fixes (2026-06-23)
 
 - **Fixed: semantic color variables were self-referential** — `--color-success`, `--color-public`, `--color-private`, `--color-private-h`, `--color-success-l`, `--color-amber` all pointed to themselves (circular CSS custom property references resolve as invalid). Restored correct hex values: `#5cb81a`, `#5a7a4a`, `#d4851a`, `#e8a030`, `#6abf3a`, `#b07820`. Private card amber border, public/private control icons, and tag badges now render correctly. (r=257)
