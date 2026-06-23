@@ -1,13 +1,13 @@
 # origr3n
 
-[![Version](https://img.shields.io/badge/version-1.1.0-3d8e12)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.1-3d8e12)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-3d8e12)](LICENSE)
 [![Shaarli](https://img.shields.io/badge/Shaarli-v0.16.3%2B-3d8e12)](https://github.com/shaarli/Shaarli)
 
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language** — Deep Forest green, Quicksand typeface, dark/light toggle.
 
 > Compatible with Shaarli v0.16.3+  
-> Status: **v1.1.0** — live at [gr3n.de](https://gr3n.de)
+> Status: **v1.1.1** — live at [gr3n.de](https://gr3n.de)
 
 ---
 
@@ -94,7 +94,7 @@ Enable both in **Tools → Plugin administration**. Install `markdown_toolbar` b
 origr3n follows the language configured in Shaarli (the `<html lang="...">` attribute):
 
 - **Templates** use Shaarli's built-in `t()` function — strings like *Private*, *Make public* follow the instance language automatically
-- **JS strings** (select bar, date pill, tag cloud labels) read `document.documentElement.lang` at runtime — German and English are built in; other languages fall back to English
+- **JS strings** (select bar, date pill, tag cloud labels, filter panel labels) read `document.documentElement.lang` at runtime — German and English are built in; other languages fall back to English
 
 No configuration needed: set your Shaarli language in `config.json` (`general.language`) and the theme follows.
 
