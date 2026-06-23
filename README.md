@@ -2,8 +2,6 @@
 
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language** — Deep Forest green, Quicksand typeface, dark/light toggle.
 
-**GitHub:** [github.com/gruenheit/origr3n](https://github.com/gruenheit/origr3n)
-
 > Compatible with Shaarli v0.16.3+  
 > Status: **v1.1.0** — live at [gr3n.de](https://gr3n.de)
 

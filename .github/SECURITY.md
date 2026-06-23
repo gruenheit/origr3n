@@ -8,6 +8,6 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities by opening a [GitHub issue](https://github.com/gruenheit/origr3n/issues).
+Please use [GitHub's private vulnerability reporting](https://github.com/gruenheit/origr3n/security/advisories/new) to report security issues confidentially.
 
-Do not disclose security vulnerabilities publicly before a fix has been released.
+Do not disclose vulnerabilities publicly before a fix has been released.
