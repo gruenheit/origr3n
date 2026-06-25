@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Fixed (2026-06-25)
+
+- **Showcase DE: LT-Korrekturen im Shaarli-Einführungstext** — Großschreibung nach Doppelpunkt ("Die Daten bleiben…"), Gedankenstriche korrigiert (— → –), fehlende Kommas vor Relativsätzen ("Kein Drittanbieter, dem…", "Kein Dienst, der…").
+
+---
+
 ## [v1.1.1] — Bugfix Release (2026-06-23)
 
 ### Fixed (2026-06-23)
