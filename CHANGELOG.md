@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed (2026-06-25)
 
 - **Showcase DE: LT-Korrekturen im Shaarli-Einführungstext** — Großschreibung nach Doppelpunkt ("Die Daten bleiben…"), Gedankenstriche korrigiert (— → –), fehlende Kommas vor Relativsätzen ("Kein Drittanbieter, dem…", "Kein Dienst, der…").
+- **Showcase DE: 10 typografische Anführungszeichen korrigiert** — schließendes `"` (ASCII U+0022) in Testimonials und Feature-Texten durch `"` (U+201D) ersetzt; öffnendes `„` war bereits korrekt.
 
 ---
 
