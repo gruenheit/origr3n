@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added (2026-07-01)
 
 - **Showcase: Impressum + Datenschutzerklärung** — neue `docs/impressum.html` und `docs/datenschutz.html`, im Footer beider Showcase-Seiten (EN + DE) verlinkt. Ausgelöst durch die öffentliche Erreichbarkeit über GitHub Pages (`origr3n.gr3n.de`, DNS-only/kein Cloudflare-Proxy). Datenschutzerklärung deckt GitHub Pages als Hosting-Auftragsverarbeiter und jsDelivr (Material Design Icons CDN) ab. Entwürfe, keine anwaltlich geprüften Rechtstexte.
+- **Theme: Impressum + Datenschutz-Links im Footer** — `page.footer.html` verweist jetzt zusätzlich auf `/impressum.html` und `/datenschutz.html` (webroot-relativ über `{$root_path}`). Betrifft jede Shaarli-Instanz mit origr3n-Theme, sofern diese beiden statischen Seiten im Webroot liegen und die nginx-Konfiguration explizite `location =`-Blöcke dafür hat (Shaarlis Standard-Routing leitet sonst alles durch den PHP-Router, auch physisch vorhandene `.html`-Dateien). Für gr3n.de umgesetzt: `nginx.conf` um zwei `location`-Blöcke ergänzt, zuerst auf `dev.gr3n.de` verifiziert, danach Produktion.
 
 ### Fixed (2026-06-25)
 
