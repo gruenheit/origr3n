@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added (2026-07-01)
+
+- **Showcase: Impressum + Datenschutzerklärung** — neue `docs/impressum.html` und `docs/datenschutz.html`, im Footer beider Showcase-Seiten (EN + DE) verlinkt. Ausgelöst durch die öffentliche Erreichbarkeit über GitHub Pages (`origr3n.gr3n.de`, DNS-only/kein Cloudflare-Proxy). Datenschutzerklärung deckt GitHub Pages als Hosting-Auftragsverarbeiter und jsDelivr (Material Design Icons CDN) ab. Entwürfe, keine anwaltlich geprüften Rechtstexte.
+
 ### Fixed (2026-06-25)
 
 - **Showcase DE: LT-Korrekturen im Shaarli-Einführungstext** — Großschreibung nach Doppelpunkt ("Die Daten bleiben…"), Gedankenstriche korrigiert (— → –), fehlende Kommas vor Relativsätzen ("Kein Drittanbieter, dem…", "Kein Dienst, der…").
