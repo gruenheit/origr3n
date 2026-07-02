@@ -11,7 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added (2026-07-01)
 
 - **Showcase: Impressum + Datenschutzerklärung** — neue `docs/impressum.html` und `docs/datenschutz.html`, im Footer beider Showcase-Seiten (EN + DE) verlinkt. Ausgelöst durch die öffentliche Erreichbarkeit über GitHub Pages (`origr3n.gr3n.de`, DNS-only/kein Cloudflare-Proxy). Datenschutzerklärung deckt GitHub Pages als Hosting-Auftragsverarbeiter und jsDelivr (Material Design Icons CDN) ab. Entwürfe, keine anwaltlich geprüften Rechtstexte.
-- **Theme: Impressum + Datenschutz-Links im Footer** — `page.footer.html` verweist jetzt zusätzlich auf `/impressum.html` und `/datenschutz.html` (webroot-relativ über `{$root_path}`). Betrifft jede Shaarli-Instanz mit origr3n-Theme, sofern diese beiden statischen Seiten im Webroot liegen und die nginx-Konfiguration explizite `location =`-Blöcke dafür hat (Shaarlis Standard-Routing leitet sonst alles durch den PHP-Router, auch physisch vorhandene `.html`-Dateien). Für gr3n.de umgesetzt: `nginx.conf` um zwei `location`-Blöcke ergänzt, zuerst auf `dev.gr3n.de` verifiziert, danach Produktion.
+
+### Fixed (2026-07-02)
+
+- **Theme: Impressum/Datenschutz-Links wieder aus `page.footer.html` entfernt** — am 2026-07-01 versehentlich direkt ins Theme eingebaut (betraf dadurch jede Shaarli-Instanz mit origr3n-Theme, unabhängig davon ob deren Betreiber der deutschen Impressumspflicht unterliegen — Links wären ohne eigene `impressum.html`/`datenschutz.html` schlicht kaputt gewesen). origr3n bringt bereits den Standard-Hook `{loop="$plugins_footer.text"}` mit; gr3n.de-spezifische Footer-Links laufen jetzt über ein eigenes, nicht im Theme enthaltenes Plugin (`gr3n_footer_links`) statt über einen Theme-Eingriff. Theme selbst wieder uneingeschränkt für jede Shaarli-Instanz nutzbar.
 
 ### Fixed (2026-06-25)
 
