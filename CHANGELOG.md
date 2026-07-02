@@ -10,17 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added (2026-07-01)
 
-- **Showcase: Impressum + Datenschutzerklärung** — neue `docs/impressum.html` und `docs/datenschutz.html`, im Footer beider Showcase-Seiten (EN + DE) verlinkt. Ausgelöst durch die öffentliche Erreichbarkeit über GitHub Pages (`origr3n.gr3n.de`, DNS-only/kein Cloudflare-Proxy). Datenschutzerklärung deckt GitHub Pages als Hosting-Auftragsverarbeiter und jsDelivr (Material Design Icons CDN) ab. Entwürfe, keine anwaltlich geprüften Rechtstexte.
+- **Showcase: legal notice + privacy policy (Impressum/Datenschutzerklärung)** — new `docs/impressum.html` and `docs/datenschutz.html`, linked in the footer of both showcase pages (EN + DE). Triggered by public reachability via GitHub Pages (`origr3n.gr3n.de`, DNS-only, no Cloudflare proxy). The privacy policy covers GitHub Pages as a hosting processor and jsDelivr (Material Design Icons CDN). Drafts — not legally reviewed.
 
 ### Fixed (2026-07-02)
 
-- **Theme: Impressum/Datenschutz-Links wieder aus `page.footer.html` entfernt** — am 2026-07-01 versehentlich direkt ins Theme eingebaut (betraf dadurch jede Shaarli-Instanz mit origr3n-Theme, unabhängig davon ob deren Betreiber der deutschen Impressumspflicht unterliegen — Links wären ohne eigene `impressum.html`/`datenschutz.html` schlicht kaputt gewesen). origr3n bringt bereits den Standard-Hook `{loop="$plugins_footer.text"}` mit; gr3n.de-spezifische Footer-Links laufen jetzt über ein eigenes, nicht im Theme enthaltenes Plugin (`gr3n_footer_links`) statt über einen Theme-Eingriff. Theme selbst wieder uneingeschränkt für jede Shaarli-Instanz nutzbar.
+- **Theme: removed legal-notice/privacy links from `page.footer.html` again** — accidentally hardcoded into the theme on 2026-07-01 (affecting every Shaarli instance using origr3n, regardless of whether its operator is subject to German legal-notice requirements — the links would simply be broken without a matching `impressum.html`/`datenschutz.html`). origr3n already ships the standard `{loop="$plugins_footer.text"}` hook; gr3n.de-specific footer links now run through a separate plugin (`gr3n_footer_links`) not included in the theme, instead of a theme-level change. The theme itself is unrestricted for any Shaarli instance again.
 
 ### Fixed (2026-06-25)
 
-- **Showcase DE: LT-Korrekturen im Shaarli-Einführungstext** — Großschreibung nach Doppelpunkt ("Die Daten bleiben…"), Gedankenstriche korrigiert (— → –), fehlende Kommas vor Relativsätzen ("Kein Drittanbieter, dem…", "Kein Dienst, der…").
-- **Showcase DE: 10 typografische Anführungszeichen korrigiert** — schließendes `"` (ASCII U+0022) in Testimonials und Feature-Texten durch `"` (U+201D) ersetzt; öffnendes `„` war bereits korrekt.
-- **Showcase EN: 7 typografische Anführungszeichen gesetzt** — ASCII `"..."` in Testimonials durch `"..."` (U+201C/U+201D) ersetzt.
+- **Showcase DE: language-tool fixes in the Shaarli intro text** — capitalization after colons ("Die Daten bleiben…"), corrected dashes (— → –), missing commas before relative clauses ("Kein Drittanbieter, dem…", "Kein Dienst, der…").
+- **Showcase DE: 10 typographic quotation marks corrected** — closing `"` (ASCII U+0022) in testimonials and feature text replaced with `"` (U+201D); opening „ was already correct.
+- **Showcase EN: 7 typographic quotation marks set** — ASCII `"..."` in testimonials replaced with `"..."` (U+201C/U+201D).
 
 ---
 
