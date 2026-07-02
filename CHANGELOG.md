@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed (2026-07-02)
+
+- **Showcase deployment: stuck GitHub Pages Actions run** — the automatic `pages build and deployment` workflow (triggered by GitHub itself on every push to `main`, source: `/docs`) got stuck: the `deploy` job hit `Timeout reached, aborting!` twice, leaving `repos/.../pages` in status `errored`. A manual re-run then got stuck in `queued` indefinitely and could not be cancelled (`gh run cancel` / API both refused with contradictory "already completed" / "not yet queued" errors) — a GitHub-side queue fault, not a repo issue. Resolved with an empty trigger commit (`git commit --allow-empty`), which produced a fresh run that completed successfully in 31s; Pages status returned to `built`.
+
 ### Added (2026-07-01)
 
 - **Showcase: legal notice + privacy policy (Impressum/Datenschutzerklärung)** — new `docs/impressum.html` and `docs/datenschutz.html`, linked in the footer of both showcase pages (EN + DE). Triggered by public reachability via GitHub Pages (`origr3n.gr3n.de`, DNS-only, no Cloudflare proxy). The privacy policy covers GitHub Pages as a hosting processor and jsDelivr (Material Design Icons CDN). Drafts — not legally reviewed.
