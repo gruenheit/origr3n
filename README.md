@@ -129,6 +129,17 @@ No external font requests.
 
 ---
 
+## Branding
+
+`origr3n/img/favicon.ico` and `origr3n/img/apple-touch-icon.png` are plain static image files, not templated — safe to replace with your own after copying the theme, no code changes needed:
+
+- `favicon.ico` — 16×16 + 32×32, ICO, referenced as `<link rel="shortcut icon">`
+- `apple-touch-icon.png` — 180×180, PNG, solid background (iOS applies its own corner rounding, transparency is not recommended)
+
+Just overwrite both files in your deployment; git pulls of this theme won't touch instance-specific copies unless you re-copy the whole `img/` folder.
+
+---
+
 ## Development
 
 ```
