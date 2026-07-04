@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Legal notice and privacy policy pages for the showcase, linked in the footer (EN + DE).
 
+### Changed
+
+- Replaced the default `favicon.ico` (glossy sphere, inherited from the Shaarli Material theme) with a flat green dot matching the theme's own brand mark.
+
 ### Fixed
 
 - Resolved a stuck GitHub Pages deployment.
