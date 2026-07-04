@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Replaced the default `favicon.ico` (glossy sphere, inherited from the Shaarli Material theme) with a flat green dot matching the theme's own brand mark.
-- Reduced desktop header height from 52px to 40px (`--size-header`) — the 32px icon buttons had noticeably more empty padding around them than needed. Mobile header is unaffected (separate, fixed 44px minimum for touch targets).
+- Desktop header icon buttons (`<button>` elements: theme toggle, timeline, filter, select) now share the same sizing/centering rule as the `<a>`-based icons, matching the pattern already used on mobile.
 
 ### Fixed
 

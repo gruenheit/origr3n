@@ -69,7 +69,7 @@
   /* Feste Dimensionen — Icon-Buttons, FAB, Header */
   --size-icon-btn:      32px;
   --size-fab:           56px;
-  --size-header:        40px;
+  --size-header:        52px;
 }
 
 /* ============================================================
@@ -331,7 +331,11 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
     margin-right: auto !important;
     flex-shrink: 0;
   }
-  /* Icon-Spalte: natürliche Höhe, durch parent align-items:center zentriert */
+  /* Icon-Spalte: durch parent align-items:center zentriert, plus Fine-Tune-Offset.
+     translateY(3px) gleicht einen echten Versatz zwischen flex-zentrierten Icons
+     und line-height-zentriertem Nav-Text aus. Bei 52px betraegt dieser Versatz
+     ~3px (bestaetigt: ohne Transform sitzen Icons hier zu hoch). Der Wert ist an
+     die 52px-Headerhoehe gekoppelt, nicht generell gueltig (bei 40px zu groß). */
   #shaarli-menu .header-buttons {
     flex: 0 0 auto !important;
     display: flex !important;
@@ -355,19 +359,26 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   }
 }
 
-/* Header-Buttons (Suche, RSS, Login) */
-.header-buttons .pure-menu-link {
+/* Header-Buttons (Suche, RSS, Login, Theme-Toggle, Zeitstrahl, Filter, Select)
+   .pure-menu-link deckt nur <a>-Elemente ab — Theme-Toggle/Zeitstrahl/Filter/Select
+   sind aber <button>-Elemente ohne diese Klasse und blieben bislang ungestylt
+   (Browser-Default-Box), was bei kleinerer Headerhöhe als Treppen-Versatz auffiel. */
+.header-buttons .pure-menu-link,
+.header-buttons button {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   width: var(--size-icon-btn) !important;
   height: var(--size-icon-btn) !important;
   padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
   border-radius: 50% !important;
   color: var(--text-muted) !important;
 }
 
-.header-buttons .pure-menu-link:hover {
+.header-buttons .pure-menu-link:hover,
+.header-buttons button:hover {
   color: var(--color-primary) !important;
   background: var(--bg-elevated) !important;
   border-radius: 50% !important;
