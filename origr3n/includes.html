@@ -19,7 +19,7 @@
 {if="strpos($formatter, 'markdown') !== false"}
   <link type="text/css" rel="stylesheet" href="{$asset_path}/css/markdown.min.css?v={$version_hash}#" />
 {/if}
-<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?r=273#" />
+<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?r=276#" />
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function(){
 (function() {
   var STORAGE_KEY = 'origr3n-timeline';
   var GRAN = 'day';
-  var LANG = (document.documentElement.lang || 'de').toLowerCase().split('-')[0];
+  var LANG = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
   var LABEL = LANG === 'de' ? 'Zeitstrahl' : 'Timeline';
 
   function getDateKey(ts) {
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function formatSepLabel(ts) {
     var d = new Date(ts * 1000);
-    var locale = document.documentElement.lang || 'de';
+    var locale = document.documentElement.lang || 'en'; /* Fallback wie origr3n.js — bei $language=auto fehlt lang komplett */
     return d.toLocaleDateString(locale, {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'});
   }
 

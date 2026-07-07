@@ -27,7 +27,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Removed legal-notice/privacy links accidentally hardcoded into the theme footer; moved to a site-specific plugin instead.
 - Various copy-editing fixes in the German and English showcase text (punctuation, quotation marks).
 - Awesomplete suggestion dropdown (dark-mode colors, left-aligned text, pointer arrow) now applies consistently to every search field instead of only the header overlay.
-- Timeline toggle button label now respects the page language instead of always showing German.
+- Timeline toggle button label and date separators now fall back to English instead of German when the interface language is set to "auto" (the `lang` attribute is absent in that case).
+- Configure-page toggle switches now center the knob precisely instead of being off by a pixel.
+- Alert close (×) button: excluded it from a generic `[class*="alert-"]` notification style that unintentionally gave it padding, a colored left border and no dark-mode background; the success banner row is now vertically centered instead of top-aligned.
 
 ---
 
