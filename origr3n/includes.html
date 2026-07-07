@@ -19,7 +19,7 @@
 {if="strpos($formatter, 'markdown') !== false"}
   <link type="text/css" rel="stylesheet" href="{$asset_path}/css/markdown.min.css?v={$version_hash}#" />
 {/if}
-<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?r=263#" />
+<link type="text/css" rel="stylesheet" href="{$asset_path}/css/origr3n.css?r=272#" />
 {loop="$plugins_includes.css_files"}
   <link type="text/css" rel="stylesheet" href="{$root_path}/{$value}?v={$version_hash}#"/>
 {/loop}
@@ -265,6 +265,8 @@ document.addEventListener('DOMContentLoaded', function(){
 (function() {
   var STORAGE_KEY = 'origr3n-timeline';
   var GRAN = 'day';
+  var LANG = (document.documentElement.lang || 'de').toLowerCase().split('-')[0];
+  var LABEL = LANG === 'de' ? 'Zeitstrahl' : 'Timeline';
 
   function getDateKey(ts) {
     var d = new Date(ts * 1000);
@@ -342,7 +344,19 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     ['origr3n-timeline-btn', 'origr3n-timeline-btn-mobile'].forEach(function(id) {
       var btn = document.getElementById(id);
-      if (btn) btn.addEventListener('click', handleToggle);
+      if (btn) {
+        btn.setAttribute('aria-label', LABEL);
+        btn.setAttribute('title', LABEL);
+        btn.addEventListener('click', handleToggle);
+      }
+    });
+
+    /* d wie Datum/Date — Zeitstrahl ist nach Datum gruppiert, sprachneutraler Buchstabe */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'd') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+      e.preventDefault();
+      handleToggle(e);
     });
   }
 

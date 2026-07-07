@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Legal notice and privacy policy pages for the showcase, linked in the footer (EN + DE).
+- `t` and `d` keyboard shortcuts (open tag search, toggle timeline) alongside the existing `/`; the search overlay now shows the term and tag fields side by side so both can be combined in one query.
+- Clear (×) button on every search field, including the tag-cloud and tag-list pages.
 
 ### Changed
 
@@ -22,6 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Resolved a stuck GitHub Pages deployment.
 - Removed legal-notice/privacy links accidentally hardcoded into the theme footer; moved to a site-specific plugin instead.
 - Various copy-editing fixes in the German and English showcase text (punctuation, quotation marks).
+- Awesomplete suggestion dropdown (dark-mode colors, left-aligned text, pointer arrow) now applies consistently to every search field instead of only the header overlay.
+- Timeline toggle button label now respects the page language instead of always showing German.
 
 ---
 

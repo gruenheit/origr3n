@@ -55,7 +55,7 @@ Not sure what Shaarli can do — or why origr3n makes it better?
 - **Nav links:** `--text-secondary` default, `--color-primary` on hover
 - **Header icons:** round hover surface; moon, search, filter, select-toggle, logout/login; uniform `var(--text-muted)` → `--color-primary` on hover
 - **Filter panel:** visibility and results-per-page pills; position fixed
-- **Search overlay:** full-screen backdrop, Awesomplete autocomplete; press `/` anywhere to open (standard shortcut: GitHub, YouTube, Reddit), `Escape` to close
+- **Search overlay:** full-screen backdrop, Awesomplete autocomplete, term and tag fields shown side by side (combinable search); press `/` to focus the term field, `t` the tag field, `d` toggles the timeline, `Escape` closes
 
 ### Other pages
 

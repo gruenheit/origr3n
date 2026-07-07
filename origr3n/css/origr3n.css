@@ -547,82 +547,122 @@ body:has(#linklist) li:has(> #shaarli-menu-shaare) {
   color: var(--text-primary) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: var(--border-radius) !important;
-  padding: 0.45rem 0.7rem !important;
+  padding: 0.45rem 1.9rem 0.45rem 0.7rem !important;
   box-shadow: none !important;
   height: auto !important;
+  width: 100%;
+  box-sizing: border-box;
 }
 #search.subheader-form input[type="text"]::placeholder {
   color: var(--text-secondary) !important;
 }
 
-/* Input wächst, Buttons bleiben fix */
-#search .searchterm,
-#search .searchtags {
+/* Wrapper je Feld — hält Clear-Button positioniert; gilt für jedes Suchfeld im Theme */
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+/* Breitenverhältnis nur im Header-Suchpanel (Suchbegriff + Tags nebeneinander) —
+   1.2:1 statt 1.6:1: bei 1.6:1 schnitt der deutsche Platzhalter "Nach Tag filtern"
+   (länger als engl. "Filter by tag") im Tag-Feld ab */
+#search .search-field:nth-of-type(1) { flex: 1.2; } /* Suchbegriff */
+#search .search-field:nth-of-type(2) { flex: 1; }    /* Tags */
+
+/* Awesomplete wrappt Tag-Felder automatisch — Wrapper muss die volle Breite füllen */
+.search-field .awesomplete {
+  display: block;
   flex: 1;
   min-width: 0;
 }
-#search .searchtags {
-  display: none; /* JS schaltet bei Tag-Toggle um */
+
+/* Platz für den Clear-Button rechts im Feld — auch außerhalb des Header-Suchpanels */
+.search-field input[type="text"] {
+  padding-right: 1.9rem;
+  box-sizing: border-box;
+  text-overflow: ellipsis; /* Sicherheitsnetz falls Platzhalter/Text trotzdem nicht passt */
 }
 
-/* Awesomplete-Dropdown Dark-Mode */
-#search .awesomplete > ul {
+/* Clear-Button (×) je Feld — !important gegen Shaarli-Core-Regeln wie
+   .search-tagcloud button{width:90%} / .search-linklist button{width:100%} */
+.search-field-clear {
+  position: absolute !important;
+  right: 0.35rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: auto !important;
+  border: none !important;
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.1rem 0.35rem !important;
+  display: none;
+  z-index: 2;
+}
+.search-field-clear.visible {
+  display: block;
+}
+.search-field-clear:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Such-Button: gleiche Höhe/Achse wie die Eingabefelder, kein Pure.css-Rand */
+#search .search-button {
+  margin: 0 !important;
+  padding: 0.45rem 0.9rem !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Awesomplete-Dropdown Dark-Mode — gilt für jedes Awesomplete-Feld im Theme,
+   nicht nur das Header-Suchpanel (sonst fallen Tag-Liste/Cloud auf grelle Core-Defaults zurück) */
+.awesomplete > ul {
   background: var(--bg-surface) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: var(--border-radius) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
   z-index: 1002 !important;
 }
-#search .awesomplete > ul > li {
+.awesomplete > ul > li {
   background: var(--bg-surface) !important;
   color: var(--text-primary) !important;
+  text-align: left !important; /* .searchform-block{text-align:center} aus Shaarli-Core sickert sonst durch */
 }
-#search .awesomplete > ul > li:hover,
-#search .awesomplete > ul > li[aria-selected="true"] {
+.awesomplete > ul > li:hover,
+.awesomplete > ul > li[aria-selected="true"] {
   background: rgba(61, 142, 18, 0.18) !important;
   color: var(--text-primary) !important;
 }
-#search .awesomplete > ul > li > mark {
+.awesomplete > ul > li > mark {
   background: transparent !important;
   color: var(--color-primary) !important;
   font-weight: 700;
 }
-#search .awesomplete > ul > li[aria-selected="true"] > mark,
-#search .awesomplete > ul > li:hover > mark {
+.awesomplete > ul > li[aria-selected="true"] > mark,
+.awesomplete > ul > li:hover > mark {
   color: var(--color-success-l) !important;
 }
+/* Core-Zeiger-Pfeil vor der Liste: hardcoded weiß, bei schmalen/nebeneinanderliegenden
+   Feldern vom Nachbarfeld überdeckt — rein dekorativ, daher ausgeblendet statt Position je Feldbreite zu jagen */
+.awesomplete > ul:before {
+  display: none !important;
+}
 
-/* Action-Buttons (tags-Toggle + submit) */
+/* Action-Buttons (submit) */
 .search-overlay-actions {
   display: flex;
   gap: 0.4rem;
   flex-shrink: 0;
   align-items: center;
-}
-
-/* Tags-Toggle-Pill */
-.search-tag-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--border-color);
-  background: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-size: 0.8rem;
-  line-height: 1;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-.search-tag-toggle:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-.search-tag-toggle.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #fff;
 }
 
 
@@ -2461,11 +2501,15 @@ html .md-editor.md-fullscreen-mode .btn:focus {
   margin-bottom: 0.75rem;
 }
 
-/* Suchfeld + Lupe inline */
+/* Suchfeld + Lupe inline — schmaler als die volle Spalte, sonst wirkt der
+   Awesomplete-Dropdown bei kurzen Vorschlägen unproportional breit */
 #search-tagcloud form {
-  display: flex;
+  display: flex !important;
   gap: 0.5rem;
   align-items: center;
+  width: 420px !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
 }
 
 #search-tagcloud input[type="text"] {

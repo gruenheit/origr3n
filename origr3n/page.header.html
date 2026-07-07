@@ -178,22 +178,25 @@
 <main id="content" class="container" role="main">
   <div id="search" class="subheader-form searchform-block header-search">
     <form method="GET" class="pure-form searchform" name="searchform" action="{$base_path}/">
-      <input type="text" id="searchform_value" name="searchterm" aria-label="{'Search text'|t}" placeholder="{'Search text'|t}"
-             {if="!empty($search_term)"}
-             value="{$search_term}"
-             {/if}
-      >
-      <input type="text" name="searchtags" id="tagfilter_value" aria-label="{'Filter by tag'|t}" placeholder="{'Filter by tag'|t}"
-             {if="!empty($search_tags)"}
-             value="{$search_tags}"
-             {/if}
-      autocomplete="off" data-multiple data-autofirst data-minChars="1"
-      data-list="{loop="$tags"}{$key|escape}, {/loop}"
-      >
+      <div class="search-field">
+        <input type="text" id="searchform_value" name="searchterm" aria-label="{'Search text'|t}" placeholder="{'Search text'|t}"
+               {if="!empty($search_term)"}
+               value="{$search_term}"
+               {/if}
+        >
+        <button type="button" class="search-field-clear" data-clear="searchterm" aria-label="Eingabe leeren">&times;</button>
+      </div>
+      <div class="search-field">
+        <input type="text" name="searchtags" id="tagfilter_value" aria-label="{'Filter by tag'|t}" placeholder="{'Filter by tag'|t}"
+               {if="!empty($search_tags)"}
+               value="{$search_tags}"
+               {/if}
+        autocomplete="off" data-multiple data-autofirst data-minChars="1"
+        data-list="{loop="$tags"}{$key|escape}, {/loop}"
+        >
+        <button type="button" class="search-field-clear" data-clear="searchtags" aria-label="Eingabe leeren">&times;</button>
+      </div>
       <div class="search-overlay-actions">
-        <button type="button" id="search-tag-toggle" class="search-tag-toggle" aria-label="{'Filter by tag'|t}">
-          <i class="fa fa-tag" aria-hidden="true"></i> tags
-        </button>
         <button type="submit" class="search-button" aria-label="{'Search'|t}">
           <i class="fa fa-search" aria-hidden="true"></i> suche
         </button>

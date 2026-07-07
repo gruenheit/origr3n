@@ -67,42 +67,37 @@
      Search Overlay: Tag-Toggle, Escape, Autofocus
   ══════════════════════════════════════════════════════════════ */
 
+  /* Clear-Button (×) je Feld — sichtbar sobald Inhalt vorhanden; gilt für jedes Suchfeld im Theme */
+  function initClearButtons() {
+    document.querySelectorAll('.search-field-clear').forEach(function (btn) {
+      var field = btn.closest('.search-field');
+      var input = field && field.querySelector('input[type="text"]');
+      if (!input) return;
+      function sync() { btn.classList.toggle('visible', input.value.length > 0); }
+      sync();
+      input.addEventListener('input', sync);
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        input.value = '';
+        sync();
+        input.focus();
+      });
+    });
+  }
+
   function initSearch() {
     var panel = document.getElementById('search');
     if (!panel) return;
 
     var termInput = panel.querySelector('input[name="searchterm"]');
     var tagsInput = panel.querySelector('input[name="searchtags"]');
-    var tagsToggle = panel.querySelector('#search-tag-toggle');
-
-    function setTagMode(active) {
-      if (!termInput || !tagsInput) return;
-      tagsInput.style.display = active ? '' : 'none';
-      termInput.style.display = active ? 'none' : '';
-      if (active) termInput.value = '';
-      else tagsInput.value = '';
-      if (tagsToggle) tagsToggle.classList.toggle('active', active);
-    }
-
-    if (tagsToggle) {
-      tagsToggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var tagMode = tagsInput && tagsInput.style.display !== 'none';
-        setTagMode(!tagMode);
-        var inp = panel.querySelector('input[name="' + (tagMode ? 'searchterm' : 'searchtags') + '"]');
-        if (inp) inp.focus();
-      });
-    }
 
     var searchOpeners = document.querySelectorAll('.subheader-opener[data-open-id="search"]');
 
     new MutationObserver(function () {
       var isOpen = panel.classList.contains('open');
       searchOpeners.forEach(function (btn) { btn.classList.toggle('origr3n-active', isOpen); });
-      if (isOpen) {
-        setTagMode(false);
-        if (termInput) { termInput.focus(); termInput.select(); }
-      }
+      if (isOpen && termInput) { termInput.focus(); termInput.select(); }
     }).observe(panel, { attributes: true, attributeFilter: ['class'] });
 
     /* Nach Awesomplete-Auswahl sofort absenden — verhindert Race mit Browser-Submit */
@@ -135,13 +130,23 @@
       if (e.key === 'Escape' && panel.classList.contains('open')) closeSearch();
     });
 
-    /* / öffnet Suche (quasi-Standard: GitHub, YouTube, Reddit …) */
+    /* Suche öffnen + Cursor gezielt platzieren: / → Suchbegriff, t → Tags (beide Felder bleiben erhalten) */
+    function openSearchAndFocus(input) {
+      if (!panel.classList.contains('open')) {
+        var opener = document.querySelector('.subheader-opener[data-open-id="search"]');
+        if (opener) opener.click();
+      }
+      /* nach dem MutationObserver (fokussiert beim Öffnen immer das Suchfeld) ggf. auf Tags umlenken */
+      Promise.resolve().then(function () {
+        if (input) { input.focus(); input.select(); }
+      });
+    }
+
     document.addEventListener('keydown', function (e) {
-      if (e.key !== '/') return;
+      if (e.key !== '/' && e.key !== 't') return;
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
       e.preventDefault();
-      var opener = document.querySelector('.subheader-opener[data-open-id="search"]');
-      if (opener) opener.click();
+      openSearchAndFocus(e.key === '/' ? termInput : tagsInput);
     });
   }
 
@@ -354,6 +359,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
+    initClearButtons();
     initSearch();
     initSelectMode();
     initFilterPanel();
