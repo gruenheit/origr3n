@@ -2667,7 +2667,7 @@ html .md-editor.md-fullscreen-mode .btn:focus {
 
 /* Navigationsleiste Täglich/Wöchentlich/Monatlich */
 .pure-alert.pure-alert-success:not(.tag-sort) {
-  display: flex !important;
+  display: flex; /* kein !important — Shaarlis Klick-Handler schließt per style.display="none" (ohne !important) */
   align-items: center !important;
   background: var(--bg-surface) !important;
   border: none !important;

@@ -29,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Awesomplete suggestion dropdown (dark-mode colors, left-aligned text, pointer arrow) now applies consistently to every search field instead of only the header overlay.
 - Timeline toggle button label and date separators now fall back to English instead of German when the interface language is set to "auto" (the `lang` attribute is absent in that case).
 - Configure-page toggle switches now center the knob precisely instead of being off by a pixel.
-- Alert close (×) button: excluded it from a generic `[class*="alert-"]` notification style that unintentionally gave it padding, a colored left border and no dark-mode background; the success banner row is now vertically centered instead of top-aligned.
+- Alert close (×) button: excluded it from a generic `[class*="alert-"]` notification style that unintentionally gave it padding, a colored left border and no dark-mode background; the success banner row is now vertically centered instead of top-aligned. A follow-up `!important` on that row's `display: flex` had also silently broken the click-to-dismiss handler (it overrides Shaarli's own non-`!important` `style.display = "none"`) — removed.
 
 ---
 
