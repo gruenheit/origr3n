@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Legal notice and privacy policy pages for the showcase, linked in the footer (EN + DE).
 - `t` and `d` keyboard shortcuts (open tag search, toggle timeline) alongside the existing `/`; the search overlay now shows the term and tag fields side by side so both can be combined in one query.
+- `p` and `m` keyboard shortcuts (toggle "private only" filter, toggle multi-select) for logged-in users.
+- Keyboard shortcuts help overlay, opened via `?` or a new "Keyboard shortcuts" footer link.
 - Clear (×) button on every search field, including the tag-cloud and tag-list pages.
 
 ### Changed

@@ -11,11 +11,21 @@
     de: { selected: ' ausgewählt', selectAll: 'alle wählen', selectNone: 'alle abwählen',
           del: 'Löschen', pub: 'Öffentlich', priv: 'Privat', cancel: 'Abbrechen',
           filterVisibility: 'Sichtbarkeit', filterPrivate: 'privat',
-          filterPublic: 'öffentlich', filterUntagged: 'ohne Tag', filterPerPage: 'pro Seite' },
+          filterPublic: 'öffentlich', filterUntagged: 'ohne Tag', filterPerPage: 'pro Seite',
+          shortcutsLink: 'Tastenkürzel', shortcutsTitle: 'Tastenkürzel',
+          shortcutTerm: 'Suchbegriff fokussieren', shortcutTag: 'Tag-Suche fokussieren',
+          shortcutTimeline: 'Zeitstrahl umschalten', shortcutPrivate: 'Nur private Links',
+          shortcutMultiselect: 'Mehrfachauswahl', shortcutClose: 'Schließen',
+          shortcutHelp: 'Diese Übersicht' },
     en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
           del: 'Delete', pub: 'Public', priv: 'Private', cancel: 'Cancel',
           filterVisibility: 'Visibility', filterPrivate: 'Private',
-          filterPublic: 'Public', filterUntagged: 'Untagged', filterPerPage: 'per page' }
+          filterPublic: 'Public', filterUntagged: 'Untagged', filterPerPage: 'per page',
+          shortcutsLink: 'Keyboard shortcuts', shortcutsTitle: 'Keyboard shortcuts',
+          shortcutTerm: 'Focus search term', shortcutTag: 'Focus tag search',
+          shortcutTimeline: 'Toggle timeline', shortcutPrivate: 'Private links only',
+          shortcutMultiselect: 'Multi-select', shortcutClose: 'Close',
+          shortcutHelp: 'This overview' }
   };
   var _t = _i18n[_lang] || _i18n.en;
 
@@ -235,6 +245,17 @@
       });
     });
 
+    /* m togglet Multiselekt (sprachneutral: Multiselekt/Multiselect) */
+    var selectToggleBtn = document.querySelector('[data-select-toggle]');
+    if (selectToggleBtn) {
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'm') return;
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        e.preventDefault();
+        selectToggleBtn.click();
+      });
+    }
+
     /* Alle wählen / alle abwählen */
     selectAllBtn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -322,6 +343,17 @@
       });
     });
 
+    /* p togglet "nur privat" (Shaarlis eigener Zwei-Zustands-Mechanismus: erneut = zurück auf alle) */
+    var privateLink = panel.querySelector('a[href*="visibility/private"]');
+    if (privateLink) {
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'p') return;
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        e.preventDefault();
+        privateLink.click();
+      });
+    }
+
     function syncFilterActive() {
       var isOpen = panel.classList.contains('open');
       btns.forEach(function (btn) { btn.classList.toggle('origr3n-active', isOpen); });
@@ -354,6 +386,47 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
+     Tastenkürzel-Hilfe (?) — Footer-Link + Overlay, gleiches Muster wie #search
+  ══════════════════════════════════════════════════════════════ */
+
+  function initShortcutsHelp() {
+    var panel = document.getElementById('shortcuts-help');
+    if (!panel) return;
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (_t[key]) el.textContent = _t[key];
+    });
+
+    function openHelp() { panel.classList.add('open'); }
+    function closeHelp() { panel.classList.remove('open'); }
+
+    var opener = document.getElementById('shortcuts-help-toggle');
+    if (opener) {
+      opener.addEventListener('click', function (e) {
+        e.preventDefault();
+        openHelp();
+      });
+    }
+
+    var closeBtn = panel.querySelector('.shortcuts-help-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeHelp);
+
+    panel.addEventListener('click', function (e) {
+      if (!e.target.closest('.shortcuts-help-box')) closeHelp();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) { closeHelp(); return; }
+      if (e.key !== '?') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+      e.preventDefault();
+      if (panel.classList.contains('open')) closeHelp();
+      else openHelp();
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
      Single initialization entry point
   ══════════════════════════════════════════════════════════════ */
 
@@ -363,6 +436,7 @@
     initSearch();
     initSelectMode();
     initFilterPanel();
+    initShortcutsHelp();
   });
 
 })();

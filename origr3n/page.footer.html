@@ -12,11 +12,30 @@
     {'The personal, minimalist, super fast, database-free, bookmarking service'|t} {'by the Shaarli community'|t} &middot;
     <a href="{$root_path}/doc/html/index.html" rel="nofollow">{'Documentation'|t}</a>
     &middot; <a href="https://github.com/gruenheit/origr3n" rel="nofollow">origr3n</a>
+    &middot; <a href="#" id="shortcuts-help-toggle" data-i18n="shortcutsLink">Tastenkürzel</a>
       {loop="$plugins_footer.text"}
           {$value}
       {/loop}
   </footer>
   <div class="pure-u-2-24"></div>
+</div>
+
+<div id="shortcuts-help" class="subheader-form">
+  <div class="shortcuts-help-box">
+    <button type="button" class="shortcuts-help-close" aria-label="Schließen">&times;</button>
+    <h3 class="shortcuts-help-title" data-i18n="shortcutsTitle">Tastenkürzel</h3>
+    <dl class="shortcuts-help-list">
+      <div class="shortcuts-help-row"><dt>/</dt><dd data-i18n="shortcutTerm">Suchbegriff fokussieren</dd></div>
+      <div class="shortcuts-help-row"><dt>t</dt><dd data-i18n="shortcutTag">Tag-Suche fokussieren</dd></div>
+      <div class="shortcuts-help-row"><dt>d</dt><dd data-i18n="shortcutTimeline">Zeitstrahl umschalten</dd></div>
+      {if="$is_logged_in"}
+      <div class="shortcuts-help-row"><dt>p</dt><dd data-i18n="shortcutPrivate">Nur private Links</dd></div>
+      <div class="shortcuts-help-row"><dt>m</dt><dd data-i18n="shortcutMultiselect">Mehrfachauswahl</dd></div>
+      {/if}
+      <div class="shortcuts-help-row"><dt>Esc</dt><dd data-i18n="shortcutClose">Schließen</dd></div>
+      <div class="shortcuts-help-row"><dt>?</dt><dd data-i18n="shortcutHelp">Diese Übersicht</dd></div>
+    </dl>
+  </div>
 </div>
 
 {loop="$plugins_footer.endofpage"}
@@ -43,5 +62,5 @@
 <input type="hidden" name="token" value="{$token}" id="token" />
 <input type="hidden" name="tags_separator" value="{$tags_separator}" id="tags_separator" />
 
-<script src="{$asset_path}/js/origr3n.js?v={$version_hash}&r=23#"></script>
+<script src="{$asset_path}/js/origr3n.js?v={$version_hash}&r=27#"></script>
 <script src="{$asset_path}/js/shaarli.min.js?v={$version_hash}#"></script>
