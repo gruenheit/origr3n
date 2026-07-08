@@ -16,7 +16,8 @@
           shortcutTerm: 'Suchbegriff fokussieren', shortcutTag: 'Tag-Suche fokussieren',
           shortcutTimeline: 'Zeitstrahl umschalten', shortcutPrivate: 'Nur private Links',
           shortcutMultiselect: 'Mehrfachauswahl', shortcutClose: 'Schließen',
-          shortcutHelp: 'Diese Übersicht', themeToggle: 'Hell/Dunkel-Umschalter' },
+          shortcutHelp: 'Diese Übersicht', themeToggle: 'Hell/Dunkel-Umschalter',
+          filterButton: 'Filter', selectButton: 'Links auswählen' },
     en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
           del: 'Delete', pub: 'Public', priv: 'Private', cancel: 'Cancel',
           filterVisibility: 'Visibility', filterPrivate: 'Private',
@@ -25,7 +26,8 @@
           shortcutTerm: 'Focus search term', shortcutTag: 'Focus tag search',
           shortcutTimeline: 'Toggle timeline', shortcutPrivate: 'Private links only',
           shortcutMultiselect: 'Multi-select', shortcutClose: 'Close',
-          shortcutHelp: 'This overview', themeToggle: 'Light/dark mode toggle' }
+          shortcutHelp: 'This overview', themeToggle: 'Light/dark mode toggle',
+          filterButton: 'Filter', selectButton: 'Select links' }
   };
   var _t = _i18n[_lang] || _i18n.en;
 
@@ -233,6 +235,8 @@
 
     /* Select-Toggle-Buttons (Desktop + Mobile) */
     document.querySelectorAll('[data-select-toggle]').forEach(function (btn) {
+      btn.setAttribute('aria-label', _t.selectButton);
+      btn.setAttribute('title', _t.selectButton);
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         if (document.body.classList.contains('select-mode')) {
@@ -311,7 +315,12 @@
   function initFilterPanel() {
     var btns = document.querySelectorAll('.filter-btn-trigger');
     var panel = document.getElementById('filter-panel');
-    if (!btns.length || !panel) return;
+    if (!btns.length) return;
+    btns.forEach(function (btn) {
+      btn.setAttribute('aria-label', _t.filterButton);
+      btn.setAttribute('title', _t.filterButton);
+    });
+    if (!panel) return;
 
     /* Translate hardcoded labels in page.header.html */
     var labels = panel.querySelectorAll('.filter-panel-label');

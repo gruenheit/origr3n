@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v1.2.1] — i18n Fixes (2026-07-08)
+
+### Fixed
+
+- Filter and "select links" header buttons had hardcoded German `aria-label`/`title` text, unlike every other custom UI string in the theme; both now follow `<html lang>` (DE/EN) via the existing JS i18n table, matching the theme-toggle and timeline buttons.
+- Bumped the theme's manual JS cache-busting revision (`r=` query parameter) — without it, Cloudflare's edge cache kept serving the previous `origr3n.js` indefinitely after deploys, since the URL itself hadn't changed.
+
+---
+
 ## [v1.2.0] — Keyboard Shortcuts & Combinable Search (2026-07-07)
 
 ### Added
