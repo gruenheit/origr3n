@@ -16,7 +16,7 @@
           shortcutTerm: 'Suchbegriff fokussieren', shortcutTag: 'Tag-Suche fokussieren',
           shortcutTimeline: 'Zeitstrahl umschalten', shortcutPrivate: 'Nur private Links',
           shortcutMultiselect: 'Mehrfachauswahl', shortcutClose: 'Schließen',
-          shortcutHelp: 'Diese Übersicht' },
+          shortcutHelp: 'Diese Übersicht', themeToggle: 'Hell/Dunkel-Umschalter' },
     en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
           del: 'Delete', pub: 'Public', priv: 'Private', cancel: 'Cancel',
           filterVisibility: 'Visibility', filterPrivate: 'Private',
@@ -25,7 +25,7 @@
           shortcutTerm: 'Focus search term', shortcutTag: 'Focus tag search',
           shortcutTimeline: 'Toggle timeline', shortcutPrivate: 'Private links only',
           shortcutMultiselect: 'Multi-select', shortcutClose: 'Close',
-          shortcutHelp: 'This overview' }
+          shortcutHelp: 'This overview', themeToggle: 'Light/dark mode toggle' }
   };
   var _t = _i18n[_lang] || _i18n.en;
 
@@ -69,6 +69,8 @@
   function initTheme() {
     syncIcon(document.documentElement.getAttribute(ATTR) || 'dark');
     document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.setAttribute('aria-label', _t.themeToggle);
+      btn.setAttribute('title', _t.themeToggle);
       btn.addEventListener('click', toggle);
     });
   }

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [v1.2.0] — Keyboard Shortcuts & Combinable Search (2026-07-07)
+
 ### Added
 
 - Legal notice and privacy policy pages for the showcase, linked in the footer (EN + DE).
@@ -30,6 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Timeline toggle button label and date separators now fall back to English instead of German when the interface language is set to "auto" (the `lang` attribute is absent in that case).
 - Configure-page toggle switches now center the knob precisely instead of being off by a pixel.
 - Alert close (×) button: excluded it from a generic `[class*="alert-"]` notification style that unintentionally gave it padding, a colored left border and no dark-mode background; the success banner row is now vertically centered instead of top-aligned. A follow-up `!important` on that row's `display: flex` had also silently broken the click-to-dismiss handler (it overrides Shaarli's own non-`!important` `style.display = "none"`) — removed.
+- Desktop theme-toggle button was missing a `title` tooltip, unlike every other header icon; added, and its label now follows `<html lang>` (DE/EN) via the theme's existing JS i18n table, matching the pattern already used for the timeline button.
 
 ---
 
