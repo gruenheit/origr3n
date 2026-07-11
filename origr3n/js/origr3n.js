@@ -15,7 +15,8 @@
           shortcutsLink: 'Tastenkürzel', shortcutsTitle: 'Tastenkürzel',
           shortcutTerm: 'Suchbegriff fokussieren', shortcutTag: 'Tag-Suche fokussieren',
           shortcutTimeline: 'Zeitstrahl umschalten', shortcutPrivate: 'Nur private Links',
-          shortcutMultiselect: 'Mehrfachauswahl', shortcutClose: 'Schließen',
+          shortcutMultiselect: 'Mehrfachauswahl', shortcutAddShaare: 'Neuen Shaare anlegen',
+          shortcutClose: 'Schließen',
           shortcutHelp: 'Diese Übersicht', themeToggle: 'Hell/Dunkel-Umschalter',
           filterButton: 'Filter', selectButton: 'Links auswählen' },
     en: { selected: ' selected', selectAll: 'select all', selectNone: 'deselect all',
@@ -25,7 +26,8 @@
           shortcutsLink: 'Keyboard shortcuts', shortcutsTitle: 'Keyboard shortcuts',
           shortcutTerm: 'Focus search term', shortcutTag: 'Focus tag search',
           shortcutTimeline: 'Toggle timeline', shortcutPrivate: 'Private links only',
-          shortcutMultiselect: 'Multi-select', shortcutClose: 'Close',
+          shortcutMultiselect: 'Multi-select', shortcutAddShaare: 'Create new shaare',
+          shortcutClose: 'Close',
           shortcutHelp: 'This overview', themeToggle: 'Light/dark mode toggle',
           filterButton: 'Filter', selectButton: 'Select links' }
   };
@@ -400,6 +402,19 @@
      Tastenkürzel-Hilfe (?) — Footer-Link + Overlay, gleiches Muster wie #search
   ══════════════════════════════════════════════════════════════ */
 
+  /* n springt zu "Neuen Shaare anlegen" (nur eingeloggt, da der Link dann existiert) */
+  function initAddShaareShortcut() {
+    var addLink = document.getElementById('shaarli-menu-shaare');
+    if (!addLink) return;
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'n') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+      e.preventDefault();
+      addLink.click();
+    });
+  }
+
   function initShortcutsHelp() {
     var panel = document.getElementById('shortcuts-help');
     if (!panel) return;
@@ -447,6 +462,7 @@
     initSearch();
     initSelectMode();
     initFilterPanel();
+    initAddShaareShortcut();
     initShortcutsHelp();
   });
 

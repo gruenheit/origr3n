@@ -50,7 +50,7 @@
       <h2 class="window-title">Mehrere Links</h2>
       <form method="POST" action="{$base_path}/admin/shaare-batch" name="batch-addform" class="batch-addform">
         <div>
-          <label for="urls">{t('Enter one URL per line')}</label>
+          <label for="urls">{'Enter one URL per line'|t}</label>
           <textarea name="urls" id="urls"></textarea>
 
           <div>
@@ -64,7 +64,7 @@
           <div>
             <input type="hidden" name="private" value="0">
             <input type="checkbox" name="private" {if="$default_private_links"} checked="checked"{/if}>
-          &nbsp; <label for="lf_private">{t('Private')}</label>
+          &nbsp; <label for="lf_private">{'Private'|t}</label>
           </div>
         </div>
         <div>

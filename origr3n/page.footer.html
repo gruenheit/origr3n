@@ -29,6 +29,7 @@
       <div class="shortcuts-help-row"><dt>t</dt><dd data-i18n="shortcutTag">Tag-Suche fokussieren</dd></div>
       <div class="shortcuts-help-row"><dt>d</dt><dd data-i18n="shortcutTimeline">Zeitstrahl umschalten</dd></div>
       {if="$is_logged_in"}
+      <div class="shortcuts-help-row"><dt>n</dt><dd data-i18n="shortcutAddShaare">Neuen Shaare anlegen</dd></div>
       <div class="shortcuts-help-row"><dt>p</dt><dd data-i18n="shortcutPrivate">Nur private Links</dd></div>
       <div class="shortcuts-help-row"><dt>m</dt><dd data-i18n="shortcutMultiselect">Mehrfachauswahl</dd></div>
       {/if}
@@ -62,5 +63,5 @@
 <input type="hidden" name="token" value="{$token}" id="token" />
 <input type="hidden" name="tags_separator" value="{$tags_separator}" id="tags_separator" />
 
-<script src="{$asset_path}/js/origr3n.js?v={$version_hash}&r=28#"></script>
+<script src="{$asset_path}/js/origr3n.js?v={$version_hash}&r=29#"></script>
 <script src="{$asset_path}/js/shaarli.min.js?v={$version_hash}#"></script>
