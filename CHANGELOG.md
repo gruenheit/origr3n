@@ -10,6 +10,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v1.2.2] — Bookmarklet & Add-Shaare Fixes (2026-07-11)
+
+### Added
+
+- `n` keyboard shortcut to jump straight to "Add shaare" (logged-in users only).
+
+### Fixed
+
+- Bookmarklet popup was too short, forcing a manual resize; enlarged to 1040×720.
+- Broken `{t('...')}` template syntax on the batch add-link form left two labels ("Enter one URL per line", "Private") untranslated and visibly raw.
+
+---
+
 ## [v1.2.1] — i18n Fixes (2026-07-08)
 
 ### Fixed
