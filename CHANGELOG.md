@@ -10,6 +10,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v1.2.3] — FAB-Positions-Presets (2026-08-29)
+
+### Added
+
+- Rechtsklick (Desktop) oder Long-Press (Touch) auf den grünen Add-Shaare-FAB öffnet eine
+  2×2-Positionsauswahl (oben/unten × links/rechts). Wahl wird pro Browser in `localStorage`
+  gemerkt; Default-Position (unten rechts) bleibt unverändert für alle, die nichts auswählen.
+- Vorab drei Darstellungsvarianten (Shaarli-Original-FAB, einmaliges Hinweis-Overlay, Puls-Punkt)
+  als Vergleichsseite abgewogen — Kontext: analoge Anpassung an home.gr3n.de (Homepage-Dashboard)
+  in derselben Session, dort fiel die Wahl auf den Puls-Punkt, hier auf Positions-Presets für den
+  bestehenden FAB.
+
+Reine Ergänzung — bestehendes Verhalten (Klick → `/admin/add-shaare`, `n`-Tastenkürzel)
+unverändert.
+
+---
+
 ## [v1.2.2] — Bookmarklet & Add-Shaare Fixes (2026-07-11)
 
 ### Added

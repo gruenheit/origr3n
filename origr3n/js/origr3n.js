@@ -453,6 +453,136 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
+     FAB-Position-Presets (2026-08-29)
+     Rechtsklick/Long-Press auf den Add-Shaare-FAB oeffnet eine 2x2-Auswahl
+     (oben/unten x links/rechts). Wahl wird pro Browser in localStorage
+     gemerkt. Positionierung sitzt per CSS-Regel
+     `body:has(#linklist) li:has(> #shaarli-menu-shaare)` auf dem
+     umschliessenden <li>, nicht auf dem Link selbst -- und mit !important,
+     daher .setProperty(..., "important") statt normaler Style-Zuweisung.
+  ══════════════════════════════════════════════════════════════ */
+
+  var FAB_POSITION_KEY = 'shaarli-fab-position';
+  var FAB_LONG_PRESS_MS = 500;
+  var FAB_POSITIONS = {
+    'top-left': { top: '4rem', left: '2rem', bottom: 'auto', right: 'auto' },
+    'top-right': { top: '4rem', right: '2rem', bottom: 'auto', left: 'auto' },
+    'bottom-left': { bottom: '4rem', left: '2rem', top: 'auto', right: 'auto' },
+    'bottom-right': { bottom: '4rem', right: '2rem', top: 'auto', left: 'auto' }
+  };
+
+  function applyFabPosition(li, key) {
+    var pos = FAB_POSITIONS[key];
+    if (!pos) return;
+    ['top', 'right', 'bottom', 'left'].forEach(function (prop) {
+      li.style.setProperty(prop, pos[prop], 'important');
+    });
+  }
+
+  function injectFabPickerStyle() {
+    if (document.getElementById('fab-position-picker-style')) return;
+    var style = document.createElement('style');
+    style.id = 'fab-position-picker-style';
+    style.textContent = [
+      '#fab-position-picker { position: fixed; z-index: 1000; background: rgba(20,20,20,.95);',
+      '  border-radius: 12px; padding: 10px; display: grid;',
+      '  grid-template-columns: 44px 44px; grid-template-rows: 44px 44px; gap: 6px;',
+      '  box-shadow: 0 8px 28px rgba(0,0,0,.4); }',
+      '#fab-position-picker button { width: 44px; height: 44px; border-radius: 8px;',
+      '  border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.06);',
+      '  color: #fff; font-size: 18px; cursor: pointer; display: flex;',
+      '  align-items: center; justify-content: center; }',
+      '#fab-position-picker button:hover, #fab-position-picker button.current {',
+      '  background: var(--color-primary); border-color: var(--color-primary); }',
+      '#fab-position-backdrop { position: fixed; inset: 0; z-index: 999; background: transparent; }'
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  function closeFabPicker() {
+    var picker = document.getElementById('fab-position-picker');
+    var backdrop = document.getElementById('fab-position-backdrop');
+    if (picker) picker.remove();
+    if (backdrop) backdrop.remove();
+  }
+
+  function openFabPicker(li, x, y) {
+    closeFabPicker();
+    injectFabPickerStyle();
+
+    var backdrop = document.createElement('div');
+    backdrop.id = 'fab-position-backdrop';
+    backdrop.addEventListener('click', closeFabPicker);
+    document.body.appendChild(backdrop);
+
+    var picker = document.createElement('div');
+    picker.id = 'fab-position-picker';
+    var current = (function () {
+      try { return localStorage.getItem(FAB_POSITION_KEY) || 'bottom-right'; }
+      catch (e) { return 'bottom-right'; }
+    })();
+
+    var order = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+    var icons = { 'top-left': '↖', 'top-right': '↗', 'bottom-left': '↙', 'bottom-right': '↘' };
+    order.forEach(function (key) {
+      var opt = document.createElement('button');
+      opt.type = 'button';
+      opt.textContent = icons[key];
+      opt.title = key;
+      if (key === current) opt.classList.add('current');
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        applyFabPosition(li, key);
+        try { localStorage.setItem(FAB_POSITION_KEY, key); } catch (e2) {}
+        closeFabPicker();
+      });
+      picker.appendChild(opt);
+    });
+
+    document.body.appendChild(picker);
+
+    var rect = picker.getBoundingClientRect();
+    var left = Math.min(Math.max(x - rect.width / 2, 8), window.innerWidth - rect.width - 8);
+    var top = Math.min(Math.max(y - rect.height / 2, 8), window.innerHeight - rect.height - 8);
+    picker.style.left = left + 'px';
+    picker.style.top = top + 'px';
+  }
+
+  function initFabPosition() {
+    var btn = document.getElementById('shaarli-menu-shaare');
+    if (!btn) return;
+    var li = btn.closest('li');
+    if (!li) return;
+
+    var stored;
+    try { stored = localStorage.getItem(FAB_POSITION_KEY); } catch (e) { stored = null; }
+    if (stored) applyFabPosition(li, stored);
+
+    btn.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+      openFabPicker(li, e.clientX, e.clientY);
+    });
+
+    var pressTimer = null;
+    var longPressFired = false;
+    btn.addEventListener('touchstart', function (e) {
+      longPressFired = false;
+      var touch = e.touches[0];
+      pressTimer = setTimeout(function () {
+        longPressFired = true;
+        openFabPicker(li, touch.clientX, touch.clientY);
+      }, FAB_LONG_PRESS_MS);
+    });
+    btn.addEventListener('touchend', function (e) {
+      clearTimeout(pressTimer);
+      if (longPressFired) e.preventDefault();
+    });
+    btn.addEventListener('touchmove', function () {
+      clearTimeout(pressTimer);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
      Single initialization entry point
   ══════════════════════════════════════════════════════════════ */
 
@@ -464,6 +594,7 @@
     initFilterPanel();
     initAddShaareShortcut();
     initShortcutsHelp();
+    initFabPosition();
   });
 
 })();
