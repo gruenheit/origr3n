@@ -1,13 +1,13 @@
 # origr3n
 
-[![Version](https://img.shields.io/badge/version-1.2.2-3d8e12)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.3-3d8e12)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-3d8e12)](LICENSE)
 [![Shaarli](https://img.shields.io/badge/Shaarli-v0.16.3%2B-3d8e12)](https://github.com/shaarli/Shaarli)
 
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language** — Deep Forest green, Quicksand typeface, dark/light toggle.
 
 > Compatible with Shaarli v0.16.3+  
-> Status: **v1.2.2** — live at [8cy.de](https://8cy.de)
+> Status: **v1.2.3** — live at [8cy.de](https://8cy.de)
 
 ---
 
@@ -51,7 +51,7 @@ Not sure what Shaarli can do — or why origr3n makes it better?
 
 ### Header
 
-- **FAB "+ Share":** fixed green circle (56×56px) bottom right
+- **FAB "+ Share":** fixed green circle (56×56px), default bottom right — right-click (desktop) or long-press (touch) opens a 2×2 corner picker to reposition it; choice persists per browser in `localStorage`
 - **Nav links:** `--text-secondary` default, `--color-primary` on hover
 - **Header icons:** round hover surface; moon, search, filter, select-toggle, logout/login; uniform `var(--text-muted)` → `--color-primary` on hover
 - **Filter panel:** visibility and results-per-page pills; position fixed

@@ -25,6 +25,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Reine Ergänzung — bestehendes Verhalten (Klick → `/admin/add-shaare`, `n`-Tastenkürzel)
 unverändert.
 
+### Fixed
+
+- Cache-Busting-Zähler (`r=` in `page.footer.html`) für JS-Änderungen war vergessen worden,
+  ohne Erhöhung blieb die alte `origr3n.js` ausgeliefert. Nachgetragen (`r=29` → `r=30`).
+- Deploy-Dokumentation verwies auf einen veralteten Prod-Pfad (dockerbase) — die tatsächlich
+  von Besuchern erreichte Instanz läuft seit 2026-07-19 auf Manitu (`8cy.de`, hinter dem
+  gr3n.de-Redirect). Deploy-Workflow entsprechend korrigiert.
+
 ---
 
 ## [v1.2.2] — Bookmarklet & Add-Shaare Fixes (2026-07-11)
