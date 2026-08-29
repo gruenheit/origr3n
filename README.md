@@ -7,7 +7,7 @@
 A clean, opinionated [Shaarli](https://github.com/shaarli/Shaarli) theme built on the **gr3n design language** — Deep Forest green, Quicksand typeface, dark/light toggle.
 
 > Compatible with Shaarli v0.16.3+  
-> Status: **v1.2.2** — live at [gr3n.de](https://gr3n.de)
+> Status: **v1.2.2** — live at [8cy.de](https://8cy.de)
 
 ---
 
