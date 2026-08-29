@@ -10,28 +10,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [v1.2.3] — FAB-Positions-Presets (2026-08-29)
+## [v1.2.3] — FAB Position Presets (2026-08-29)
 
 ### Added
 
-- Rechtsklick (Desktop) oder Long-Press (Touch) auf den grünen Add-Shaare-FAB öffnet eine
-  2×2-Positionsauswahl (oben/unten × links/rechts). Wahl wird pro Browser in `localStorage`
-  gemerkt; Default-Position (unten rechts) bleibt unverändert für alle, die nichts auswählen.
-- Vorab drei Darstellungsvarianten (Shaarli-Original-FAB, einmaliges Hinweis-Overlay, Puls-Punkt)
-  als Vergleichsseite abgewogen — Kontext: analoge Anpassung an home.gr3n.de (Homepage-Dashboard)
-  in derselben Session, dort fiel die Wahl auf den Puls-Punkt, hier auf Positions-Presets für den
-  bestehenden FAB.
-
-Reine Ergänzung — bestehendes Verhalten (Klick → `/admin/add-shaare`, `n`-Tastenkürzel)
-unverändert.
+- Right-click (desktop) or long-press (touch) on the green Add-Shaare FAB opens a 2×2
+  corner picker (top/bottom × left/right). Choice persists per browser in `localStorage`;
+  default position (bottom right) stays unchanged for everyone who never picks one.
+- Weighed against two alternatives on a comparison page first (the original fixed FAB,
+  a one-time hint overlay) before settling on repositioning presets — existing click
+  behavior (`/admin/add-shaare`) and the `n` keyboard shortcut are untouched.
 
 ### Fixed
 
-- Cache-Busting-Zähler (`r=` in `page.footer.html`) für JS-Änderungen war vergessen worden,
-  ohne Erhöhung blieb die alte `origr3n.js` ausgeliefert. Nachgetragen (`r=29` → `r=30`).
-- Deploy-Dokumentation verwies auf einen veralteten Prod-Pfad (dockerbase) — die tatsächlich
-  von Besuchern erreichte Instanz läuft seit 2026-07-19 auf Manitu (`8cy.de`, hinter dem
-  gr3n.de-Redirect). Deploy-Workflow entsprechend korrigiert.
+- JS cache-busting counter (`r=` in `page.footer.html`) was left unbumped after the change
+  above — without it, the old `origr3n.js` kept being served. Bumped `r=29` → `r=30`.
+- Deploy docs still pointed at a stale prod target (dockerbase); the instance actual
+  visitors hit has run on Manitu (`8cy.de`, behind the gr3n.de redirect) since 2026-07-19.
+  Deploy workflow corrected accordingly.
 
 ---
 
